@@ -61,21 +61,49 @@ export async function getPublishedServices(): Promise<Service[]> {
 
     if (!dbServices || dbServices.length === 0) return SERVICES;
 
-    return dbServices.map((s: any) => ({
-      id: s.id,
-      title: s.title,
-      slug: s.slug,
-      shortDescription: s.shortDescription,
-      fullDescription: s.content,
-      icon: (s.icon as any) || "bug",
-      pestCategory: "insects",
-      targetPests: [],
-      signsOfInfestation: [],
-      treatmentProcess: [],
-      pricingStartsAt: "Contact for Quote",
-      warranty: "Guaranteed Eradication",
-      faqs: [],
-    }));
+    return dbServices.map((s: any) => {
+      const staticService = SERVICES.find((item) => item.slug === s.slug);
+
+      return {
+        id: s.id,
+        title: s.title,
+        slug: s.slug,
+        shortDescription: s.shortDescription || staticService?.shortDescription || "",
+        fullDescription: s.content || staticService?.fullDescription || s.shortDescription || "",
+        icon: (s.icon as any) || staticService?.icon || "bug",
+        pestCategory: staticService?.pestCategory || "insects",
+        targetPests: staticService?.targetPests || [],
+        signsOfInfestation: staticService?.signsOfInfestation || [
+          "Unusual noises inside walls or subflooring during evening hours",
+          "Visible droppings, shed skins, or pest entry trails along baseboards",
+          "Damaged food packaging, chewed electrical wires, or wood shavings",
+          "Persistent unexplainable odors in dark or damp areas",
+        ],
+        treatmentProcess: staticService?.treatmentProcess || [
+          {
+            step: 1,
+            title: "Comprehensive Inspection",
+            description:
+              "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
+          },
+          {
+            step: 2,
+            title: "Targeted Eradication Treatment",
+            description:
+              "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
+          },
+          {
+            step: 3,
+            title: "Exclusion & Perimeter Sealing",
+            description:
+              "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
+          },
+        ],
+        pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
+        warranty: staticService?.warranty || "Guaranteed Eradication",
+        faqs: staticService?.faqs || [],
+      };
+    });
   } catch (_error) {
     return SERVICES;
   }
@@ -92,20 +120,50 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
       return staticService || null;
     }
 
+    const staticService = SERVICES.find((item) => item.slug === s.slug);
+
     return {
       id: s.id,
       title: s.title,
       slug: s.slug,
-      shortDescription: s.shortDescription,
-      fullDescription: s.content,
-      icon: (s.icon as any) || "bug",
-      pestCategory: "insects",
-      targetPests: [],
-      signsOfInfestation: [],
-      treatmentProcess: [],
-      pricingStartsAt: "Contact for Quote",
-      warranty: "Guaranteed Eradication",
-      faqs: [],
+      shortDescription: s.shortDescription || staticService?.shortDescription || "",
+      fullDescription: s.content || staticService?.fullDescription || s.shortDescription || "",
+      icon: (s.icon as any) || staticService?.icon || "bug",
+      pestCategory: staticService?.pestCategory || "insects",
+      targetPests: staticService?.targetPests || [],
+      signsOfInfestation: staticService?.signsOfInfestation && staticService.signsOfInfestation.length > 0
+        ? staticService.signsOfInfestation
+        : [
+            "Unusual noises inside walls or subflooring during evening hours",
+            "Visible droppings, shed skins, or pest entry trails along baseboards",
+            "Damaged food packaging, chewed electrical wires, or wood shavings",
+            "Persistent unexplainable odors in dark or damp areas",
+          ],
+      treatmentProcess: staticService?.treatmentProcess && staticService.treatmentProcess.length > 0
+        ? staticService.treatmentProcess
+        : [
+            {
+              step: 1,
+              title: "Comprehensive Inspection",
+              description:
+                "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
+            },
+            {
+              step: 2,
+              title: "Targeted Eradication Treatment",
+              description:
+                "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
+            },
+            {
+              step: 3,
+              title: "Exclusion & Perimeter Sealing",
+              description:
+                "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
+            },
+          ],
+      pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
+      warranty: staticService?.warranty || "Guaranteed Eradication",
+      faqs: staticService?.faqs || [],
     };
   } catch (_error) {
     return SERVICES.find((item) => item.slug === slug) || null;

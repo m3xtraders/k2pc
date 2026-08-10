@@ -6,7 +6,7 @@ import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import ContactForm from "@/components/sections/ContactForm";
 import { Badge } from "@/components/ui/Badge";
-import { ShieldCheck, CheckCircle, AlertTriangle, Phone } from "lucide-react";
+import { ShieldCheck, CheckCircle, AlertTriangle, Phone, FileText, CheckCircle2, ShieldAlert } from "lucide-react";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -58,7 +58,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       url: "https://www.k2pc.ca",
     },
     areaServed: company.regionsServed,
-    description: service.fullDescription,
+    description: service.fullDescription || service.shortDescription,
     offers: {
       "@type": "Offer",
       price: service.pricingStartsAt.replace("$", ""),
@@ -90,12 +90,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* Service Hero */}
+      {/* Service Hero Header */}
       <section className="bg-ink text-white py-12 md:py-16 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <Badge variant="yellow">From {service.pricingStartsAt}</Badge>
                 <span className="text-xs font-mono-data text-emerald-400 font-semibold flex items-center gap-1">
                   <ShieldCheck className="w-4 h-4" />
@@ -107,10 +107,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 {service.title}
               </h1>
 
-              <div
-                className="prose prose-invert max-w-3xl text-base sm:text-lg text-stone-300 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: service.fullDescription }}
-              />
+              {/* Short Description in Hero */}
+              <p className="text-base sm:text-xl text-stone-300 max-w-3xl leading-relaxed">
+                {service.shortDescription}
+              </p>
 
               <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono-data text-stone-300">
                 <span className="flex items-center gap-1.5">
@@ -131,7 +131,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </div>
 
             {/* Quick Call Box */}
-            <div className="lg:col-span-4 bg-stone-900 border border-stone-800 p-6 rounded-2xl space-y-4 text-center">
+            <div className="lg:col-span-4 bg-stone-900/90 border border-stone-800 p-6 rounded-2xl space-y-4 text-center shadow-xl">
               <h3 className="font-heading font-bold text-xl text-white">
                 Urgent Pest Emergency?
               </h3>
@@ -140,7 +140,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               </p>
               <a
                 href={`tel:${company.phoneRaw}`}
-                className="flex items-center justify-center gap-2 bg-action-yellow text-ink font-bold py-3.5 px-4 rounded-lg hover:bg-amber-400 font-mono-data text-base transition-colors"
+                className="flex items-center justify-center gap-2 bg-action-yellow text-ink font-bold py-3.5 px-4 rounded-lg hover:bg-amber-400 font-mono-data text-base transition-colors shadow-md"
               >
                 <Phone className="w-5 h-5" />
                 <span>Call {company.phone}</span>
@@ -151,11 +151,37 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       </section>
 
       {/* Main Content Grid */}
-      <section className="py-16 bg-surface-white">
+      <section className="py-12 md:py-16 bg-surface-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Left Detail Column */}
-            <div className="lg:col-span-7 space-y-12">
+            <div className="lg:col-span-7 space-y-10">
+              {/* Detailed Long Description Section */}
+              <div className="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                <div className="flex items-center gap-3 border-b border-stone-100 pb-4">
+                  <div className="p-2.5 rounded-xl bg-red-50 text-brand-red">
+                    <FileText className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="font-heading font-extrabold text-2xl text-ink">
+                      Detailed Service Overview & Plan
+                    </h2>
+                    <p className="text-xs text-neutral-text font-mono-data">
+                      Comprehensive pest management & eradication details
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  className="prose prose-stone max-w-none text-ink leading-relaxed text-base sm:text-lg space-y-4"
+                  dangerouslySetInnerHTML={{
+                    __html: service.fullDescription.includes("<p>")
+                      ? service.fullDescription
+                      : service.fullDescription.replace(/\n\n/g, "<br/><br/>"),
+                  }}
+                />
+              </div>
+
               {/* Signs of Infestation */}
               {service.signsOfInfestation && service.signsOfInfestation.length > 0 && (
                 <div className="space-y-4">
@@ -169,12 +195,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     {service.signsOfInfestation.map((sign, index) => (
                       <li
                         key={index}
-                        className="bg-surface-warm p-4 rounded-xl border border-stone-200 text-sm text-ink flex items-start gap-3"
+                        className="bg-surface-warm p-4 rounded-xl border border-stone-200 text-sm text-ink flex items-start gap-3 shadow-2xs"
                       >
                         <span className="w-6 h-6 rounded-full bg-red-100 text-brand-red flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                           {index + 1}
                         </span>
-                        <span>{sign}</span>
+                        <span className="leading-relaxed">{sign}</span>
                       </li>
                     ))}
                   </ul>
@@ -209,6 +235,43 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </div>
                 </div>
               )}
+
+              {/* Why Choose K2PC Cards */}
+              <div className="bg-stone-900 text-white p-8 rounded-2xl space-y-6 border border-stone-800 shadow-lg">
+                <h3 className="font-heading font-bold text-2xl text-white">
+                  Why Choose K2PC for {service.title}?
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-sm text-white">100% Eradication Guarantee</h4>
+                      <p className="text-xs text-stone-400">Complete pest removal with free re-treatment warranty.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-sm text-white">Ontario Licensed Applicators</h4>
+                      <p className="text-xs text-stone-400">Fully insured & Ministry certified extermination experts.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-sm text-white">Pet & Family Safe Methods</h4>
+                      <p className="text-xs text-stone-400">Integrated Pest Management safe for kids and domestic pets.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-sm text-white">Fast 2-Hour Response</h4>
+                      <p className="text-xs text-stone-400">Same-day dispatch across Toronto & all 11 GTA regions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Right Sticky Form Column */}
