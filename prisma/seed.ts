@@ -4,7 +4,7 @@ import { COMPANY_DETAILS } from "../lib/content/company";
 import { SERVICES } from "../lib/content/services";
 import { BLOG_POSTS } from "../lib/content/blog";
 
-const prisma = new PrismaClient();
+const prisma: any = new PrismaClient();
 
 async function main() {
   console.log("Seeding database...");
