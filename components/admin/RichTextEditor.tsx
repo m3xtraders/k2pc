@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -9,7 +9,6 @@ import {
   Bold,
   Italic,
   Strikethrough,
-  Code,
   Heading2,
   Heading3,
   List,
@@ -33,9 +32,14 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onChange,
   placeholder = "Write content here...",
 }) => {
-  const editor = useEditor({
-    immediatelyRender: false,
-    extensions: [
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const extensions = useMemo(
+    () => [
       StarterKit.configure({
         heading: {
           levels: [2, 3, 4],
@@ -53,6 +57,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         },
       }),
     ],
+    []
+  );
+
+  const editor = useEditor({
+    immediatelyRender: false,
+    extensions,
     content: value || "",
     editorProps: {
       attributes: {
@@ -73,9 +83,11 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
   }, [value, editor]);
 
-  if (!editor) {
+  if (!mounted || !editor) {
     return (
-      <div className="w-full h-56 bg-stone-50 border border-stone-300 rounded-lg animate-pulse" />
+      <div className="w-full h-56 bg-stone-50 border border-stone-300 rounded-lg animate-pulse flex items-center justify-center text-xs font-mono text-stone-400">
+        Loading editor...
+      </div>
     );
   }
 
