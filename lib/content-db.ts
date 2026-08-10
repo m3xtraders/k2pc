@@ -1,0 +1,188 @@
+import { prisma } from "@/lib/prisma";
+import { COMPANY_DETAILS } from "@/lib/content/company";
+import { SERVICES } from "@/lib/content/services";
+import { BLOG_POSTS } from "@/lib/content/blog";
+import { Service, BlogPost } from "@/lib/types";
+
+export async function getCompanyDetails() {
+  try {
+    const info = await prisma.businessInfo.findFirst();
+    if (!info) return COMPANY_DETAILS;
+
+    const hoursArr = info.hoursJson
+      ? Object.entries(info.hoursJson as Record<string, string>).map(([days, times]) => ({
+          days,
+          times,
+        }))
+      : COMPANY_DETAILS.hours;
+
+    const serviceAreasArr = Array.isArray(info.serviceAreas)
+      ? (info.serviceAreas as string[])
+      : COMPANY_DETAILS.regionsServed;
+
+    return {
+      name: info.companyName,
+      tagline: COMPANY_DETAILS.tagline,
+      shortName: COMPANY_DETAILS.shortName,
+      phone: info.phone,
+      phoneRaw: info.phone.replace(/[^0-9]/g, ""),
+      email: info.email,
+      licenseNumber: info.licenseNumber || COMPANY_DETAILS.licenseNumber,
+      provincialBody: COMPANY_DETAILS.provincialBody,
+      address: {
+        street: info.addressLine1 + (info.addressLine2 ? `, ${info.addressLine2}` : ""),
+        city: info.city,
+        province: info.province,
+        postalCode: info.postalCode,
+        country: info.country,
+      },
+      hours: hoursArr,
+      stats: COMPANY_DETAILS.stats,
+      guarantee: COMPANY_DETAILS.guarantee,
+      serviceRadiusKm: COMPANY_DETAILS.serviceRadiusKm,
+      regionsServed: serviceAreasArr.length > 0 ? serviceAreasArr : COMPANY_DETAILS.regionsServed,
+      facebookUrl: info.facebookUrl,
+      instagramUrl: info.instagramUrl,
+      twitterUrl: info.twitterUrl,
+      linkedinUrl: info.linkedinUrl,
+      googleBusinessUrl: info.googleBusinessUrl,
+    };
+  } catch (_error) {
+    return COMPANY_DETAILS;
+  }
+}
+
+export async function getPublishedServices(): Promise<Service[]> {
+  try {
+    const dbServices = await prisma.service.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { displayOrder: "asc" },
+    });
+
+    if (!dbServices || dbServices.length === 0) return SERVICES;
+
+    return dbServices.map((s: any) => ({
+      id: s.id,
+      title: s.title,
+      slug: s.slug,
+      shortDescription: s.shortDescription,
+      fullDescription: s.content,
+      icon: (s.icon as any) || "bug",
+      pestCategory: "insects",
+      targetPests: [],
+      signsOfInfestation: [],
+      treatmentProcess: [],
+      pricingStartsAt: "Contact for Quote",
+      warranty: "Guaranteed Eradication",
+      faqs: [],
+    }));
+  } catch (_error) {
+    return SERVICES;
+  }
+}
+
+export async function getPublishedServiceBySlug(slug: string): Promise<Service | null> {
+  try {
+    const s = await prisma.service.findFirst({
+      where: { slug, status: "PUBLISHED" },
+    });
+
+    if (!s) {
+      const staticService = SERVICES.find((item) => item.slug === slug);
+      return staticService || null;
+    }
+
+    return {
+      id: s.id,
+      title: s.title,
+      slug: s.slug,
+      shortDescription: s.shortDescription,
+      fullDescription: s.content,
+      icon: (s.icon as any) || "bug",
+      pestCategory: "insects",
+      targetPests: [],
+      signsOfInfestation: [],
+      treatmentProcess: [],
+      pricingStartsAt: "Contact for Quote",
+      warranty: "Guaranteed Eradication",
+      faqs: [],
+    };
+  } catch (_error) {
+    return SERVICES.find((item) => item.slug === slug) || null;
+  }
+}
+
+export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const posts = await prisma.blogPost.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    if (!posts || posts.length === 0) return BLOG_POSTS;
+
+    return posts.map((p: any) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      content: p.content,
+      category: (p.category as any) || "Seasonal Advice",
+      author: {
+        name: p.authorName || "K2PC Specialist",
+        role: "Extermination Expert",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      },
+      publishedAt: p.publishedAt
+        ? new Date(p.publishedAt).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        : new Date(p.createdAt).toLocaleDateString(),
+      readTime: "5 min read",
+      image: p.featuredImage || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1200&q=80",
+      relatedSlugs: [],
+    }));
+  } catch (_error) {
+    return BLOG_POSTS;
+  }
+}
+
+export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    const p = await prisma.blogPost.findFirst({
+      where: { slug, status: "PUBLISHED" },
+    });
+
+    if (!p) {
+      return BLOG_POSTS.find((b) => b.slug === slug) || null;
+    }
+
+    return {
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      content: p.content,
+      category: (p.category as any) || "Seasonal Advice",
+      author: {
+        name: p.authorName || "K2PC Specialist",
+        role: "Extermination Expert",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      },
+      publishedAt: p.publishedAt
+        ? new Date(p.publishedAt).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        : new Date(p.createdAt).toLocaleDateString(),
+      readTime: "5 min read",
+      image: p.featuredImage || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1200&q=80",
+      relatedSlugs: [],
+    };
+  } catch (_error) {
+    return BLOG_POSTS.find((b) => b.slug === slug) || null;
+  }
+}

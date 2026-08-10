@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   @db.Text
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model BusinessInfo {
+  id                 String   @id @default(cuid())
+  companyName        String
+  phone              String
+  email              String
+  addressLine1       String
+  addressLine2       String?
+  city               String
+  province           String
+  postalCode         String
+  country            String   @default("Canada")
+  latitude           Float?
+  longitude          Float?
+  licenseNumber      String?
+  hoursJson          Json?
+  serviceAreas       Json?
+  facebookUrl        String?
+  instagramUrl       String?
+  twitterUrl         String?
+  linkedinUrl        String?
+  googleBusinessUrl  String?
+  updatedAt          DateTime @updatedAt
+}
+
+model Service {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  icon             String?
+  shortDescription String   @db.Text
+  content          String   @db.Text
+  featuredImage    String?  @db.Text
+  metaTitle        String?
+  metaDescription  String?  @db.Text
+  displayOrder     Int      @default(0)
+  status           Status   @default(DRAFT)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model BlogPost {
+  id               String    @id @default(cuid())
+  title            String
+  slug             String    @unique
+  excerpt          String    @db.Text
+  content          String    @db.Text
+  featuredImage    String?   @db.Text
+  category         String?
+  tags             Json?
+  authorName       String?
+  metaTitle        String?
+  metaDescription  String?   @db.Text
+  status           Status    @default(DRAFT)
+  publishedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model ContactSubmission {
+  id        String     @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  city      String?
+  service   String?
+  message   String     @db.Text
+  status    LeadStatus @default(NEW)
+  createdAt DateTime   @default(now())
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
