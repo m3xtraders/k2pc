@@ -34,6 +34,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   placeholder = "Write content here...",
 }) => {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({
         heading: {

@@ -115,6 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   src={post.author?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"}
                   alt={post.author?.name || "Author"}
                   fill
+                  sizes="40px"
                   className="object-cover"
                 />
               </div>
@@ -137,6 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 alt={post.title}
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
                 className="object-cover"
               />
             </div>

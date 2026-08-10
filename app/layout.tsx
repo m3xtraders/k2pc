@@ -127,6 +127,7 @@ export default function RootLayout({
     <html
       lang="en-CA"
       className={`${spaceGrotesk.variable} ${inter.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>

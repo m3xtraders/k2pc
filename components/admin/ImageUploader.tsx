@@ -63,6 +63,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ value, onChange })
             src={value}
             alt="Uploaded preview"
             fill
+            sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover"
             unoptimized
           />
