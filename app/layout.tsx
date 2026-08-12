@@ -60,6 +60,16 @@ export const metadata: Metadata = {
     title: "K2 Pest Control | Exterminator Toronto & GTA",
     description: "Licensed & guaranteed pest removal in Toronto & GTA. 2-hour emergency response.",
   },
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -134,6 +144,8 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
