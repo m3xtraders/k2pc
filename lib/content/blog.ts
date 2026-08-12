@@ -37,7 +37,7 @@ Your home’s heated basement, wall cavities, and attic represent an ideal winte
 - **Manage Outdoor Food Sources:** Keep bird seed stored in airtight metal bins, elevate firewood piles at least 18 inches off the ground, and clear fallen apples or garden waste.
 - **Maintain Clean Kitchen Counters:** Store grains, pet food, and flour in sealed glass or heavy plastic containers.
 
-If you suspect an active rodent infestation, contact **K2PC Pest Control** for a 360° inspection and guaranteed exclusion sealing.
+If you suspect an active rodent infestation, contact **K2 Pest Control** for a 360° inspection and guaranteed exclusion sealing.
 `,
   },
   {
@@ -74,7 +74,7 @@ While landlords pay for treatment, tenants play a critical role in successful pr
 - **De-clutter Rooms:** Move furniture 12 inches away from perimeter walls to give exterminators access to baseboards.
 - **Vacuum Thoroughly:** Vacuum mattresses, box springs, and floor edges, immediately sealing and discarding the vacuum bag outdoors.
 
-For discrete, certified bed bug heat and chemical treatments in apartment complexes across Toronto, call K2PC Pest Control at (416) 555-0199.
+For discrete, certified bed bug heat and chemical treatments in apartment complexes across Toronto, call K2 Pest Control at (416) 555-0199.
 `,
   },
   {
@@ -135,7 +135,7 @@ Our non-repellent baiting strategies allow worker ants to forage the bait matrix
 
 Traditional extermination relied heavily on broad-spectrum synthetic sprays applied indiscriminately throughout living quarters. Today, **Integrated Pest Management (IPM)** represents the gold standard in environmental and human safety.
 
-### The 4 Pillars of K2PC's Eco-Conscious IPM
+### The 4 Pillars of K2 Pest Control's Eco-Conscious IPM
 
 1. **Inspection & Threshold Identification:** We pinpoint exact pest species and determine whether chemical intervention is strictly necessary.
 2. **Physical & Structural Exclusion:** Closing entry holes, installing door sweeps, and fixing plumbing leaks eliminate the root cause of infestation.

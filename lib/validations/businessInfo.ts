@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const businessInfoSchema = z.object({
   companyName: z.string().min(1, "Company name is required"),
+  slogan: z.string().optional().nullable(),
   phone: z.string().min(1, "Phone number is required"),
   email: z.string().email("Invalid email address"),
   addressLine1: z.string().min(1, "Address line 1 is required"),

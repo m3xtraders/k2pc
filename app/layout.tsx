@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
 import { COMPANY_DETAILS } from "@/lib/content/company";
+import { getCompanyDetails } from "@/lib/content-db";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -25,8 +26,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "K2PC Pest Control | Exterminator Toronto & GTA",
-    template: "%s | K2PC Pest Control",
+    default: "K2 Pest Control | Exterminator Toronto & GTA",
+    template: "%s | K2 Pest Control",
   },
   description:
     "Licensed, guaranteed exterminator and pest control services in Toronto & Greater Toronto Area. Fast 2-hour emergency response for ants, mice, bed bugs, wasps, and roaches.",
@@ -39,8 +40,8 @@ export const metadata: Metadata = {
     "wasp nest removal Mississauga",
     "commercial pest control GTA",
   ],
-  authors: [{ name: "K2PC Pest Control" }],
-  creator: "K2PC Pest Control",
+  authors: [{ name: "K2 Pest Control" }],
+  creator: "K2 Pest Control",
   metadataBase: new URL("https://www.k2pc.ca"),
   alternates: {
     canonical: "/",
@@ -49,14 +50,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_CA",
     url: "https://www.k2pc.ca",
-    title: "K2PC Pest Control | Licensed Exterminators Toronto & GTA",
+    title: "K2 Pest Control | Licensed Exterminators Toronto & GTA",
     description:
       "Fast, guaranteed pest control for residential & commercial properties across Toronto and the GTA. Ontario Licensed Applicator #ON-849201-P.",
-    siteName: "K2PC Pest Control",
+    siteName: "K2 Pest Control",
   },
   twitter: {
     card: "summary_large_image",
-    title: "K2PC Pest Control | Exterminator Toronto & GTA",
+    title: "K2 Pest Control | Exterminator Toronto & GTA",
     description: "Licensed & guaranteed pest removal in Toronto & GTA. 2-hour emergency response.",
   },
 };
@@ -67,34 +68,36 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const companyDetails = await getCompanyDetails();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "PestControlService",
-    name: COMPANY_DETAILS.name,
-    description: COMPANY_DETAILS.tagline,
-    telephone: COMPANY_DETAILS.phone,
-    email: COMPANY_DETAILS.email,
+    name: companyDetails.name || COMPANY_DETAILS.name,
+    description: companyDetails.slogan || companyDetails.tagline || COMPANY_DETAILS.tagline,
+    telephone: companyDetails.phone || COMPANY_DETAILS.phone,
+    email: companyDetails.email || COMPANY_DETAILS.email,
     url: "https://www.k2pc.ca",
-    logo: "https://www.k2pc.ca/logo.png",
+    logo: "https://www.k2pc.ca/assets/logo.png",
     address: {
       "@type": "PostalAddress",
-      streetAddress: COMPANY_DETAILS.address.street,
-      addressLocality: COMPANY_DETAILS.address.city,
-      addressRegion: COMPANY_DETAILS.address.province,
-      postalCode: COMPANY_DETAILS.address.postalCode,
-      addressCountry: COMPANY_DETAILS.address.country,
+      streetAddress: companyDetails.address?.street || COMPANY_DETAILS.address.street,
+      addressLocality: companyDetails.address?.city || COMPANY_DETAILS.address.city,
+      addressRegion: companyDetails.address?.province || COMPANY_DETAILS.address.province,
+      postalCode: companyDetails.address?.postalCode || COMPANY_DETAILS.address.postalCode,
+      addressCountry: companyDetails.address?.country || COMPANY_DETAILS.address.country,
     },
     geo: {
       "@type": "GeoCoordinates",
       latitude: 43.7142,
       longitude: -79.3364,
     },
-    areaServed: COMPANY_DETAILS.regionsServed.map((region) => ({
+    areaServed: (companyDetails.regionsServed || COMPANY_DETAILS.regionsServed).map((region: string) => ({
       "@type": "AdministrativeArea",
       name: region,
     })),
@@ -120,7 +123,7 @@ export default function RootLayout({
       worstRating: "1",
     },
     priceRange: "$$",
-    license: COMPANY_DETAILS.licenseNumber,
+    license: companyDetails.licenseNumber || COMPANY_DETAILS.licenseNumber,
   };
 
   return (
@@ -146,7 +149,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <PublicLayoutWrapper>{children}</PublicLayoutWrapper>
+        <PublicLayoutWrapper companyDetails={companyDetails}>{children}</PublicLayoutWrapper>
       </body>
     </html>
   );

@@ -2,12 +2,18 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Shield, Menu, X, Clock } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { Button } from "@/components/ui/Button";
 
-export default function Header() {
+interface HeaderProps {
+  companyDetails?: any;
+}
+
+export default function Header({ companyDetails }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const company = companyDetails || COMPANY_DETAILS;
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -25,7 +31,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-action-yellow font-semibold">
               <Shield className="w-3.5 h-3.5" />
-              Ontario Licensed: {COMPANY_DETAILS.licenseNumber}
+              Ontario Licensed: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}
             </span>
             <span className="text-stone-400">|</span>
             <span className="flex items-center gap-1 text-stone-300">
@@ -34,12 +40,12 @@ export default function Header() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-stone-300">
-            <span>Serving Toronto & All 11 GTA Regions</span>
+            <span className="truncate max-w-xs">{company.slogan || company.tagline || "Serving Toronto & GTA"}</span>
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
               className="text-action-yellow hover:underline font-bold"
             >
-              Call: {COMPANY_DETAILS.phone}
+              Call: {company.phone || COMPANY_DETAILS.phone}
             </a>
           </div>
         </div>
@@ -50,15 +56,22 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-brand-red text-white flex items-center justify-center font-bold text-base shadow-sm group-hover:bg-brand-red-dark transition-colors">
-              K2
+            <div className="relative h-11 w-auto max-w-[160px] flex items-center shrink-0">
+              <Image
+                src="/assets/logo.png"
+                alt="K2 Pest Control Logo"
+                width={160}
+                height={50}
+                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                priority
+              />
             </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-xl sm:text-2xl text-ink leading-tight tracking-tight">
-                K2PC
+            <div className="hidden sm:flex flex-col border-l border-stone-200 pl-3">
+              <span className="font-heading font-extrabold text-lg text-ink leading-tight tracking-tight">
+                K2 Pest Control
               </span>
-              <span className="text-xs font-semibold text-brand-red tracking-wider uppercase font-mono-data">
-                Pest Control GTA
+              <span className="text-[11px] font-semibold text-brand-red tracking-wider uppercase font-mono-data">
+                GTA Exterminator
               </span>
             </div>
           </Link>
@@ -79,7 +92,7 @@ export default function Header() {
           {/* Right Action Callouts */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
               className="flex items-center gap-2 text-ink hover:text-brand-red transition-colors group px-3 py-2 rounded-lg hover:bg-surface-warm"
             >
               <div className="w-9 h-9 rounded-full bg-red-100 text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-white transition-colors">
@@ -88,7 +101,7 @@ export default function Header() {
               <div className="flex flex-col text-left">
                 <span className="text-xs text-neutral-text font-medium">Emergency Line</span>
                 <span className="text-sm font-bold font-mono-data text-ink group-hover:text-brand-red">
-                  {COMPANY_DETAILS.phone}
+                  {company.phone || COMPANY_DETAILS.phone}
                 </span>
               </div>
             </a>
@@ -101,7 +114,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
               className="p-2 text-brand-red hover:bg-red-50 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Call emergency phone line"
             >
@@ -136,11 +149,11 @@ export default function Header() {
           </div>
           <div className="pt-4 border-t border-stone-200 flex flex-col gap-3">
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
               className="flex items-center justify-center gap-2 py-3 bg-red-50 text-brand-red font-bold rounded-lg text-center"
             >
               <Phone className="w-5 h-5" />
-              Call Now: {COMPANY_DETAILS.phone}
+              Call Now: {company.phone || COMPANY_DETAILS.phone}
             </a>
             <Button
               href="/contact"

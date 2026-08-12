@@ -25,7 +25,8 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
     };
 
   const [formData, setFormData] = useState<BusinessInfoInput>({
-    companyName: initialData?.companyName || "K2PC Pest Control",
+    companyName: initialData?.companyName || "K2 Pest Control",
+    slogan: initialData?.slogan || "Licensed, Guaranteed & Eco-Conscious Exterminators for Toronto & GTA",
     phone: initialData?.phone || "(416) 555-0199",
     email: initialData?.email || "info@k2pc.ca",
     addressLine1: initialData?.addressLine1 || "1200 Eglinton Ave E, Suite 400",
@@ -99,6 +100,16 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               required
               value={formData.companyName}
               onChange={(e) => setFormData((p) => ({ ...p, companyName: e.target.value }))}
+              className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+            />
+          </FormField>
+
+          <FormField label="Company Slogan / Tagline (Dynamic)">
+            <input
+              type="text"
+              value={formData.slogan || ""}
+              onChange={(e) => setFormData((p) => ({ ...p, slogan: e.target.value }))}
+              placeholder="e.g. Licensed, Guaranteed & Eco-Conscious Exterminators"
               className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
             />
           </FormField>

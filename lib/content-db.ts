@@ -20,10 +20,17 @@ export async function getCompanyDetails() {
       ? (info.serviceAreas as string[])
       : COMPANY_DETAILS.regionsServed;
 
+    const rawName = info.companyName || COMPANY_DETAILS.name;
+    const cleanName = rawName
+      .replace(/K2PC\s*Pest\s*Control/gi, "K2 Pest Control")
+      .replace(/K2PC/gi, "K2 Pest Control");
+
     return {
-      name: info.companyName,
-      tagline: COMPANY_DETAILS.tagline,
-      shortName: COMPANY_DETAILS.shortName,
+      name: cleanName,
+      tagline: info.slogan || COMPANY_DETAILS.tagline,
+      slogan: info.slogan || COMPANY_DETAILS.slogan,
+      logoUrl: COMPANY_DETAILS.logoUrl,
+      shortName: "K2 Pest Control",
       phone: info.phone,
       phoneRaw: info.phone.replace(/[^0-9]/g, ""),
       email: info.email,

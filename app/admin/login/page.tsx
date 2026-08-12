@@ -154,7 +154,7 @@ export default function AdminLoginPage() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#BE2320] text-white shadow-lg shadow-[#BE2320]/30 mb-2">
             <ShieldAlert className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-bold text-stone-900 tracking-tight">K2PC Admin Portal</h1>
+          <h1 className="text-2xl font-bold text-stone-900 tracking-tight">K2 Pest Control Admin Portal</h1>
           <p className="text-sm text-stone-500">Sign in to manage your pest control business</p>
         </div>
 

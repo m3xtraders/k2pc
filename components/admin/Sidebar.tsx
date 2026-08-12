@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -40,17 +41,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, setMobileOpen }) =
   const navContent = (
     <div className="flex flex-col h-full bg-white border-r border-stone-200">
       {/* Brand Header */}
-      <div className="h-16 px-6 flex items-center justify-between border-b border-stone-200">
+      <div className="h-16 px-5 flex items-center justify-between border-b border-stone-200">
         <Link href="/admin" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[#BE2320] flex items-center justify-center text-white font-bold shadow-xs">
-            <ShieldAlert className="w-5 h-5" />
+          <div className="relative h-9 w-auto flex items-center shrink-0">
+            <Image
+              src="/assets/logo.png"
+              alt="K2 Pest Control Logo"
+              width={120}
+              height={36}
+              className="h-8 w-auto object-contain"
+            />
           </div>
           <div>
-            <span className="font-bold text-stone-900 tracking-tight text-base block leading-none">
-              K2PC CMS
+            <span className="font-bold text-stone-900 tracking-tight text-sm block leading-none">
+              K2 Pest Control
             </span>
-            <span className="text-[10px] text-stone-500 uppercase tracking-widest font-semibold">
-              Admin Panel
+            <span className="text-[10px] text-[#BE2320] uppercase tracking-widest font-semibold">
+              Admin CMS
             </span>
           </div>
         </Link>

@@ -1,7 +1,9 @@
 export const COMPANY_DETAILS = {
-  name: "K2PC Pest Control",
+  name: "K2 Pest Control",
   tagline: "Licensed, Guaranteed & Eco-Conscious Exterminators for Toronto & GTA",
-  shortName: "K2PC",
+  slogan: "Licensed, Guaranteed & Eco-Conscious Exterminators for Toronto & GTA",
+  logoUrl: "/assets/logo.png",
+  shortName: "K2 Pest Control",
   phone: "(416) 555-0199",
   phoneRaw: "4165550199",
   email: "info@k2pc.ca",

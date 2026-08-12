@@ -15,8 +15,8 @@ export const GLOBAL_FAQS: FAQItem[] = [
   },
   {
     id: "faq-3",
-    question: "What licenses and insurance do K2PC exterminators hold?",
-    answer: "All K2PC technicians carry an active Ontario Provincial Pesticide Applicator License issued by the Ministry of the Environment, Conservation and Parks (License #ON-849201-P). We hold $5,000,000 in commercial general liability insurance and full WSIB coverage.",
+    question: "What licenses and insurance do K2 Pest Control exterminators hold?",
+    answer: "All K2 Pest Control technicians carry an active Ontario Provincial Pesticide Applicator License issued by the Ministry of the Environment, Conservation and Parks (License #ON-849201-P). We hold $5,000,000 in commercial general liability insurance and full WSIB coverage.",
     category: "General",
   },
   {

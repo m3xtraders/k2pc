@@ -19,7 +19,7 @@ async function main() {
     await prisma.adminUser.create({
       data: {
         email: "admin@k2pc.ca",
-        name: "K2PC Admin",
+        name: "K2 Admin",
         password: hashedPassword,
       },
     });
@@ -44,15 +44,16 @@ async function main() {
 
   // 2. Seed BusinessInfo (Singleton)
   const existingBusinessInfo = await prisma.businessInfo.findFirst();
-  if (!existingBusinessInfo) {
-    const hoursObj: Record<string, string> = {};
-    COMPANY_DETAILS.hours.forEach((h) => {
-      hoursObj[h.days] = h.times;
-    });
+  const hoursObj: Record<string, string> = {};
+  COMPANY_DETAILS.hours.forEach((h) => {
+    hoursObj[h.days] = h.times;
+  });
 
+  if (!existingBusinessInfo) {
     await prisma.businessInfo.create({
       data: {
         companyName: COMPANY_DETAILS.name,
+        slogan: COMPANY_DETAILS.slogan,
         phone: COMPANY_DETAILS.phone,
         email: COMPANY_DETAILS.email,
         addressLine1: COMPANY_DETAILS.address.street,
@@ -66,6 +67,15 @@ async function main() {
       },
     });
     console.log("Created business info record");
+  } else {
+    await prisma.businessInfo.update({
+      where: { id: existingBusinessInfo.id },
+      data: {
+        companyName: COMPANY_DETAILS.name,
+        slogan: existingBusinessInfo.slogan || COMPANY_DETAILS.slogan,
+      },
+    });
+    console.log("Updated business info record to K2 Pest Control");
   }
 
   // 3. Seed Services
@@ -82,7 +92,7 @@ async function main() {
         content: s.fullDescription,
         displayOrder: i,
         status: "PUBLISHED",
-        metaTitle: `${s.title} | K2PC Pest Control`,
+        metaTitle: `${s.title} | K2 Pest Control`,
         metaDescription: s.shortDescription,
       },
     });
@@ -101,9 +111,9 @@ async function main() {
         content: post.content,
         featuredImage: post.image,
         category: post.category,
-        authorName: post.author?.name || "K2PC Specialist",
+        authorName: post.author?.name || "K2 Specialist",
         status: "PUBLISHED",
-        metaTitle: `${post.title} | K2PC Blog`,
+        metaTitle: `${post.title} | K2 Pest Control Blog`,
         metaDescription: post.excerpt,
       },
     });

@@ -139,6 +139,7 @@ export async function updateBusinessInfoAction(data: any) {
 
   const dbData = {
     companyName: validated.companyName,
+    slogan: validated.slogan || null,
     phone: validated.phone,
     email: validated.email,
     addressLine1: validated.addressLine1,

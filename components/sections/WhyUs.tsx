@@ -31,7 +31,7 @@ export default function WhyUs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <span className="text-xs font-mono-data font-bold text-brand-red uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">
-            Why K2PC
+            Why K2 Pest Control
           </span>
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
             The Highest Standard in Canadian Pest Control

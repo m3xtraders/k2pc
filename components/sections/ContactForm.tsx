@@ -69,7 +69,7 @@ export default function ContactForm() {
           Quote Request Received!
         </h3>
         <p className="text-sm text-emerald-800 leading-relaxed max-w-md mx-auto">
-          Thank you for contacting K2PC Pest Control. A local GTA technician is reviewing your details and will call you within 15 minutes.
+          Thank you for contacting K2 Pest Control. A local GTA technician is reviewing your details and will call you within 15 minutes.
         </p>
         <div className="pt-2">
           <Button

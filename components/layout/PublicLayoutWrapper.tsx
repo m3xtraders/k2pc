@@ -6,7 +6,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileCallBar from "@/components/layout/MobileCallBar";
 
-export function PublicLayoutWrapper({ children }: { children: React.ReactNode }) {
+interface PublicLayoutWrapperProps {
+  children: React.ReactNode;
+  companyDetails?: any;
+}
+
+export function PublicLayoutWrapper({ children, companyDetails }: PublicLayoutWrapperProps) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
@@ -16,11 +21,11 @@ export function PublicLayoutWrapper({ children }: { children: React.ReactNode })
 
   return (
     <>
-      <Header />
+      <Header companyDetails={companyDetails} />
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      <Footer />
+      <Footer companyDetails={companyDetails} />
       <MobileCallBar />
     </>
   );

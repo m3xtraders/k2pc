@@ -8,7 +8,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     date: "2 weeks ago",
     serviceReceived: "Rodent Exclusion & Proofing",
-    comment: "We heard scratching in our ceiling every night. K2PC arrived within 2 hours of calling, identified 3 mouse access points around our AC pipe lines, sealed them with steel mesh, and set secure traps. No sounds since!",
+    comment: "We heard scratching in our ceiling every night. K2 Pest Control arrived within 2 hours of calling, identified 3 mouse access points around our AC pipe lines, sealed them with steel mesh, and set secure traps. No sounds since!",
     verified: true,
   },
   {
@@ -38,7 +38,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     date: "2 months ago",
     serviceReceived: "Bed Bug Thermal Treatment",
-    comment: "As apartment renters, we were terrified when we noticed bed bug bites. K2PC treated our 2-bedroom unit discreetly and effectively. Zero bites since. Their team is truly top-tier.",
+    comment: "As apartment renters, we were terrified when we noticed bed bug bites. K2 Pest Control treated our 2-bedroom unit discreetly and effectively. Zero bites since. Their team is truly top-tier.",
     verified: true,
   },
   {
@@ -48,7 +48,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     date: "1 month ago",
     serviceReceived: "Commercial Restaurant IPM Plan",
-    comment: "We run a busy Italian bistro. K2PC handles our monthly health audit reporting and pest management. Always audit-ready, punctual, and professional.",
+    comment: "We run a busy Italian bistro. K2 Pest Control handles our monthly health audit reporting and pest management. Always audit-ready, punctual, and professional.",
     verified: true,
   },
 ];

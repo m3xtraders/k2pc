@@ -7,9 +7,9 @@ import CTABand from "@/components/sections/CTABand";
 import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } from "lucide-react";
 
 export const metadata = {
-  title: "About Us & Provincial Licensing | K2PC Pest Control GTA",
+  title: "About Us & Provincial Licensing | K2 Pest Control GTA",
   description:
-    "Learn about K2PC Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
+    "Learn about K2 Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
 };
 
 export default function AboutPage() {
@@ -61,7 +61,7 @@ export default function AboutPage() {
             Ontario License #{COMPANY_DETAILS.licenseNumber}
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
-            About K2PC Pest Control
+            About K2 Pest Control
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
             Delivering science-backed, licensed extermination across Toronto & the Greater Toronto Area for over 15 years.
@@ -84,7 +84,7 @@ export default function AboutPage() {
                   Provincial Licensing & Insurance Credentials
                 </h2>
                 <p className="text-sm text-neutral-text">
-                  In a regulated industry where chemical safety is paramount, K2PC operates with 100% compliance.
+                  In a regulated industry where chemical safety is paramount, K2 Pest Control operates with 100% compliance.
                 </p>
               </div>
               <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-center font-mono-data shrink-0">
@@ -140,7 +140,7 @@ export default function AboutPage() {
                 Protecting Canadian Sanctuaries Since 2011
               </h2>
               <p className="text-base text-neutral-text leading-relaxed">
-                K2PC Pest Control was founded in Toronto to address a glaring gap in the market: traditional exterminators relying on generic chemical sprays without addressing how pests entered in the first place.
+                K2 Pest Control was founded in Toronto to address a glaring gap in the market: traditional exterminators relying on generic chemical sprays without addressing how pests entered in the first place.
               </p>
               <p className="text-base text-neutral-text leading-relaxed">
                 Over the past 15 years, our team of licensed entomologists and technicians has pioneered exclusion-first IPM strategies. We treat every GTA property like our own home — inspecting thoroughly, eliminating nests at the root, and sealing entry holes permanently.
@@ -149,7 +149,7 @@ export default function AboutPage() {
             <div className="lg:col-span-6 relative h-[400px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
               <Image
                 src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
-                alt="K2PC licensed extermination technician carrying out property inspection"
+                alt="K2 Pest Control licensed extermination technician carrying out property inspection"
                 fill
                 className="object-cover"
               />

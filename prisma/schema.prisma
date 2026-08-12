@@ -18,6 +18,7 @@ model AdminUser {
 model BusinessInfo {
   id                 String   @id @default(cuid())
   companyName        String
+  slogan             String?  @db.Text
   phone              String
   email              String
   addressLine1       String
