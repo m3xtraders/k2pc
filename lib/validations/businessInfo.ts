@@ -21,6 +21,7 @@ export const businessInfoSchema = z.object({
   twitterUrl: z.string().url("Invalid URL").or(z.literal("")).optional().nullable(),
   linkedinUrl: z.string().url("Invalid URL").or(z.literal("")).optional().nullable(),
   googleBusinessUrl: z.string().url("Invalid URL").or(z.literal("")).optional().nullable(),
+  googleMapsUrl: z.string().optional().nullable(),
 });
 
 export type BusinessInfoInput = z.infer<typeof businessInfoSchema>;

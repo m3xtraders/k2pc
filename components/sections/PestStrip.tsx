@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CORE_PESTS } from "@/lib/content/services";
-import { PestIcon } from "@/components/ui/PestIcon";
 import { ArrowRight } from "lucide-react";
 
 export default function PestStrip() {
@@ -32,17 +32,36 @@ export default function PestStrip() {
             <Link
               key={pest.id}
               href={`/services/${pest.slug}`}
-              className="group bg-white p-4 rounded-xl border border-stone-200 shadow-xs hover:shadow-md hover:border-brand-red transition-all flex flex-col items-center text-center space-y-2 focus-visible:ring-2 focus-visible:ring-brand-red"
+              className="group relative h-48 sm:h-52 lg:h-60 rounded-2xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl hover:border-brand-red transition-all duration-300 flex flex-col justify-end focus-visible:ring-2 focus-visible:ring-brand-red"
             >
-              <div className="w-12 h-12 rounded-full bg-red-50 text-brand-red flex items-center justify-center group-hover:bg-brand-red group-hover:text-action-yellow transition-colors">
-                <PestIcon name={pest.icon} size={28} />
+              {/* Background Image with Zoom on Hover */}
+              {pest.image && (
+                <Image
+                  src={pest.image}
+                  alt={pest.name}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              )}
+
+              {/* Gradient Fade Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent group-hover:from-black/95 group-hover:via-black/55 transition-colors duration-300" />
+
+              {/* Text content pinned at bottom */}
+              <div className="relative z-10 p-3 sm:p-3.5 text-left flex flex-col min-w-0 w-full">
+                <div className="flex items-center justify-between gap-1.5 min-w-0">
+                  <span className="font-heading font-bold text-xs sm:text-[13px] xl:text-sm tracking-tight text-white group-hover:text-action-yellow transition-colors whitespace-nowrap truncate">
+                    {pest.name}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/70 group-hover:text-action-yellow group-hover:translate-x-0.5 transition-all shrink-0" />
+                </div>
+                {pest.scientificName && (
+                  <span className="text-[10px] sm:text-[11px] font-mono-data text-stone-300 group-hover:text-stone-100 truncate block mt-0.5">
+                    {pest.scientificName}
+                  </span>
+                )}
               </div>
-              <span className="font-heading font-bold text-sm text-ink group-hover:text-brand-red transition-colors">
-                {pest.name}
-              </span>
-              <span className="text-[11px] font-mono-data text-neutral-text line-clamp-1">
-                {pest.scientificName}
-              </span>
             </Link>
           ))}
         </div>
@@ -50,3 +69,4 @@ export default function PestStrip() {
     </section>
   );
 }
+

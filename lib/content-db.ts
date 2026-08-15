@@ -53,6 +53,8 @@ export async function getCompanyDetails() {
       twitterUrl: info.twitterUrl,
       linkedinUrl: info.linkedinUrl,
       googleBusinessUrl: info.googleBusinessUrl,
+      googleMapsUrl: (info as any).googleMapsUrl || info.googleBusinessUrl || COMPANY_DETAILS.googleMapsUrl,
+      googleMapsEmbedUrl: (info as any).googleMapsEmbedUrl || COMPANY_DETAILS.googleMapsEmbedUrl,
     };
   } catch (_error) {
     return COMPANY_DETAILS;

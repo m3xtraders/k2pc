@@ -6,6 +6,7 @@ export interface PestType {
   description: string;
   severity: 'High' | 'Medium' | 'Low';
   icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider';
+  image?: string;
 }
 
 export interface Service {

@@ -3,6 +3,7 @@ import Metadata from "next";
 import ContactForm from "@/components/sections/ContactForm";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
+import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { GLOBAL_FAQS } from "@/lib/content/faqs";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
@@ -138,6 +139,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Interactive Location Map Widget */}
+      <LocationMapWidget />
 
       <FAQAccordion items={GLOBAL_FAQS} />
       <CTABand />

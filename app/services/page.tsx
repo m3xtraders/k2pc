@@ -1,7 +1,6 @@
 import React from "react";
 import Metadata from "next";
 import ServiceGrid from "@/components/sections/ServiceGrid";
-import PestStrip from "@/components/sections/PestStrip";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import { ShieldCheck, Phone } from "lucide-react";
@@ -32,7 +31,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <PestStrip />
       <ServiceGrid showHeading={false} />
       <ProcessSteps />
 

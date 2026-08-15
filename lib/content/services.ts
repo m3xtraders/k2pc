@@ -9,6 +9,7 @@ export const CORE_PESTS: PestType[] = [
     description: "Carpenter ants, pavement ants, and pharaoh ants targeted with exterior defense & nest elimination.",
     severity: "High",
     icon: "ant",
+    image: "/images/pests/ant.jpg",
   },
   {
     id: "rodent",
@@ -18,6 +19,7 @@ export const CORE_PESTS: PestType[] = [
     description: "Humane removal, entry point exclusion sealing, and sanitation for mice & rats in GTA homes.",
     severity: "High",
     icon: "rodent",
+    image: "/images/pests/rodent.jpg",
   },
   {
     id: "cockroach",
@@ -27,24 +29,27 @@ export const CORE_PESTS: PestType[] = [
     description: "German & Oriental cockroach eradication using gel baits, IGRs, and thorough flush treatments.",
     severity: "High",
     icon: "cockroach",
+    image: "/images/pests/cockroach.jpg",
   },
   {
     id: "bed-bug",
-    name: "Bed Bug Treatment",
+    name: "Bed Bug Control",
     scientificName: "Cimex lectularius",
     slug: "bed-bug-treatment",
     description: "Thermal heat treatments and chemical residual applications eliminating bed bugs at all life stages.",
     severity: "High",
     icon: "bed-bug",
+    image: "/images/pests/bed-bug.jpg",
   },
   {
     id: "wasp",
-    name: "Wasp & Hornet Removal",
+    name: "Wasps & Hornets",
     scientificName: "Vespula vulgaris",
     slug: "wasp-hornet-removal",
     description: "Safe nest removal and protective barrier sprays for yellowjackets, hornets, and paper wasps.",
     severity: "Medium",
     icon: "wasp",
+    image: "/images/pests/wasp.jpg",
   },
   {
     id: "spider",
@@ -54,6 +59,7 @@ export const CORE_PESTS: PestType[] = [
     description: "De-webbing, perimeter barrier treatments, and prey insect reduction for indoor/outdoor spiders.",
     severity: "Low",
     icon: "spider",
+    image: "/images/pests/spider.jpg",
   },
 ];
 

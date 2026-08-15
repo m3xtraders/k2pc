@@ -57,6 +57,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
     twitterUrl: initialData?.twitterUrl || "",
     linkedinUrl: initialData?.linkedinUrl || "",
     googleBusinessUrl: initialData?.googleBusinessUrl || "",
+    googleMapsUrl: initialData?.googleMapsUrl || "https://share.google/IMFOd1tJPGI6JL4OJ",
   });
 
   const handleHoursChange = (dayKey: string, timeVal: string) => {
@@ -227,6 +228,21 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
             />
           </FormField>
+
+          <div className="sm:col-span-2 pt-2 border-t border-stone-100">
+            <FormField label="Google Maps Share / Location Link">
+              <input
+                type="text"
+                value={formData.googleMapsUrl || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, googleMapsUrl: e.target.value }))}
+                placeholder="e.g. https://share.google/IMFOd1tJPGI6JL4OJ or https://maps.app.goo.gl/..."
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+              <p className="text-xs text-stone-500 mt-1">
+                Paste your Google Maps link (e.g. https://share.google/..., https://maps.app.goo.gl/..., or map embed link). This powers the interactive map widget and "Get Directions" button.
+              </p>
+            </FormField>
+          </div>
         </div>
       </div>
 

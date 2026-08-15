@@ -37,6 +37,7 @@ model BusinessInfo {
   twitterUrl         String?
   linkedinUrl        String?
   googleBusinessUrl  String?
+  googleMapsUrl      String?  @db.Text
   updatedAt          DateTime @updatedAt
 }
 

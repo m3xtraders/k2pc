@@ -158,6 +158,7 @@ export async function updateBusinessInfoAction(data: any) {
     twitterUrl: validated.twitterUrl || null,
     linkedinUrl: validated.linkedinUrl || null,
     googleBusinessUrl: validated.googleBusinessUrl || null,
+    googleMapsUrl: validated.googleMapsUrl || null,
   };
 
   const existing = await prisma.businessInfo.findFirst();
