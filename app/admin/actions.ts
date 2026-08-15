@@ -39,7 +39,7 @@ export async function createServiceAction(data: any) {
   revalidatePath("/services");
   revalidatePath(`/services/${service.slug}`);
   revalidatePath("/admin/services");
-  return service;
+  return { id: service.id, slug: service.slug, title: service.title };
 }
 
 export async function updateServiceAction(id: string, data: any) {
@@ -57,17 +57,17 @@ export async function updateServiceAction(id: string, data: any) {
   revalidatePath("/services");
   revalidatePath(`/services/${service.slug}`);
   revalidatePath("/admin/services");
-  return service;
+  return { id: service.id, slug: service.slug, title: service.title };
 }
 
 export async function deleteServiceAction(id: string) {
-  const service = await prisma.service.delete({
+  await prisma.service.delete({
     where: { id },
   });
 
   revalidatePath("/services");
   revalidatePath("/admin/services");
-  return service;
+  return { success: true };
 }
 
 export async function reorderServicesAction(items: { id: string; displayOrder: number }[]) {
@@ -101,7 +101,7 @@ export async function createBlogPostAction(data: any) {
   revalidatePath("/blog");
   revalidatePath(`/blog/${post.slug}`);
   revalidatePath("/admin/blog");
-  return post;
+  return { id: post.id, slug: post.slug, title: post.title };
 }
 
 export async function updateBlogPostAction(id: string, data: any) {
@@ -120,7 +120,7 @@ export async function updateBlogPostAction(id: string, data: any) {
   revalidatePath("/blog");
   revalidatePath(`/blog/${post.slug}`);
   revalidatePath("/admin/blog");
-  return post;
+  return { id: post.id, slug: post.slug, title: post.title };
 }
 
 export async function deleteBlogPostAction(id: string) {
@@ -162,32 +162,31 @@ export async function updateBusinessInfoAction(data: any) {
 
   const existing = await prisma.businessInfo.findFirst();
 
-  let businessInfo;
   if (existing) {
-    businessInfo = await prisma.businessInfo.update({
+    await prisma.businessInfo.update({
       where: { id: existing.id },
       data: dbData,
     });
   } else {
-    businessInfo = await prisma.businessInfo.create({
+    await prisma.businessInfo.create({
       data: dbData,
     });
   }
 
   revalidatePath("/", "layout");
-  return businessInfo;
+  return { success: true };
 }
 
 // CONTACT / LEAD ACTIONS
 export async function updateLeadStatusAction(id: string, status: "NEW" | "CONTACTED" | "CLOSED") {
-  const lead = await prisma.contactSubmission.update({
+  await prisma.contactSubmission.update({
     where: { id },
     data: { status: status as any },
   });
 
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
-  return lead;
+  return { success: true };
 }
 
 export async function deleteLeadAction(id: string) {
