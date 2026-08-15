@@ -60,6 +60,11 @@ export const metadata: Metadata = {
     title: "K2 Pest Control | Exterminator Toronto & GTA",
     description: "Licensed & guaranteed pest removal in Toronto & GTA. 2-hour emergency response.",
   },
+  icons: {
+    icon: "/assets/logo.png",
+    shortcut: "/assets/logo.png",
+    apple: "/assets/logo.png",
+  },
   robots: {
     index: false,
     follow: false,

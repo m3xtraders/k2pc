@@ -19,7 +19,6 @@ import {
   Link as LinkIcon,
   Minus,
 } from "lucide-react";
-import { sanitizeHtml } from "@/lib/sanitizer";
 
 interface RichTextEditorProps {
   value: string;
@@ -71,9 +70,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       },
     },
     onUpdate: ({ editor }) => {
-      const rawHtml = editor.getHTML();
-      const cleanHtml = sanitizeHtml(rawHtml);
-      onChange(cleanHtml);
+      onChange(editor.getHTML());
     },
   });
 
