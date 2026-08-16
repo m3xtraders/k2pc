@@ -63,6 +63,46 @@ export const CORE_PESTS: PestType[] = [
   },
 ];
 
+export const DEFAULT_SERVICE_COVER_IMAGE = "/images/services/default-service.jpg";
+
+export function getServiceCoverImage(service?: {
+  featuredImage?: string | null;
+  icon?: string | null;
+  slug?: string | null;
+}): string {
+  if (!service) return DEFAULT_SERVICE_COVER_IMAGE;
+  if (service.featuredImage && typeof service.featuredImage === "string" && service.featuredImage.trim().length > 0) {
+    return service.featuredImage;
+  }
+
+  const pestIconMap: Record<string, string> = {
+    ant: "/images/pests/ant.jpg",
+    rodent: "/images/pests/rodent.jpg",
+    cockroach: "/images/pests/cockroach.jpg",
+    "bed-bug": "/images/pests/bed-bug.jpg",
+    wasp: "/images/pests/wasp.jpg",
+    spider: "/images/pests/spider.jpg",
+    home: "/images/services/residential.jpg",
+    building: "/images/services/commercial.jpg",
+  };
+
+  if (service.icon && pestIconMap[service.icon]) {
+    return pestIconMap[service.icon];
+  }
+
+  const slug = (service.slug || "").toLowerCase();
+  if (slug.includes("ant")) return "/images/pests/ant.jpg";
+  if (slug.includes("rodent") || slug.includes("mice") || slug.includes("rat")) return "/images/pests/rodent.jpg";
+  if (slug.includes("cockroach") || slug.includes("roach")) return "/images/pests/cockroach.jpg";
+  if (slug.includes("bed-bug")) return "/images/pests/bed-bug.jpg";
+  if (slug.includes("wasp") || slug.includes("hornet")) return "/images/pests/wasp.jpg";
+  if (slug.includes("spider")) return "/images/pests/spider.jpg";
+  if (slug.includes("commercial")) return "/images/services/commercial.jpg";
+  if (slug.includes("residential") || slug.includes("home")) return "/images/services/residential.jpg";
+
+  return DEFAULT_SERVICE_COVER_IMAGE;
+}
+
 export const SERVICES: Service[] = [
   {
     id: "ant-control",
@@ -71,6 +111,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Targeted extermination of carpenter ants, pavement ants, and pharaoh ants with exterior barrier defense.",
     fullDescription: "Ant infestations in Southern Ontario range from moisture-loving carpenter ants damaging structural timbers to stubborn pharaoh ants colonizing heating conduits. Our IPM approach combines non-repellent baiting systems that worker ants carry straight back to the queen with perimeter liquid barriers to stop re-entry.",
     icon: "ant",
+    featuredImage: "/images/pests/ant.jpg",
     pestCategory: "insects",
     targetPests: ["Carpenter Ants", "Pavement Ants", "Pharaoh Ants", "Odorous House Ants"],
     signsOfInfestation: [
@@ -121,6 +162,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Complete mice & rat eradication, attic inspection, and guaranteed entry-point exclusion sealing.",
     fullDescription: "As Canadian temperatures drop in autumn, field mice and Norway rats seek heat, shelter, and food inside GTA homes. K2PC Pest Control provides a multi-phase solution: rapid removal via tamper-resistant baiting and mechanical trapping, followed by heavy-duty exclusion sealing of entry holes down to 1/4 inch.",
     icon: "rodent",
+    featuredImage: "/images/pests/rodent.jpg",
     pestCategory: "rodents",
     targetPests: ["House Mice", "Deer Mice", "Norway Rats", "Roof Rats"],
     signsOfInfestation: [
@@ -171,6 +213,7 @@ export const SERVICES: Service[] = [
     shortDescription: "High-intensity flush treatments and cockroach gel baits to eradicate German & Oriental roaches.",
     fullDescription: "Cockroaches reproduce rapidly in kitchens and bathrooms, carrying foodborne pathogens like Salmonella and E. coli. Our extermination protocols combine flushing agents, Insect Growth Regulators (IGRs) that halt breeding cycles, and attractive domino-effect gel baits.",
     icon: "cockroach",
+    featuredImage: "/images/pests/cockroach.jpg",
     pestCategory: "insects",
     targetPests: ["German Cockroaches", "Oriental Cockroaches", "American Cockroaches"],
     signsOfInfestation: [
@@ -217,6 +260,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Advanced heat treatment & multi-stage residual applications with 100% mattress & furniture protection.",
     fullDescription: "Bed bugs are among the most distressing household pests in urban environments. We offer dual eradication approaches: whole-structure heat treatment (reaching lethal temperatures of 122°F/50°C) and precision chemical residual applications with mattress encasements.",
     icon: "bed-bug",
+    featuredImage: "/images/pests/bed-bug.jpg",
     pestCategory: "insects",
     targetPests: ["Bed Bugs (Cimex lectularius)"],
     signsOfInfestation: [
@@ -263,6 +307,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Same-day removal of aggressive yellowjacket, hornet, and paper wasp nests from eaves and structures.",
     fullDescription: "Wasp nests around eaves, decks, and soffits pose severe sting hazards to families and pets. Our licensed technicians safely neutralize and detach nests, treating wall voids to prevent seasonal return.",
     icon: "wasp",
+    featuredImage: "/images/pests/wasp.jpg",
     pestCategory: "insects",
     targetPests: ["Yellowjackets", "Bald-faced Hornets", "Paper Wasps", "Mud Daubers"],
     signsOfInfestation: [
@@ -308,6 +353,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Interior and exterior spider reduction, webbing removal, and perimeter insect prey control.",
     fullDescription: "High spider activity is typically a symptom of an underlying insect population. K2PC provides complete perimeter de-webbing combined with micro-encapsulated treatments to keep siding, overhangs, and basements spider-free.",
     icon: "spider",
+    featuredImage: "/images/pests/spider.jpg",
     pestCategory: "insects",
     targetPests: ["House Spiders", "Yellow Sac Spiders", "Wolf Spiders", "Cellar Spiders"],
     signsOfInfestation: [
@@ -347,6 +393,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Comprehensive home defense plans for houses, townhomes, and condos across the GTA.",
     fullDescription: "Protect your sanctuary with year-round pest defense tailored to Canadian climate cycles. From ants and mice to spiders and seasonal invaders, our licensed exterminators keep your family safe using eco-conscious Integrated Pest Management (IPM).",
     icon: "home",
+    featuredImage: "/images/services/residential.jpg",
     pestCategory: "prevention",
     targetPests: ["Ants", "Mice", "Cockroaches", "Spiders", "Earwigs", "Centipedes"],
     signsOfInfestation: [
@@ -386,6 +433,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Audit-ready IPM programs for restaurants, warehouses, food processing facilities, and office buildings.",
     fullDescription: "Maintain regulatory compliance, protect your reputation, and prevent revenue loss with K2PC's commercial IPM programs. Designed for health-department audit standards with complete digital logbooks.",
     icon: "building",
+    featuredImage: "/images/services/commercial.jpg",
     pestCategory: "commercial",
     targetPests: ["Rodents", "Cockroaches", "Flies", "Stored Product Insects"],
     signsOfInfestation: [
@@ -425,6 +473,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Subterranean termite detection, moisture mapping, and liquid trenching protection.",
     fullDescription: "Eastern subterranean termites cause severe structural damage in specific GTA pockets like Toronto East and Peel Region. K2PC provides non-invasive thermal detection and subterranean liquid termiticide barriers.",
     icon: "shield",
+    featuredImage: "/images/services/default-service.jpg",
     pestCategory: "insects",
     targetPests: ["Subterranean Termites"],
     signsOfInfestation: [
@@ -465,6 +514,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Humane 1-way door eviction and roofline exclusion for raccoons, squirrels, skunks, and opossums.",
     fullDescription: "GTA wildlife often nests in attics, chimneys, and under decks. We utilize Ministry-approved 1-way door eviction systems and heavy-gauge wire mesh sealing to ensure animals exit safely without harm.",
     icon: "bug",
+    featuredImage: "/images/services/residential.jpg",
     pestCategory: "wildlife",
     targetPests: ["Raccoons", "Squirrels", "Skunks", "Opossums", "Bats"],
     signsOfInfestation: [
@@ -504,6 +554,7 @@ export const SERVICES: Service[] = [
     shortDescription: "4-season proactive exterior barriers protecting your home year-round from spring to winter.",
     fullDescription: "Prevent pests before they breach your home's perimeter. Our 4-season protection program delivers exterior barrier sprays, rodent station servicing, and soffit treatments tailored to each Ontario season.",
     icon: "calendar",
+    featuredImage: "/images/services/default-service.jpg",
     pestCategory: "prevention",
     targetPests: ["Spring Ants", "Summer Wasps", "Fall Rodents", "Winter Spiders & Mice"],
     signsOfInfestation: [

@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { deleteServiceAction } from "@/app/admin/actions";
+import { getServiceCoverImage } from "@/lib/content/services";
 import { Edit2, Trash2, ExternalLink, Plus } from "lucide-react";
 
 interface ServicesTableClientProps {
@@ -32,6 +34,24 @@ export const ServicesTableClient: React.FC<ServicesTableClientProps> = ({ servic
   };
 
   const columns: Column<any>[] = [
+    {
+      header: "Cover",
+      cell: (item) => {
+        const imgUrl = getServiceCoverImage(item);
+        return (
+          <div className="relative w-12 h-9 rounded-lg overflow-hidden border border-stone-200 bg-stone-100 shrink-0">
+            <Image
+              src={imgUrl}
+              alt={item.title}
+              fill
+              sizes="48px"
+              className="object-cover"
+              unoptimized={imgUrl.startsWith("data:")}
+            />
+          </div>
+        );
+      },
+    },
     {
       header: "Title & Slug",
       cell: (item) => (

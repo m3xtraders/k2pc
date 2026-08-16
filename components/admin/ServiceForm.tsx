@@ -8,6 +8,7 @@ import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { createServiceAction, updateServiceAction } from "@/app/admin/actions";
 import { ServiceInput } from "@/lib/validations/service";
+import { getServiceCoverImage } from "@/lib/content/services";
 import { ExternalLink, Save, Loader2, Bug } from "lucide-react";
 
 interface ServiceFormProps {
@@ -224,14 +225,20 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
             </FormField>
           </div>
 
-          {/* Featured Image Card */}
+          {/* Service Cover Image Card */}
           <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-3">
-            <h3 className="text-sm font-semibold text-stone-900 border-b border-stone-100 pb-2">
-              Featured Image
-            </h3>
+            <div>
+              <h3 className="text-sm font-semibold text-stone-900 border-b border-stone-100 pb-2">
+                Service Cover Image
+              </h3>
+              <p className="text-xs text-stone-500 mt-1">
+                Displayed on the service card on the public website and service page header. If left empty, the generic default image will be automatically used.
+              </p>
+            </div>
             <ImageUploader
               value={formData.featuredImage}
               onChange={(url) => setFormData((p) => ({ ...p, featuredImage: url }))}
+              fallbackUrl={getServiceCoverImage({ icon: formData.icon, slug: formData.slug })}
             />
           </div>
 

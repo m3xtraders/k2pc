@@ -1,7 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails } from "@/lib/content-db";
+import { getServiceCoverImage } from "@/lib/content/services";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import ContactForm from "@/components/sections/ContactForm";
@@ -157,7 +159,26 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             {/* Left Detail Column */}
             <div className="lg:col-span-7 space-y-10">
               {/* Detailed Long Description Section */}
-              <div className="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                {/* Service Cover Banner */}
+                <div className="relative w-full h-60 sm:h-72 rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
+                  <Image
+                    src={service.featuredImage || getServiceCoverImage(service)}
+                    alt={service.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 700px"
+                    className="object-cover"
+                    unoptimized={(service.featuredImage || "").startsWith("data:")}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-4">
+                    <span className="text-xs font-mono-data font-semibold uppercase tracking-wider text-white bg-black/60 backdrop-blur-md px-3 py-1 rounded-md border border-white/20">
+                      {service.pestCategory}
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-3 border-b border-stone-100 pb-4">
                   <div className="p-2.5 rounded-xl bg-red-50 text-brand-red">
                     <FileText className="w-6 h-6" />

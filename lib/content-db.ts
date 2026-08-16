@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { SERVICES } from "@/lib/content/services";
+import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
 import { BLOG_POSTS } from "@/lib/content/blog";
 import { Service, BlogPost } from "@/lib/types";
 
@@ -111,6 +111,7 @@ export async function getPublishedServices(): Promise<Service[]> {
         pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
         warranty: staticService?.warranty || "Guaranteed Eradication",
         faqs: staticService?.faqs || [],
+        featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
       };
     });
   } catch (_error) {
@@ -173,6 +174,7 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
       pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
       warranty: staticService?.warranty || "Guaranteed Eradication",
       faqs: staticService?.faqs || [],
+      featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
     };
   } catch (_error) {
     return SERVICES.find((item) => item.slug === slug) || null;

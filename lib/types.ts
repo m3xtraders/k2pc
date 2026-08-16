@@ -30,6 +30,7 @@ export interface Service {
     question: string;
     answer: string;
   }[];
+  featuredImage?: string;
 }
 
 export interface BlogPost {
