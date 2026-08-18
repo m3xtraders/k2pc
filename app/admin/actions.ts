@@ -159,6 +159,12 @@ export async function updateBusinessInfoAction(data: any) {
     linkedinUrl: validated.linkedinUrl || null,
     googleBusinessUrl: validated.googleBusinessUrl || null,
     googleMapsUrl: validated.googleMapsUrl || null,
+    chatbotEnabled: validated.chatbotEnabled ?? true,
+    chatbotName: validated.chatbotName || "K2 Pest Assistant",
+    chatbotGreeting: validated.chatbotGreeting || null,
+    chatbotSystemPrompt: validated.chatbotSystemPrompt || null,
+    chatbotApiKey: validated.chatbotApiKey || null,
+    chatbotQuickPrompts: validated.chatbotQuickPrompts || null,
   };
 
   const existing = await prisma.businessInfo.findFirst();

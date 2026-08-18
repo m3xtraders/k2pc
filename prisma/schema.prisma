@@ -38,6 +38,12 @@ model BusinessInfo {
   linkedinUrl        String?
   googleBusinessUrl  String?
   googleMapsUrl      String?  @db.Text
+  chatbotEnabled     Boolean  @default(true)
+  chatbotName        String   @default("K2 Pest Assistant")
+  chatbotGreeting    String?  @db.Text
+  chatbotSystemPrompt String? @db.Text
+  chatbotApiKey      String?  @db.Text
+  chatbotQuickPrompts Json?
   updatedAt          DateTime @updatedAt
 }
 

@@ -46,4 +46,17 @@ export const COMPANY_DETAILS = {
     "Richmond Hill",
     "Burlington",
   ],
+  serviceLocations: [
+    { name: "Toronto (Downtown & East/West)", region: "City of Toronto", badge: "2h Emergency Dispatch" },
+    { name: "North York", region: "City of Toronto", badge: "2h Fast Response" },
+    { name: "Etobicoke", region: "City of Toronto", badge: "Local Unit on Standby" },
+    { name: "Scarborough", region: "City of Toronto", badge: "2h Fast Response" },
+    { name: "Mississauga", region: "Peel Region", badge: "2h Emergency Dispatch" },
+    { name: "Brampton", region: "Peel Region", badge: "2h Fast Response" },
+    { name: "Vaughan", region: "York Region", badge: "Local Unit on Standby" },
+    { name: "Markham", region: "York Region", badge: "2h Fast Response" },
+    { name: "Oakville", region: "Halton Region", badge: "2h Fast Response" },
+    { name: "Richmond Hill", region: "York Region", badge: "Local Unit on Standby" },
+    { name: "Burlington", region: "Halton Region", badge: "2h Fast Response" },
+  ],
 };

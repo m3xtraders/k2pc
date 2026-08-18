@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { FormField } from "@/components/admin/FormField";
 import { TagInput } from "@/components/admin/TagInput";
+import { ServiceAreasEditor } from "@/components/admin/ServiceAreasEditor";
 import { updateBusinessInfoAction } from "@/app/admin/actions";
-import { BusinessInfoInput } from "@/lib/validations/businessInfo";
-import { Save, Loader2, Phone, MapPin, Clock, Share2, Award } from "lucide-react";
+import { BusinessInfoInput, ServiceAreaItem } from "@/lib/validations/businessInfo";
+import { Save, Loader2, Phone, MapPin, Clock, Share2, Bot, Sparkles, Key, MessageSquareText, Globe2 } from "lucide-react";
 
 interface SettingsFormClientProps {
   initialData?: any;
@@ -24,6 +25,42 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
       "Emergency Response": "24/7 Rapid Dispatch",
     };
 
+  const defaultQuickPrompts: string[] = Array.isArray(initialData?.chatbotQuickPrompts)
+    ? initialData.chatbotQuickPrompts
+    : [
+        "💰 How much does pest removal cost?",
+        "🚨 Do you offer 24/7 emergency service?",
+        "🐜 How do I prepare for ant treatment?",
+        "📅 Can I book a pest inspection?",
+      ];
+
+  const rawServiceAreas = initialData?.serviceAreas;
+  const initialServiceAreas: ServiceAreaItem[] =
+    Array.isArray(rawServiceAreas) && rawServiceAreas.length > 0
+      ? rawServiceAreas.map((item: any) => {
+          if (typeof item === "string") {
+            return { name: item, region: "Greater Toronto Area" };
+          }
+          return {
+            name: item?.name || "Toronto",
+            region: item?.region || "Greater Toronto Area",
+            badge: item?.badge || undefined,
+          };
+        })
+      : [
+          { name: "Toronto (Downtown & East/West)", region: "City of Toronto", badge: "2h Emergency Dispatch" },
+          { name: "North York", region: "City of Toronto", badge: "2h Fast Response" },
+          { name: "Etobicoke", region: "City of Toronto", badge: "Local Unit on Standby" },
+          { name: "Scarborough", region: "City of Toronto", badge: "2h Fast Response" },
+          { name: "Mississauga", region: "Peel Region", badge: "2h Emergency Dispatch" },
+          { name: "Brampton", region: "Peel Region", badge: "2h Fast Response" },
+          { name: "Vaughan", region: "York Region", badge: "Local Unit on Standby" },
+          { name: "Markham", region: "York Region", badge: "2h Fast Response" },
+          { name: "Oakville", region: "Halton Region", badge: "2h Fast Response" },
+          { name: "Richmond Hill", region: "York Region", badge: "Local Unit on Standby" },
+          { name: "Burlington", region: "Halton Region", badge: "2h Fast Response" },
+        ];
+
   const [formData, setFormData] = useState<BusinessInfoInput>({
     companyName: initialData?.companyName || "K2 Pest Control",
     slogan: initialData?.slogan || "Licensed, Guaranteed & Eco-Conscious Exterminators for Toronto & GTA",
@@ -39,25 +76,23 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
     longitude: initialData?.longitude || -79.336,
     licenseNumber: initialData?.licenseNumber || "ON-849201-P",
     hoursJson: defaultHours,
-    serviceAreas: initialData?.serviceAreas || [
-      "Toronto",
-      "North York",
-      "Etobicoke",
-      "Scarborough",
-      "Mississauga",
-      "Brampton",
-      "Vaughan",
-      "Markham",
-      "Oakville",
-      "Richmond Hill",
-      "Burlington",
-    ],
+    serviceAreas: initialServiceAreas,
     facebookUrl: initialData?.facebookUrl || "",
     instagramUrl: initialData?.instagramUrl || "",
     twitterUrl: initialData?.twitterUrl || "",
     linkedinUrl: initialData?.linkedinUrl || "",
     googleBusinessUrl: initialData?.googleBusinessUrl || "",
     googleMapsUrl: initialData?.googleMapsUrl || "https://share.google/IMFOd1tJPGI6JL4OJ",
+    chatbotEnabled: initialData?.chatbotEnabled ?? true,
+    chatbotName: initialData?.chatbotName || "K2 Pest Assistant",
+    chatbotGreeting:
+      initialData?.chatbotGreeting ||
+      "👋 Hello! I'm your K2 Pest Control assistant. How can I help you today? Ask about pricing, treatments, or book a quick inspection!",
+    chatbotSystemPrompt:
+      initialData?.chatbotSystemPrompt ||
+      "You are the friendly, professional AI assistant for K2 Pest Control in Toronto & the GTA. Guide users through pest identification, explain safe preparation protocols, highlight our licensed technicians, and encourage them to book an inspection or call our emergency hotline.",
+    chatbotApiKey: initialData?.chatbotApiKey || "",
+    chatbotQuickPrompts: defaultQuickPrompts,
   });
 
   const handleHoursChange = (dayKey: string, timeVal: string) => {
@@ -246,15 +281,14 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
         </div>
       </div>
 
-      {/* 3. Business Hours & Service Areas */}
+      {/* 3. Business Operating Hours */}
       <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
         <h3 className="text-base font-bold text-stone-900 flex items-center gap-2 border-b border-stone-100 pb-3">
           <Clock className="w-5 h-5 text-[#BE2320]" />
-          Operating Hours & Service Regions
+          Operating Hours & Dispatch Schedule
         </h3>
 
         <div className="space-y-4">
-          <p className="text-xs font-semibold uppercase text-stone-500">Business Hours</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {Object.keys(formData.hoursJson || {}).map((dayKey) => (
               <FormField key={dayKey} label={dayKey}>
@@ -267,17 +301,26 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               </FormField>
             ))}
           </div>
-
-          <div className="pt-4 border-t border-stone-100">
-            <FormField label="Service Area Cities (Regions Served)">
-              <TagInput
-                tags={formData.serviceAreas || []}
-                onChange={(cities) => setFormData((p) => ({ ...p, serviceAreas: cities }))}
-                placeholder="Add city (e.g. Toronto, Mississauga)..."
-              />
-            </FormField>
-          </div>
         </div>
+      </div>
+
+      {/* 4. Service Areas & Coverage Manager */}
+      <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
+        <div className="border-b border-stone-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
+            <Globe2 className="w-5 h-5 text-[#BE2320]" />
+            Service Areas & Municipal Coverage (Homepage & SEO)
+          </h3>
+        </div>
+
+        <p className="text-xs text-stone-600 -mt-2">
+          Manage the cities and regions where K2 Pest Control provides extermination services. This directly powers the &quot;Areas We Serve&quot; homepage section, region filters, and local SEO metadata.
+        </p>
+
+        <ServiceAreasEditor
+          areas={(formData.serviceAreas as ServiceAreaItem[]) || []}
+          onChange={(newAreas) => setFormData((p) => ({ ...p, serviceAreas: newAreas }))}
+        />
       </div>
 
       {/* 4. Social Links */}
@@ -327,6 +370,113 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
             />
           </FormField>
+        </div>
+      </div>
+
+      {/* 5. AI Chatbot Configuration (Gemini Powered) */}
+      <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-200/60 flex items-center justify-center text-[#BE2320]">
+              <Bot className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
+                24/7 AI Pest Assistant (Gemini)
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Google AI
+                </span>
+              </h3>
+              <p className="text-xs text-stone-500">
+                Configure live chatbot persona, instant lead capture, system instructions, and quick prompts.
+              </p>
+            </div>
+          </div>
+
+          <label className="relative inline-flex items-center cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={formData.chatbotEnabled}
+              onChange={(e) => setFormData((p) => ({ ...p, chatbotEnabled: e.target.checked }))}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+            <span className="ml-3 text-sm font-medium text-stone-800">
+              {formData.chatbotEnabled ? "Chatbot Active" : "Chatbot Disabled"}
+            </span>
+          </label>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <FormField label="Bot Display Name" required>
+            <input
+              type="text"
+              required
+              value={formData.chatbotName || "K2 Pest Assistant"}
+              onChange={(e) => setFormData((p) => ({ ...p, chatbotName: e.target.value }))}
+              placeholder="e.g. K2 Pest Assistant"
+              className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+            />
+          </FormField>
+
+          <FormField label="Custom Gemini API Key Override (Optional)">
+            <div className="relative">
+              <input
+                type="password"
+                value={formData.chatbotApiKey || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, chatbotApiKey: e.target.value }))}
+                placeholder="Leave blank to use default server key"
+                className="w-full pl-9 pr-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+              <Key className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
+            </div>
+            <p className="text-xs text-stone-400 mt-1">
+              If empty, uses the global <code>GEMINI_API_KEY</code> from the environment.
+            </p>
+          </FormField>
+
+          <div className="sm:col-span-2">
+            <FormField label="Welcome Greeting (Initial Message)">
+              <textarea
+                rows={2}
+                value={formData.chatbotGreeting || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, chatbotGreeting: e.target.value }))}
+                placeholder="Initial message sent when a visitor opens the chat..."
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+            </FormField>
+          </div>
+
+          <div className="sm:col-span-2">
+            <FormField label="Custom System Prompt & Business Instructions">
+              <textarea
+                rows={4}
+                value={formData.chatbotSystemPrompt || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, chatbotSystemPrompt: e.target.value }))}
+                placeholder="Add special discounts, promotions, or customized response rules..."
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+              <div className="mt-1.5 p-2.5 rounded-lg bg-stone-50 border border-stone-200 text-xs text-stone-600 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Tip:</strong> Live services, starting prices, office phone numbers, and GTA service cities are automatically injected from your database into the AI context on every request.
+                </span>
+              </div>
+            </FormField>
+          </div>
+
+          <div className="sm:col-span-2 pt-2 border-t border-stone-100">
+            <FormField label="Suggested Quick Prompt Chips">
+              <TagInput
+                tags={formData.chatbotQuickPrompts || []}
+                onChange={(prompts) => setFormData((p) => ({ ...p, chatbotQuickPrompts: prompts }))}
+                placeholder="Add suggested quick question (press Enter)..."
+              />
+              <p className="text-xs text-stone-500 mt-1">
+                These clickable chips appear when visitors open the chat for quick 1-tap inquiries.
+              </p>
+            </FormField>
+          </div>
         </div>
       </div>
 

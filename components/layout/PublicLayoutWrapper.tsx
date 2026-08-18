@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileCallBar from "@/components/layout/MobileCallBar";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 
 interface PublicLayoutWrapperProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ export function PublicLayoutWrapper({ children, companyDetails }: PublicLayoutWr
       </main>
       <Footer companyDetails={companyDetails} />
       <MobileCallBar />
+      <ChatWidget companyDetails={companyDetails} />
     </>
   );
 }

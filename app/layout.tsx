@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
@@ -74,6 +75,9 @@ export const metadata: Metadata = {
       follow: false,
       noimageindex: true,
     },
+  },
+  verification: {
+    google: "cmt_uIRcZGXRyGLIOOhaHHyKo_tqGX8Wk1ey79Ct-e8",
   },
 };
 
@@ -160,6 +164,21 @@ export default async function RootLayout({
         className="min-h-full flex flex-col bg-surface-white text-ink font-sans pb-16 md:pb-0"
         suppressHydrationWarning
       >
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8EHS2WM33H"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-8EHS2WM33H');
+          `}
+        </Script>
+
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-red focus:text-white focus:rounded-md focus:font-semibold"

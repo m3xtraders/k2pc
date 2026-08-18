@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { COMPANY_DETAILS } from "@/lib/content/company";
+import { LOCATIONS } from "@/lib/content/locations";
 import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
 import { BLOG_POSTS } from "@/lib/content/blog";
 import { Service, BlogPost } from "@/lib/types";
@@ -7,7 +8,16 @@ import { Service, BlogPost } from "@/lib/types";
 export async function getCompanyDetails() {
   try {
     const info = await prisma.businessInfo.findFirst();
-    if (!info) return COMPANY_DETAILS;
+    if (!info) {
+      return {
+        ...COMPANY_DETAILS,
+        serviceLocations: LOCATIONS.map((l) => ({
+          name: l.name,
+          region: l.region,
+          description: l.description,
+        })),
+      };
+    }
 
     const hoursArr = info.hoursJson
       ? Object.entries(info.hoursJson as Record<string, string>).map(([days, times]) => ({
@@ -16,9 +26,43 @@ export async function getCompanyDetails() {
         }))
       : COMPANY_DETAILS.hours;
 
-    const serviceAreasArr = Array.isArray(info.serviceAreas)
-      ? (info.serviceAreas as string[])
-      : COMPANY_DETAILS.regionsServed;
+    let serviceLocations: Array<{ name: string; region: string; badge?: string; description?: string }> = [];
+    let regionsServedNames: string[] = [];
+
+    if (Array.isArray(info.serviceAreas) && info.serviceAreas.length > 0) {
+      serviceLocations = info.serviceAreas.map((item: any) => {
+        if (typeof item === "string") {
+          const matched = LOCATIONS.find(
+            (l) => l.name.toLowerCase() === item.toLowerCase() || l.slug.toLowerCase() === item.toLowerCase()
+          );
+          return {
+            name: item,
+            region: matched?.region || "Greater Toronto Area",
+            badge: undefined,
+            description: matched?.description || undefined,
+          };
+        } else if (item && typeof item === "object") {
+          const matched = LOCATIONS.find(
+            (l) => l.name.toLowerCase() === (item.name || "").toLowerCase()
+          );
+          return {
+            name: item.name || "Toronto",
+            region: item.region || matched?.region || "Greater Toronto Area",
+            badge: item.badge || undefined,
+            description: item.description || matched?.description || undefined,
+          };
+        }
+        return { name: String(item), region: "Greater Toronto Area" };
+      });
+      regionsServedNames = serviceLocations.map((l) => l.name);
+    } else {
+      serviceLocations = LOCATIONS.map((l) => ({
+        name: l.name,
+        region: l.region,
+        description: l.description,
+      }));
+      regionsServedNames = COMPANY_DETAILS.regionsServed;
+    }
 
     const rawName = info.companyName || COMPANY_DETAILS.name;
     const cleanName = rawName
@@ -47,7 +91,15 @@ export async function getCompanyDetails() {
       stats: COMPANY_DETAILS.stats,
       guarantee: COMPANY_DETAILS.guarantee,
       serviceRadiusKm: COMPANY_DETAILS.serviceRadiusKm,
-      regionsServed: serviceAreasArr.length > 0 ? serviceAreasArr : COMPANY_DETAILS.regionsServed,
+      regionsServed: regionsServedNames.length > 0 ? regionsServedNames : COMPANY_DETAILS.regionsServed,
+      serviceLocations:
+        serviceLocations.length > 0
+          ? serviceLocations
+          : LOCATIONS.map((l) => ({
+              name: l.name,
+              region: l.region,
+              description: l.description,
+            })),
       facebookUrl: info.facebookUrl,
       instagramUrl: info.instagramUrl,
       twitterUrl: info.twitterUrl,
@@ -55,6 +107,15 @@ export async function getCompanyDetails() {
       googleBusinessUrl: info.googleBusinessUrl,
       googleMapsUrl: (info as any).googleMapsUrl || info.googleBusinessUrl || COMPANY_DETAILS.googleMapsUrl,
       googleMapsEmbedUrl: (info as any).googleMapsEmbedUrl || COMPANY_DETAILS.googleMapsEmbedUrl,
+      chatbotEnabled: (info as any).chatbotEnabled ?? true,
+      chatbotName: (info as any).chatbotName || "K2 Pest Assistant",
+      chatbotGreeting: (info as any).chatbotGreeting || "👋 Hello! I'm your K2 Pest Control assistant. How can I help you today? Ask about pricing, safe treatments, or book a fast inspection!",
+      chatbotQuickPrompts: Array.isArray((info as any).chatbotQuickPrompts) ? (info as any).chatbotQuickPrompts : [
+        "💰 How much does pest removal cost?",
+        "🚨 Do you offer 24/7 emergency service?",
+        "🐜 How do I prepare for ant treatment?",
+        "📅 Can I book a pest inspection?",
+      ],
     };
   } catch (_error) {
     return COMPANY_DETAILS;
