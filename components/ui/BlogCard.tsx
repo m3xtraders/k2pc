@@ -19,7 +19,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
             src={post.image}
             alt={post.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 380px"
+            quality={75}
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute top-3 left-3">
