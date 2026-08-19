@@ -23,9 +23,9 @@ export default function Footer({ companyDetails }: FooterProps) {
                 <Image
                   src="/assets/logo.png"
                   alt="K2 Pest Control Logo"
-                  width={220}
-                  height={80}
-                  className="h-14 sm:h-16 w-auto object-contain mx-auto sm:mx-0"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16 object-contain mx-auto sm:mx-0"
                 />
               </div>
               <span className="font-heading font-extrabold text-2xl tracking-tight text-white mt-1 w-full text-center sm:text-left">

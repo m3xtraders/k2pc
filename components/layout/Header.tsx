@@ -60,9 +60,9 @@ export default function Header({ companyDetails }: HeaderProps) {
               <Image
                 src="/assets/logo.png"
                 alt="K2 Pest Control Logo"
-                width={160}
-                height={50}
-                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                width={48}
+                height={48}
+                className="h-10 w-10 sm:h-12 sm:w-12 object-contain transition-transform group-hover:scale-105"
                 priority
               />
             </div>

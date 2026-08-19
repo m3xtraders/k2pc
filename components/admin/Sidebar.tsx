@@ -47,9 +47,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, setMobileOpen }) =
             <Image
               src="/assets/logo.png"
               alt="K2 Pest Control Logo"
-              width={120}
+              width={36}
               height={36}
-              className="h-8 w-auto object-contain"
+              className="h-9 w-9 object-contain"
             />
           </div>
           <div>

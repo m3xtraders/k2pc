@@ -14,6 +14,7 @@ export default function Hero() {
           alt="Canadian residential home exterior protected by K2 Pest Control"
           fill
           priority
+          sizes="100vw"
           className="object-cover object-center"
         />
         {/* Dark Gradient Overlay for maximum readability */}
