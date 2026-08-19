@@ -37,6 +37,14 @@
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
   },
+  "browserslist": [
+    "Chrome >= 90",
+    "Firefox >= 90",
+    "Safari >= 15",
+    "Edge >= 90",
+    "not dead",
+    "not IE 11"
+  ],
   "devDependencies": {
     "@prisma/client": "^6.19.3",
     "@tailwindcss/postcss": "^4",
