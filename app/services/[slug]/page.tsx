@@ -167,6 +167,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     alt={service.title}
                     fill
                     priority
+                    quality={70}
                     sizes="(max-width: 1024px) 100vw, 700px"
                     className="object-cover"
                     unoptimized={(service.featuredImage || "").startsWith("data:")}

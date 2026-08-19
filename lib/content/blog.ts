@@ -14,7 +14,7 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     publishedAt: "October 14, 2025",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1000&q=70",
     relatedSlugs: ["eco-friendly-ipm-toronto", "bed-bug-tenant-rights-ontario"],
     content: `
 ## The Seasonal Shift: Why Southern Ontario Homes See Mice in Autumn
@@ -53,7 +53,7 @@ If you suspect an active rodent infestation, contact **K2 Pest Control** for a 3
     },
     publishedAt: "November 2, 2025",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=70",
     relatedSlugs: ["fall-rodent-migration-ontario", "spring-ant-prevention-gta"],
     content: `
 ## Navigating Bed Bug Infestations in Multi-Unit Housing
@@ -90,7 +90,7 @@ For discrete, certified bed bug heat and chemical treatments in apartment comple
     },
     publishedAt: "March 18, 2026",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1000&q=70",
     relatedSlugs: ["eco-friendly-ipm-toronto", "fall-rodent-migration-ontario"],
     content: `
 ## The Spring Swarm: Carpenter Ants vs. Subterranean Termites
@@ -128,7 +128,7 @@ Our non-repellent baiting strategies allow worker ants to forage the bait matrix
     },
     publishedAt: "April 10, 2026",
     readTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=70",
     relatedSlugs: ["spring-ant-prevention-gta", "fall-rodent-migration-ontario"],
     content: `
 ## Redefining Pest Defense: Science Over Spraying

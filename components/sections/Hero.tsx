@@ -10,13 +10,13 @@ export default function Hero() {
       {/* Full Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80"
+          src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=70"
           alt="Canadian residential home exterior protected by K2 Pest Control"
           fill
           priority
           fetchPriority="high"
-          quality={75}
-          sizes="(max-width: 768px) 100vw, (max-width: 1400px) 100vw, 1600px"
+          quality={65}
+          sizes="100vw"
           className="object-cover object-center"
         />
         {/* Dark Gradient Overlay for maximum readability */}
