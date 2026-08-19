@@ -20,9 +20,9 @@ export default function HomePage() {
       <ServiceGrid limit={6} />
       <WhyUs />
       <ProcessSteps />
+      <Testimonials />
       <ServiceArea />
       <LocationMapWidget />
-      <Testimonials />
       <BlogGrid limit={3} />
       <FAQAccordion items={GLOBAL_FAQS.slice(0, 4)} />
       <CTABand />
