@@ -2,8 +2,17 @@ import React from "react";
 import { Phone, ShieldCheck, Clock } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { Button } from "@/components/ui/Button";
+import { getCompanyDetails } from "@/lib/content-db";
 
-export default function CTABand() {
+interface CTABandProps {
+  companyDetails?: any;
+}
+
+export default async function CTABand({ companyDetails }: CTABandProps = {}) {
+  const company = companyDetails || (await getCompanyDetails());
+  const phone = company?.phone || COMPANY_DETAILS.phone;
+  const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
+  const licenseNumber = company?.licenseNumber || COMPANY_DETAILS.licenseNumber;
   return (
     <section className="bg-brand-red text-white py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Subtle background graphic pattern */}
@@ -31,11 +40,11 @@ export default function CTABand() {
               Get Your Free Quote Now
             </Button>
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${phoneRaw}`}
               className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-ink hover:bg-stone-950 text-white font-bold text-base transition-colors border border-stone-800 min-h-[52px]"
             >
               <Phone className="w-5 h-5 text-action-yellow" />
-              <span>Call {COMPANY_DETAILS.phone}</span>
+              <span>Call {phone}</span>
             </a>
           </div>
         </div>
@@ -43,7 +52,7 @@ export default function CTABand() {
         <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-stone-200 font-mono-data">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-action-yellow" />
-            License #{COMPANY_DETAILS.licenseNumber}
+            License #{licenseNumber}
           </span>
           <span>•</span>
           <span>6-Month Written Warranty</span>

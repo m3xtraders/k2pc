@@ -27,7 +27,7 @@ export function PublicLayoutWrapper({ children, companyDetails }: PublicLayoutWr
         {children}
       </main>
       <Footer companyDetails={companyDetails} />
-      <MobileCallBar />
+      <MobileCallBar companyDetails={companyDetails} />
       <ChatWidget companyDetails={companyDetails} />
     </>
   );

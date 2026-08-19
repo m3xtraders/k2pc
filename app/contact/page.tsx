@@ -5,6 +5,7 @@ import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { COMPANY_DETAILS } from "@/lib/content/company";
+import { getCompanyDetails } from "@/lib/content-db";
 import { GLOBAL_FAQS } from "@/lib/content/faqs";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
 
@@ -14,7 +15,16 @@ export const metadata = {
     "Get a free pest control quote or call our emergency line. Serving Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const company = await getCompanyDetails();
+  const phone = company?.phone || COMPANY_DETAILS.phone;
+  const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
+  const email = company?.email || COMPANY_DETAILS.email;
+  const name = company?.name || COMPANY_DETAILS.name;
+  const address = company?.address || COMPANY_DETAILS.address;
+  const hours = company?.hours || COMPANY_DETAILS.hours;
+  const licenseNumber = company?.licenseNumber || COMPANY_DETAILS.licenseNumber;
+
   return (
     <>
       {/* Header Banner */}
@@ -25,7 +35,7 @@ export default function ContactPage() {
             Same-Day Emergency Dispatch Available
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
-            Contact K2PC Pest Control
+            Contact {name}
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
             Reach out for a fast, guaranteed pest quote or speak directly with an Ontario licensed exterminator.
@@ -48,11 +58,11 @@ export default function ContactPage() {
                   Experiencing an urgent wasp nest, heavy mouse infestation, or bed bug outbreak? Call our emergency line directly for immediate dispatch.
                 </p>
                 <a
-                  href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+                  href={`tel:${phoneRaw}`}
                   className="inline-flex items-center gap-2 bg-brand-red text-white font-bold px-4 py-2.5 rounded-lg font-mono-data text-sm hover:bg-brand-red-dark transition-colors"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Call {COMPANY_DETAILS.phone}</span>
+                  <span>Call {phone}</span>
                 </a>
               </div>
 
@@ -66,10 +76,10 @@ export default function ContactPage() {
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold block">{COMPANY_DETAILS.name}</span>
+                      <span className="font-bold block">{name}</span>
                       <span className="text-stone-600 text-xs">
-                        {COMPANY_DETAILS.address.street}<br />
-                        {COMPANY_DETAILS.address.city}, {COMPANY_DETAILS.address.province} {COMPANY_DETAILS.address.postalCode}
+                        {address.street}<br />
+                        {address.city}, {address.province} {address.postalCode}
                       </span>
                     </div>
                   </div>
@@ -78,8 +88,8 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-brand-red shrink-0" />
                     <div>
                       <span className="text-xs text-stone-500 block">Phone Line</span>
-                      <a href={`tel:${COMPANY_DETAILS.phoneRaw}`} className="font-mono-data font-bold hover:text-brand-red">
-                        {COMPANY_DETAILS.phone}
+                      <a href={`tel:${phoneRaw}`} className="font-mono-data font-bold hover:text-brand-red">
+                        {phone}
                       </a>
                     </div>
                   </div>
@@ -88,8 +98,8 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-brand-red shrink-0" />
                     <div>
                       <span className="text-xs text-stone-500 block">Direct Email</span>
-                      <a href={`mailto:${COMPANY_DETAILS.email}`} className="font-mono-data font-bold hover:text-brand-red">
-                        {COMPANY_DETAILS.email}
+                      <a href={`mailto:${email}`} className="font-mono-data font-bold hover:text-brand-red">
+                        {email}
                       </a>
                     </div>
                   </div>
@@ -98,7 +108,7 @@ export default function ContactPage() {
                     <Clock className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
                     <div className="space-y-1 text-xs">
                       <span className="font-bold text-ink block">Operating Hours</span>
-                      {COMPANY_DETAILS.hours.map((h, i) => (
+                      {hours.map((h: any, i: number) => (
                         <div key={i} className="flex justify-between gap-4 text-stone-600 font-mono-data">
                           <span>{h.days}:</span>
                           <span className="font-semibold text-ink">{h.times}</span>
@@ -110,7 +120,7 @@ export default function ContactPage() {
 
                 <div className="pt-2 border-t border-stone-200 text-xs font-mono-data text-emerald-700 flex items-center gap-1.5 font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Ontario License #{COMPANY_DETAILS.licenseNumber}</span>
+                  <span>Ontario License #{licenseNumber}</span>
                 </div>
               </div>
 

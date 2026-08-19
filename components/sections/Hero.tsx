@@ -3,15 +3,26 @@ import Image from "next/image";
 import { Phone, Shield, Clock, Award, CheckCircle } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { Button } from "@/components/ui/Button";
+import { getCompanyDetails } from "@/lib/content-db";
 
-export default function Hero() {
+interface HeroProps {
+  companyDetails?: any;
+}
+
+export default async function Hero({ companyDetails }: HeroProps = {}) {
+  const company = companyDetails || (await getCompanyDetails());
+
+  const phone = company?.phone || COMPANY_DETAILS.phone;
+  const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
+  const stats = company?.stats || COMPANY_DETAILS.stats;
+
   return (
     <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-stone-800 bg-stone-950 text-white min-h-[560px] flex items-center">
       {/* Full Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=70"
-          alt="Canadian residential home exterior protected by K2 Pest Control"
+          alt={`${company?.name || "K2 Pest Control"} - Ontario Pest Control`}
           fill
           priority
           fetchPriority="high"
@@ -34,7 +45,7 @@ export default function Hero() {
 
           {/* Subhead */}
           <p className="text-base sm:text-lg text-stone-200 leading-relaxed max-w-2xl">
-            Eliminate ants, mice, bed bugs, wasps, and roaches with eco-conscious Integrated Pest Management. Same-day emergency response with a written 6-month warranty.
+            {company?.slogan || company?.tagline || "Eliminate ants, mice, bed bugs, wasps, and roaches with eco-conscious Integrated Pest Management. Same-day emergency response with a written 6-month warranty."}
           </p>
 
           {/* Primary Action Buttons */}
@@ -43,7 +54,7 @@ export default function Hero() {
               Get Free Online Quote
             </Button>
             <a
-              href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+              href={`tel:${phoneRaw}`}
               className="flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold transition-all min-h-[52px]"
             >
               <div className="w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center shadow-sm">
@@ -52,7 +63,7 @@ export default function Hero() {
               <div className="flex flex-col text-left leading-tight">
                 <span className="text-xs text-stone-300 font-medium">Call Emergency Line</span>
                 <span className="font-mono-data text-base text-action-yellow font-bold">
-                  {COMPANY_DETAILS.phone}
+                  {phone}
                 </span>
               </div>
             </a>
@@ -79,7 +90,7 @@ export default function Hero() {
             <div className="space-y-0.5">
               <div className="flex items-center gap-1.5 text-action-yellow font-bold text-lg sm:text-xl">
                 <Award className="w-4 h-4" />
-                <span>15+ Yrs</span>
+                <span>{stats?.yearsInBusiness || 15}+ Yrs</span>
               </div>
               <p className="text-xs text-stone-300">In Business</p>
             </div>
@@ -87,7 +98,7 @@ export default function Hero() {
             <div className="space-y-0.5">
               <div className="flex items-center gap-1.5 text-action-yellow font-bold text-lg sm:text-xl">
                 <Shield className="w-4 h-4" />
-                <span>12,000+</span>
+                <span>{stats?.homesProtected || "12,000+"}</span>
               </div>
               <p className="text-xs text-stone-300">Homes Protected</p>
             </div>
@@ -95,16 +106,16 @@ export default function Hero() {
             <div className="space-y-0.5">
               <div className="flex items-center gap-1.5 text-action-yellow font-bold text-lg sm:text-xl">
                 <Clock className="w-4 h-4" />
-                <span>2 Hrs</span>
+                <span>{stats?.avgResponseMinutes ? `${Math.round(stats.avgResponseMinutes / 60)} Hrs` : "2 Hrs"}</span>
               </div>
               <p className="text-xs text-stone-300">Avg Emergency Time</p>
             </div>
 
             <div className="space-y-0.5">
               <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-lg sm:text-xl">
-                <span>4.9 ★</span>
+                <span>{stats?.googleRating || 4.9} ★</span>
               </div>
-              <p className="text-xs text-stone-300">480+ Google Reviews</p>
+              <p className="text-xs text-stone-300">{stats?.reviewCount || 480}+ Google Reviews</p>
             </div>
           </div>
         </div>

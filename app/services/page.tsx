@@ -5,6 +5,7 @@ import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import { ShieldCheck, Phone } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
+import { getCompanyDetails } from "@/lib/content-db";
 
 export const metadata = {
   title: "Pest Extermination Services | Toronto & GTA",
@@ -12,7 +13,11 @@ export const metadata = {
     "Explore K2PC's 11 dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const company = await getCompanyDetails();
+  const phone = company?.phone || COMPANY_DETAILS.phone;
+  const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
+
   return (
     <>
       {/* Header Banner */}
@@ -43,11 +48,11 @@ export default function ServicesPage() {
             We handle custom wildlife, earwigs, centipedes, and commercial audit requirements across all 11 GTA municipalities.
           </p>
           <a
-            href={`tel:${COMPANY_DETAILS.phoneRaw}`}
+            href={`tel:${phoneRaw}`}
             className="inline-flex items-center gap-2 text-brand-red font-bold text-lg hover:underline font-mono-data"
           >
             <Phone className="w-5 h-5" />
-            <span>Speak with an Exterminator: {COMPANY_DETAILS.phone}</span>
+            <span>Speak with an Exterminator: {phone}</span>
           </a>
         </div>
       </section>
