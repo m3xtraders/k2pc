@@ -15,10 +15,10 @@ export default async function AdminMessagesPage() {
       <div>
         <h2 className="text-2xl font-bold text-stone-900 tracking-tight flex items-center gap-2">
           <MessageSquare className="w-6 h-6 text-[#BE2320]" />
-          Leads & Contact Inquiries Inbox
+          Leads & Pipeline CRM
         </h2>
         <p className="text-sm text-stone-500 mt-1">
-          Review incoming customer requests, update lead status, and manage inquiries.
+          Drag and drop customer inquiries across workflow progress stages, manage AI chatbot leads, and track customer progress.
         </p>
       </div>
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { contactFormSchema } from "@/lib/validations";
+import { sendLeadNotificationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -17,6 +18,17 @@ export async function POST(request: Request) {
         status: "NEW" as any,
       } as any,
     });
+
+    // Send email notification to dispatch/admin team via SMTP
+    sendLeadNotificationEmail({
+      id: submission.id,
+      name: validated.name,
+      phone: validated.phone,
+      service: validated.serviceNeeded,
+      city: validated.addressOrCity,
+      message: validated.message,
+      source: "Web Form",
+    }).catch((err) => console.error("Async email error:", err));
 
     return NextResponse.json(
       { success: true, id: submission.id },

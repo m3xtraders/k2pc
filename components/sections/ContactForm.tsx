@@ -1,14 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, ContactFormValues } from "@/lib/validations";
 import { SERVICES } from "@/lib/content/services";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2, AlertCircle, Loader2, Send } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, Send, Building2 } from "lucide-react";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultService?: string;
+  lockService?: boolean;
+  customTitle?: string;
+  customSubtitle?: string;
+  onSuccess?: () => void;
+  isModal?: boolean;
+}
+
+export default function ContactForm({
+  defaultService,
+  lockService = false,
+  customTitle,
+  customSubtitle,
+  onSuccess,
+  isModal = false,
+}: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -17,17 +33,24 @@ export default function ContactForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
       phone: "",
-      serviceNeeded: "",
+      serviceNeeded: defaultService || "",
       addressOrCity: "",
       message: "",
     },
   });
+
+  useEffect(() => {
+    if (defaultService) {
+      setValue("serviceNeeded", defaultService);
+    }
+  }, [defaultService, setValue]);
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
@@ -47,6 +70,9 @@ export default function ContactForm() {
       }
 
       setIsSubmitted(true);
+      if (onSuccess) {
+        onSuccess();
+      }
       reset();
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -61,15 +87,15 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-emerald-50 border-2 border-emerald-300 p-8 rounded-2xl text-center space-y-4 shadow-sm animate-in fade-in-50">
-        <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md">
-          <CheckCircle2 className="w-10 h-10" />
+      <div className="bg-emerald-50 border-2 border-emerald-300 p-6 sm:p-8 rounded-2xl text-center space-y-4 shadow-sm animate-in fade-in-50">
+        <div className="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md">
+          <CheckCircle2 className="w-8 h-8" />
         </div>
         <h3 className="font-heading font-extrabold text-2xl text-emerald-950">
-          Quote Request Received!
+          Request Received!
         </h3>
         <p className="text-sm text-emerald-800 leading-relaxed max-w-md mx-auto">
-          Thank you for contacting K2 Pest Control. A local GTA technician is reviewing your details and will call you within 15 minutes.
+          Thank you for contacting K2 Pest Control. Our commercial dispatch specialist is reviewing your facility requirements and will call you shortly.
         </p>
         <div className="pt-2">
           <Button
@@ -88,15 +114,17 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-md space-y-5"
+      className={`${
+        isModal ? "p-0 space-y-4" : "bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-md space-y-5"
+      }`}
       noValidate
     >
-      <div className="space-y-1">
+      <div className="space-y-1 text-left">
         <h3 className="font-heading font-extrabold text-2xl text-ink">
-          Request a Free Quote
+          {customTitle || "Request a Free Quote"}
         </h3>
         <p className="text-xs sm:text-sm text-neutral-text">
-          Fast response within 15 minutes. No spam, guaranteed pricing.
+          {customSubtitle || "Fast response within 15 minutes. No spam, guaranteed pricing."}
         </p>
       </div>
 
@@ -110,14 +138,14 @@ export default function ContactForm() {
       {/* Field 1: Name */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="name" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Full Name <span className="text-brand-red">*</span>
+          Contact Name / Business Contact <span className="text-brand-red">*</span>
         </label>
         <input
           id="name"
           type="text"
-          placeholder="e.g. Sarah Jenkins"
+          placeholder="e.g. Sarah Jenkins (Operations Manager)"
           {...register("name")}
-          className={`w-full px-4 py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
+          className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
             errors.name
               ? "border-brand-red focus:ring-2 focus:ring-brand-red"
               : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
@@ -141,7 +169,7 @@ export default function ContactForm() {
           type="tel"
           placeholder="e.g. (416) 555-0199"
           {...register("phone")}
-          className={`w-full px-4 py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
+          className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
             errors.phone
               ? "border-brand-red focus:ring-2 focus:ring-brand-red"
               : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
@@ -158,25 +186,69 @@ export default function ContactForm() {
       {/* Field 3: Service Needed */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="serviceNeeded" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Service Needed <span className="text-brand-red">*</span>
+          Selected Service / Facility Program <span className="text-brand-red">*</span>
         </label>
-        <select
-          id="serviceNeeded"
-          {...register("serviceNeeded")}
-          className={`w-full px-4 py-3 rounded-lg border text-sm transition-colors text-ink bg-white ${
-            errors.serviceNeeded
-              ? "border-brand-red focus:ring-2 focus:ring-brand-red"
-              : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-          }`}
-        >
-          <option value="">-- Select Pest or Service --</option>
-          {SERVICES.map((s) => (
-            <option key={s.id} value={s.title}>
-              {s.title}
+
+        {lockService && defaultService ? (
+          <div className="p-3.5 rounded-xl bg-red-50/90 border border-red-200/90 shadow-2xs flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-brand-red text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="font-heading font-bold text-xs sm:text-sm text-ink block truncate">
+                  {defaultService}
+                </span>
+                <span className="text-[10px] font-mono-data text-stone-500 block">
+                  Commercial Facility Assessment Program
+                </span>
+              </div>
+            </div>
+
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono-data font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 shrink-0">
+              ✓ Pre-Selected
+            </span>
+
+            {/* Hidden Input ensuring form submission receives the locked value */}
+            <input
+              type="hidden"
+              id="serviceNeeded"
+              value={defaultService}
+              {...register("serviceNeeded")}
+            />
+          </div>
+        ) : (
+          <select
+            id="serviceNeeded"
+            {...register("serviceNeeded")}
+            className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink bg-white ${
+              errors.serviceNeeded
+                ? "border-brand-red focus:ring-2 focus:ring-brand-red"
+                : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+            }`}
+          >
+            <option value="">-- Select Pest or Facility Type --</option>
+            <option value="Commercial Pest Control & Food Safety">
+              🏢 Commercial Pest Control & Food Safety
             </option>
-          ))}
-          <option value="Other / Emergency Inspection">Other / Emergency Inspection</option>
-        </select>
+            <option value="Commercial Restaurant & Kitchen Defense">
+              🍽️ Restaurant & Food Service Program
+            </option>
+            <option value="Commercial Warehouse & Logistics IPM">
+              🏭 Warehouse & Industrial Facility
+            </option>
+            <option value="Commercial Property Management & Multi-Unit">
+              🏬 Multi-Unit Residential & Property Management
+            </option>
+            {SERVICES.filter((s) => s.id !== "commercial-pest-control").map((s) => (
+              <option key={s.id} value={s.title}>
+                {s.title}
+              </option>
+            ))}
+            <option value="Other / Emergency Inspection">Other / Custom Facility Inspection</option>
+          </select>
+        )}
+
         {errors.serviceNeeded && (
           <p className="text-xs font-semibold text-brand-red flex items-center gap-1">
             <AlertCircle className="w-3.5 h-3.5" />
@@ -188,14 +260,14 @@ export default function ContactForm() {
       {/* Field 4: Address/City */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="addressOrCity" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Address or GTA City <span className="text-brand-red">*</span>
+          Facility Address or GTA City <span className="text-brand-red">*</span>
         </label>
         <input
           id="addressOrCity"
           type="text"
-          placeholder="e.g. 120 Yonge St, Toronto or Mississauga"
+          placeholder="e.g. 500 King St W, Toronto or Mississauga"
           {...register("addressOrCity")}
-          className={`w-full px-4 py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
+          className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
             errors.addressOrCity
               ? "border-brand-red focus:ring-2 focus:ring-brand-red"
               : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
@@ -212,14 +284,14 @@ export default function ContactForm() {
       {/* Field 5: Brief Message */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="message" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Brief Details (Optional)
+          Facility Details or Urgency (Optional)
         </label>
         <textarea
           id="message"
           rows={3}
-          placeholder="Describe pest location (e.g. attic noises, kitchen ant trail)..."
+          placeholder="Describe your facility size, pest concerns, or preferred inspection time..."
           {...register("message")}
-          className="w-full px-4 py-3 rounded-lg border border-stone-300 text-sm transition-colors text-ink placeholder:text-stone-400 focus:border-brand-red focus:ring-1 focus:ring-brand-red bg-white"
+          className="w-full px-4 py-2.5 sm:py-3 rounded-lg border border-stone-300 text-sm transition-colors text-ink placeholder:text-stone-400 focus:border-brand-red focus:ring-1 focus:ring-brand-red bg-white"
         />
       </div>
 
@@ -229,23 +301,23 @@ export default function ContactForm() {
         disabled={isSubmitting}
         variant="primary"
         size="lg"
-        className="w-full"
+        className="w-full justify-center"
       >
         {isSubmitting ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Submitting...</span>
+            <span>Submitting Request...</span>
           </>
         ) : (
           <>
             <Send className="w-5 h-5" />
-            <span>Send Quote Request</span>
+            <span>Book Site Assessment &rarr;</span>
           </>
         )}
       </Button>
 
       <p className="text-[11px] text-center text-neutral-text font-mono-data">
-        🔒 Your phone number is kept confidential and only used for service dispatch.
+        🔒 Confidential &bull; Licensed Exterminator Inspection &bull; Zero Obligation
       </p>
     </form>
   );

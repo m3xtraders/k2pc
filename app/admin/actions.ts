@@ -185,7 +185,10 @@ export async function updateBusinessInfoAction(data: any) {
 }
 
 // CONTACT / LEAD ACTIONS
-export async function updateLeadStatusAction(id: string, status: "NEW" | "CONTACTED" | "CLOSED") {
+export async function updateLeadStatusAction(
+  id: string,
+  status: "NEW" | "CONTACTED" | "SCHEDULED" | "IN_PROGRESS" | "CLOSED" | "LOST" | string
+) {
   await prisma.contactSubmission.update({
     where: { id },
     data: { status: status as any },
@@ -205,3 +208,43 @@ export async function deleteLeadAction(id: string) {
   revalidatePath("/admin");
   return { success: true };
 }
+
+export async function sendLeadReplyAction(params: {
+  leadId: string;
+  to: string;
+  toName: string;
+  subject: string;
+  replyMessage: string;
+  originalMessage?: string | null;
+}) {
+  const { sendLeadReplyEmail } = await import("@/lib/email");
+  
+  await sendLeadReplyEmail({
+    to: params.to,
+    toName: params.toName,
+    subject: params.subject,
+    replyMessage: params.replyMessage,
+    originalMessage: params.originalMessage,
+  });
+
+  // Automatically advance lead status to CONTACTED if it was NEW
+  try {
+    const existing = await prisma.contactSubmission.findUnique({
+      where: { id: params.leadId },
+    });
+    if (existing && existing.status === "NEW") {
+      await prisma.contactSubmission.update({
+        where: { id: params.leadId },
+        data: { status: "CONTACTED" as any },
+      });
+    }
+  } catch (err) {
+    console.warn("Could not auto-advance lead status:", err);
+  }
+
+  revalidatePath("/admin/messages");
+  revalidatePath("/admin");
+  return { success: true };
+}
+
+

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI, Type } from "@google/genai";
 import { prisma } from "@/lib/prisma";
 import { getCompanyDetails, getPublishedServices } from "@/lib/content-db";
+import { sendLeadNotificationEmail } from "@/lib/email";
 
 export const maxDuration = 30; // 30s timeout
 
@@ -138,7 +139,7 @@ ${customAdminPrompt}
           {
             name: "captureLead",
             description:
-              "Captures lead contact info when a customer wants an inspection, callback, booking, or price quote.",
+              "Captures lead contact info whenever a customer provides their name, phone number, email, address, or requests an inspection, callback, booking, or price quote.",
             parameters: {
               type: Type.OBJECT,
               properties: {
@@ -156,15 +157,15 @@ ${customAdminPrompt}
                 },
                 city: {
                   type: Type.STRING,
-                  description: "City or address in the GTA",
+                  description: "City or address in the GTA (e.g., Toronto, Mississauga, Brampton, Markham, Vaughan)",
                 },
                 service: {
                   type: Type.STRING,
-                  description: "Pest type or service required (e.g., Bed Bugs, Mice, Ants)",
+                  description: "Pest type or service required (e.g., Bed Bugs, Cockroaches, Mice, Ants, Wasps, Wildlife)",
                 },
                 message: {
                   type: Type.STRING,
-                  description: "Details or notes regarding the infestation/request",
+                  description: "Details or notes regarding the customer problem, urgency, or request",
                 },
               },
               required: ["name", "phone"],
@@ -261,6 +262,17 @@ ${customAdminPrompt}
               city: savedLead.city,
             };
 
+            sendLeadNotificationEmail({
+              id: savedLead.id,
+              name: savedLead.name,
+              phone: savedLead.phone,
+              email: savedLead.email,
+              city: savedLead.city,
+              service: savedLead.service,
+              message: savedLead.message,
+              source: "AI Chatbot",
+            }).catch((err) => console.error("Async chatbot email error:", err));
+
             // If model didn't return text alongside function call, generate a warm confirmation
             if (!finalAssistantText) {
               finalAssistantText = `Thank you, **${args.name}**! 🎉 Your request for **${args.service || "pest inspection"}** has been sent to our on-duty dispatcher. One of our licensed exterminators will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
@@ -278,6 +290,45 @@ ${customAdminPrompt}
               finalAssistantText = `Thank you, **${args.name || "for reaching out"}**! 🎉 Your request for **${args.service || "pest inspection"}** has been recorded. Our dispatcher will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
             }
           }
+        }
+      }
+    }
+
+    // Heuristic Fallback: If no function call was triggered but user message contains a phone number
+    if (!leadCapturedData) {
+      const lastUserMsg = [...messages].reverse().find((m) => m.role === "user")?.text || "";
+      const phoneMatch = lastUserMsg.match(/(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/);
+      const emailMatch = lastUserMsg.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+
+      if (phoneMatch) {
+        try {
+          const extractedPhone = phoneMatch[0];
+          const extractedEmail = emailMatch ? emailMatch[0] : null;
+          
+          // Try to extract name if format is "my name is X" or "I'm X"
+          const nameMatch = lastUserMsg.match(/(?:my name is|i am|i'm|this is)\s+([A-Za-z]+(?:\s+[A-Za-z]+)?)/i);
+          const extractedName = nameMatch ? nameMatch[1].trim() : "Chat Customer";
+
+          const savedLead = await prisma.contactSubmission.create({
+            data: {
+              name: extractedName,
+              phone: extractedPhone,
+              email: extractedEmail,
+              city: null,
+              service: "AI Chatbot Inquiry",
+              message: `[Captured via AI Chatbot Auto-Detector]: Full user inquiry: "${lastUserMsg}"`,
+              status: "NEW",
+            },
+          });
+
+          leadCapturedData = {
+            id: savedLead.id,
+            name: savedLead.name,
+            phone: savedLead.phone,
+            service: savedLead.service,
+          };
+        } catch (err) {
+          console.warn("Fallback lead capture error:", err);
         }
       }
     }

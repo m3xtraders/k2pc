@@ -3,6 +3,7 @@ import Metadata from "next";
 import ServiceGrid from "@/components/sections/ServiceGrid";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
+import { CommercialHighlightBanner } from "@/components/sections/CommercialHighlightBanner";
 import { ShieldCheck, Phone } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { getCompanyDetails } from "@/lib/content-db";
@@ -10,7 +11,7 @@ import { getCompanyDetails } from "@/lib/content-db";
 export const metadata = {
   title: "Pest Extermination Services | Toronto & GTA",
   description:
-    "Explore K2PC's 11 dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
+    "Explore K2PC's dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
 };
 
 export default async function ServicesPage() {
@@ -35,6 +36,9 @@ export default async function ServicesPage() {
           </p>
         </div>
       </section>
+
+      {/* For Your Business / Commercial Top Feature Section */}
+      <CommercialHighlightBanner />
 
       <ServiceGrid showHeading={false} />
       <ProcessSteps />

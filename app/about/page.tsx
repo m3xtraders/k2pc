@@ -4,6 +4,9 @@ import Image from "next/image";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import StatsCounter from "@/components/sections/StatsCounter";
 import CTABand from "@/components/sections/CTABand";
+import Testimonials from "@/components/sections/Testimonials";
+import ServiceArea from "@/components/sections/ServiceArea";
+import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } from "lucide-react";
 
 export const metadata = {
@@ -215,6 +218,15 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Google Reviews Section */}
+      <Testimonials />
+
+      {/* GTA Service Locations Section */}
+      <ServiceArea />
+
+      {/* Interactive Google Map Section */}
+      <LocationMapWidget />
 
       <CTABand />
     </>

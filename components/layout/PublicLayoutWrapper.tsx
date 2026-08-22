@@ -10,9 +10,10 @@ import { ChatWidget } from "@/components/ui/ChatWidget";
 interface PublicLayoutWrapperProps {
   children: React.ReactNode;
   companyDetails?: any;
+  services?: any[];
 }
 
-export function PublicLayoutWrapper({ children, companyDetails }: PublicLayoutWrapperProps) {
+export function PublicLayoutWrapper({ children, companyDetails, services }: PublicLayoutWrapperProps) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
@@ -22,7 +23,7 @@ export function PublicLayoutWrapper({ children, companyDetails }: PublicLayoutWr
 
   return (
     <>
-      <Header companyDetails={companyDetails} />
+      <Header companyDetails={companyDetails} services={services} />
       <main id="main-content" className="flex-1">
         {children}
       </main>

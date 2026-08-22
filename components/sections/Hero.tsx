@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Phone, Shield, Clock, Award, CheckCircle } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { Button } from "@/components/ui/Button";
@@ -17,34 +16,35 @@ export default async function Hero({ companyDetails }: HeroProps = {}) {
   const stats = company?.stats || COMPANY_DETAILS.stats;
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-stone-800 bg-stone-950 text-white min-h-[560px] flex items-center">
-      {/* Full Background Image with Gradient Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=70"
-          alt={`${company?.name || "K2 Pest Control"} - Ontario Pest Control`}
-          fill
-          priority
-          fetchPriority="high"
-          quality={65}
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        {/* Dark Gradient Overlay for maximum readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/80 to-stone-950/45" />
-        <div className="absolute inset-0 bg-black/25" />
+    <section className="relative overflow-hidden pt-14 pb-16 md:pt-20 md:pb-24 border-b border-stone-800 bg-stone-950 text-white min-h-[580px] md:min-h-[640px] flex items-center">
+      {/* Full Background Video with Subtle Black Fade Overlay */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover object-top"
+        >
+          <source src="/assets/video/hero.mp4" type="video/mp4" />
+        </video>
+
+        {/* Lighter, balanced fade so video is clearly visible while text stays readable */}
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/80 via-stone-950/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-black/20" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl space-y-6 text-left">
           {/* Headline */}
-          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight">
+          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight drop-shadow-md">
             Fast, Guaranteed <br className="hidden sm:block" />
             <span className="text-brand-red">Pest Control</span> in Toronto & GTA
           </h1>
 
           {/* Subhead */}
-          <p className="text-base sm:text-lg text-stone-200 leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg text-stone-100 leading-relaxed max-w-2xl drop-shadow-sm">
             {company?.slogan || company?.tagline || "Eliminate ants, mice, bed bugs, wasps, and roaches with eco-conscious Integrated Pest Management. Same-day emergency response with a written 6-month warranty."}
           </p>
 

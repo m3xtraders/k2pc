@@ -123,23 +123,6 @@ export default async function ContactPage() {
                   <span>Ontario License #{licenseNumber}</span>
                 </div>
               </div>
-
-              {/* Styled Map Embed View */}
-              <div className="bg-stone-900 rounded-2xl overflow-hidden border border-stone-800 p-6 text-white space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-heading font-bold text-lg">GTA Service Radius</span>
-                  <span className="text-xs font-mono-data text-action-yellow font-semibold">60 km Radius</span>
-                </div>
-                <div className="h-44 rounded-xl bg-stone-800 border border-stone-700 relative overflow-hidden flex items-center justify-center text-center p-4">
-                  <div className="space-y-2">
-                    <MapPin className="w-8 h-8 text-brand-red mx-auto animate-bounce" />
-                    <p className="text-xs font-mono-data text-stone-300">
-                      Central Dispatch: 1200 Eglinton Ave E, Toronto<br />
-                      <span className="text-action-yellow font-semibold">Serving all 11 GTA Municipalities</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Right Contact Form Column */}

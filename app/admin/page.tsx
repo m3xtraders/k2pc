@@ -65,16 +65,16 @@ export default async function AdminDashboardPage() {
           icon={FileText}
         />
         <StatCard
-          title="New Leads Inbox"
+          title="New Leads (Action Req.)"
           value={leadsCount}
-          description="Submissions requiring response"
+          description="Inquiries requiring initial response"
           icon={MessageSquare}
           trend={leadsCount > 0 ? "Action required" : "All caught up"}
         />
         <StatCard
           title="System Status"
           value="Online"
-          description="Prisma DB + Neon active"
+          description="Prisma DB + Gemini AI active"
           icon={ArrowUpRight}
         />
       </div>
@@ -86,13 +86,13 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-[#BE2320]" />
-              Recent Contact Leads
+              Recent Pipeline Leads
             </h3>
             <Link
               href="/admin/messages"
               className="text-xs font-semibold text-[#BE2320] hover:underline"
             >
-              View Inbox &rarr;
+              Open Kanban Pipeline &rarr;
             </Link>
           </div>
 

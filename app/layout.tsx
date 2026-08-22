@@ -4,7 +4,7 @@ import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails } from "@/lib/content-db";
+import { getCompanyDetails, getPublishedServices } from "@/lib/content-db";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -92,7 +92,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const companyDetails = await getCompanyDetails();
+  const [companyDetails, services] = await Promise.all([
+    getCompanyDetails(),
+    getPublishedServices(),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -185,7 +188,7 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-        <PublicLayoutWrapper companyDetails={companyDetails}>{children}</PublicLayoutWrapper>
+        <PublicLayoutWrapper companyDetails={companyDetails} services={services}>{children}</PublicLayoutWrapper>
       </body>
     </html>
   );

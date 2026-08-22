@@ -101,5 +101,8 @@ enum Status {
 enum LeadStatus {
   NEW
   CONTACTED
+  SCHEDULED
+  IN_PROGRESS
   CLOSED
+  LOST
 }

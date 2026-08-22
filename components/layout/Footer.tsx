@@ -83,8 +83,13 @@ export default function Footer({ companyDetails }: FooterProps) {
                 </Link>
               </li>
               <li>
+                <Link href="/commercial" className="hover:text-action-yellow transition-colors font-semibold text-action-yellow">
+                  Commercial &amp; Facility IPM
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="hover:text-action-yellow transition-colors">
-                  About K2 Pest Control & Licensing
+                  About K2 Pest Control &amp; Licensing
                 </Link>
               </li>
               <li>
