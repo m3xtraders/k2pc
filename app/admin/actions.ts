@@ -247,4 +247,36 @@ export async function sendLeadReplyAction(params: {
   return { success: true };
 }
 
+export async function createManualLeadAction(data: {
+  name: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  service?: string | null;
+  source: string;
+  status?: "NEW" | "CONTACTED" | "SCHEDULED" | "IN_PROGRESS" | "CLOSED" | "LOST" | string;
+  notes?: string | null;
+}) {
+  const sourcePrefix = data.source ? `[Source: ${data.source}]` : "[Source: Manual]";
+  const messageBody = data.notes?.trim()
+    ? `${sourcePrefix} ${data.notes.trim()}`
+    : `${sourcePrefix} Manual lead created by admin`;
+
+  const created = await prisma.contactSubmission.create({
+    data: {
+      name: data.name.trim(),
+      phone: data.phone.trim(),
+      email: data.email?.trim() || null,
+      city: data.city?.trim() || null,
+      service: data.service?.trim() || "General Pest Inspection",
+      message: messageBody,
+      status: ((data.status as any) || "NEW") as any,
+    },
+  });
+
+  revalidatePath("/admin/messages");
+  revalidatePath("/admin");
+  return { success: true, lead: created };
+}
+
 

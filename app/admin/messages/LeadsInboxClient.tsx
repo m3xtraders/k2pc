@@ -8,7 +8,8 @@ import { StatusBadge } from "@/components/admin/StatusBadge";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { updateLeadStatusAction, deleteLeadAction, sendLeadReplyAction } from "@/app/admin/actions";
 import { LeadsKanbanBoard, PIPELINE_COLUMNS } from "./LeadsKanbanBoard";
-import { LeadItem } from "./LeadCard";
+import { LeadCard, LeadItem, getLeadSourceInfo } from "./LeadCard";
+import { ManualLeadModal } from "./ManualLeadModal";
 import {
   Eye,
   Trash2,
@@ -34,6 +35,11 @@ import {
   Check,
   ExternalLink,
   MessageSquareReply,
+  UserPlus,
+  PhoneCall,
+  Camera,
+  MessageCircle,
+  Megaphone,
 } from "lucide-react";
 
 interface LeadsInboxClientProps {
@@ -49,8 +55,9 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
   const [viewMode, setViewMode] = useState<"kanban" | "table">("kanban");
   const [selectedLead, setSelectedLead] = useState<LeadItem | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [manualModalOpen, setManualModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sourceFilter, setSourceFilter] = useState<"ALL" | "CHATBOT" | "WEB">("ALL");
+  const [sourceFilter, setSourceFilter] = useState<string>("ALL");
   const [tableStatusFilter, setTableStatusFilter] = useState<string>("ALL");
 
   // Email Reply State
@@ -68,7 +75,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
     setRecipientEmail(lead.email || "");
     setReplySubject(`Re: Pest Control Inquiry - ${lead.service || "K2 Pest Control"}`);
     setReplyMessage(
-      `Hi ${lead.name},\n\nThank you for reaching out to K2 Pest Control regarding your inquiry for ${lead.service || "pest inspection"}.\n\nOur certified technician can perform an on-site inspection and quote. What day and time works best for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (416) 555-0199`
+      `Hi ${lead.name},\n\nThank you for reaching out to K2 Pest Control regarding your inquiry for ${lead.service || "pest inspection"}.\n\nOur certified technician can perform an on-site inspection and quote in ${lead.city || "your area"}. What day and time works best for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (416) 555-0199`
     );
   };
 
@@ -80,13 +87,17 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
   // Lead Filtering
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
-      const isChatbot =
-        (lead.message && lead.message.includes("[Captured via AI Chatbot]")) ||
-        (lead.service && lead.service.includes("AI Chatbot"));
+      const source = getLeadSourceInfo(lead).label.toUpperCase();
 
       // Source Filter
-      if (sourceFilter === "CHATBOT" && !isChatbot) return false;
-      if (sourceFilter === "WEB" && isChatbot) return false;
+      if (sourceFilter !== "ALL") {
+        if (sourceFilter === "CHATBOT" && source !== "AI CHATBOT") return false;
+        if (sourceFilter === "WEB" && source !== "WEB FORM") return false;
+        if (sourceFilter === "CALL" && source !== "PHONE CALL") return false;
+        if (sourceFilter === "INSTAGRAM" && source !== "INSTAGRAM") return false;
+        if (sourceFilter === "WHATSAPP" && source !== "WHATSAPP") return false;
+        if (sourceFilter === "ADS" && source !== "PAID ADS") return false;
+      }
 
       // Table View Status Filter
       if (viewMode === "table" && tableStatusFilter !== "ALL") {
@@ -118,13 +129,12 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
     const closedCount = leads.filter(
       (l) => (l.status || "").toUpperCase() === "CLOSED"
     ).length;
-    const chatbotCount = leads.filter(
-      (l) =>
-        (l.message && l.message.includes("[Captured via AI Chatbot]")) ||
-        (l.service && l.service.includes("AI Chatbot"))
-    ).length;
+    const manualCount = leads.filter((l) => {
+      const src = getLeadSourceInfo(l).label;
+      return ["Phone Call", "Instagram", "WhatsApp", "Paid Ads", "Referral", "Manual Entry"].includes(src);
+    }).length;
 
-    return { total, newCount, inPipeline, closedCount, chatbotCount };
+    return { total, newCount, inPipeline, closedCount, manualCount };
   }, [leads]);
 
   // Handle Drag & Drop / Quick Move status updates
@@ -142,41 +152,35 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
 
     try {
       await updateLeadStatusAction(id, newStatus);
-      const stageName =
-        PIPELINE_COLUMNS.find((c) => c.key === newStatus)?.label || newStatus;
-      toast.success(`Lead moved to ${stageName}`);
-      startTransition(() => {
-        router.refresh();
-      });
+      toast.success(
+        `Lead moved to ${PIPELINE_COLUMNS.find((c) => c.key === newStatus)?.label || newStatus}`
+      );
     } catch (error) {
       setLeads(previousLeads);
-      toast.error("Failed to update lead status. Reverting changes.");
+      toast.error("Failed to update status");
     }
   };
 
-  // Handle Delete
-  const handleDelete = async () => {
+  // Handle Deleting Lead
+  const handleDeleteLead = async () => {
     if (!deleteId) return;
-    const previousLeads = [...leads];
-
-    // Optimistic Removal
-    setLeads((prev) => prev.filter((l) => l.id !== deleteId));
-    if (selectedLead?.id === deleteId) {
-      setSelectedLead(null);
-    }
 
     try {
       await deleteLeadAction(deleteId);
-      toast.success("Lead record deleted successfully");
-      startTransition(() => {
-        router.refresh();
-      });
+      setLeads((prev) => prev.filter((lead) => lead.id !== deleteId));
+      if (selectedLead?.id === deleteId) {
+        setSelectedLead(null);
+      }
+      toast.success("Lead removed successfully");
     } catch (error) {
-      setLeads(previousLeads);
       toast.error("Failed to delete lead");
     } finally {
       setDeleteId(null);
     }
+  };
+
+  const handleLeadCreated = (newLead: LeadItem) => {
+    setLeads((prev) => [newLead, ...prev]);
   };
 
   // Table Columns Definition
@@ -184,9 +188,8 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
     {
       header: "Customer",
       cell: (item) => {
-        const isChatbot =
-          (item.message && item.message.includes("[Captured via AI Chatbot]")) ||
-          (item.service && item.service.includes("AI Chatbot"));
+        const sourceInfo = getLeadSourceInfo(item);
+        const SourceIcon = sourceInfo.icon;
 
         return (
           <div className="flex items-center gap-2.5">
@@ -204,11 +207,9 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                 >
                   {item.phone}
                 </a>
-                {isChatbot && (
-                  <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-purple-700 bg-purple-50 px-1.5 py-0.2 rounded border border-purple-200">
-                    <Bot className="w-2.5 h-2.5" /> Bot
-                  </span>
-                )}
+                <span className={`inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded border ${sourceInfo.badgeClass}`}>
+                  <SourceIcon className="w-2.5 h-2.5" /> {sourceInfo.label}
+                </span>
               </div>
             </div>
           </div>
@@ -254,10 +255,10 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
       cell: (item) => (
         <div className="flex items-center gap-1.5">
           <button
-            onClick={() => setSelectedLead(item)}
-            className="px-2.5 py-1 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors flex items-center gap-1"
+            onClick={() => handleOpenLead(item)}
+            className="px-2.5 py-1 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
           >
-            <Eye className="w-3.5 h-3.5" /> View
+            <Eye className="w-3.5 h-3.5" /> Reply
           </button>
           <button
             onClick={() => setDeleteId(item.id)}
@@ -307,103 +308,95 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
           <p className="text-2xl font-black text-emerald-800 tracking-tight">{stats.closedCount}</p>
         </div>
 
-        <div className="col-span-2 lg:col-span-1 bg-purple-50/60 p-4 rounded-xl border border-purple-200 shadow-2xs">
-          <div className="flex items-center justify-between text-purple-800 text-xs font-semibold mb-1">
-            <span>AI Bot Captured</span>
-            <Bot className="w-4 h-4 text-purple-600" />
+        <div className="col-span-2 lg:col-span-1 bg-blue-50/60 p-4 rounded-xl border border-blue-200 shadow-2xs">
+          <div className="flex items-center justify-between text-blue-800 text-xs font-semibold mb-1">
+            <span>Manual &amp; Direct Leads</span>
+            <UserPlus className="w-4 h-4 text-blue-600" />
           </div>
-          <p className="text-2xl font-black text-purple-800 tracking-tight">{stats.chatbotCount}</p>
+          <p className="text-2xl font-black text-blue-800 tracking-tight">{stats.manualCount}</p>
         </div>
       </div>
 
-      {/* Control Bar: View Toggle, Search, and Source Filter */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-2xs">
-        {/* Left: View Mode Toggle */}
-        <div className="flex items-center gap-1.5 p-1 bg-stone-100 rounded-lg w-fit">
-          <button
-            onClick={() => setViewMode("kanban")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-              viewMode === "kanban"
-                ? "bg-white text-stone-900 shadow-xs"
-                : "text-stone-600 hover:text-stone-900"
-            }`}
-          >
-            <Kanban className="w-3.5 h-3.5 text-[#BE2320]" />
-            Kanban Board
-          </button>
+      {/* Control Bar: View Toggle, Create Button, Search, and Source Filter */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-2xs">
+        {/* Left: View Mode Toggle & Add Manual Lead Button */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 p-1 bg-stone-100 rounded-lg">
+            <button
+              onClick={() => setViewMode("kanban")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                viewMode === "kanban"
+                  ? "bg-white text-stone-900 shadow-xs"
+                  : "text-stone-600 hover:text-stone-900"
+              }`}
+            >
+              <Kanban className="w-3.5 h-3.5 text-[#BE2320]" />
+              Kanban Board
+            </button>
+
+            <button
+              onClick={() => setViewMode("table")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                viewMode === "table"
+                  ? "bg-white text-stone-900 shadow-xs"
+                  : "text-stone-600 hover:text-stone-900"
+              }`}
+            >
+              <ListFilter className="w-3.5 h-3.5 text-[#BE2320]" />
+              Table List
+            </button>
+          </div>
 
           <button
-            onClick={() => setViewMode("table")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-              viewMode === "table"
-                ? "bg-white text-stone-900 shadow-xs"
-                : "text-stone-600 hover:text-stone-900"
-            }`}
+            type="button"
+            onClick={() => setManualModalOpen(true)}
+            className="px-3.5 py-2 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <ListFilter className="w-3.5 h-3.5 text-[#BE2320]" />
-            Table List
+            <UserPlus className="w-3.5 h-3.5" />
+            <span>+ Create Manual Lead</span>
           </button>
         </div>
 
         {/* Center/Right: Search and Source Filters */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          {/* Source Filter Chips */}
-          <div className="flex items-center gap-1 text-xs">
-            <button
-              onClick={() => setSourceFilter("ALL")}
-              className={`px-2.5 py-1.5 rounded-lg font-medium border transition-colors ${
-                sourceFilter === "ALL"
-                  ? "bg-stone-900 text-white border-stone-900"
-                  : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50"
-              }`}
-            >
-              All Sources
-            </button>
-            <button
-              onClick={() => setSourceFilter("CHATBOT")}
-              className={`px-2.5 py-1.5 rounded-lg font-medium border flex items-center gap-1 transition-colors ${
-                sourceFilter === "CHATBOT"
-                  ? "bg-purple-700 text-white border-purple-700"
-                  : "bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100"
-              }`}
-            >
-              <Bot className="w-3 h-3" /> AI Chatbot
-            </button>
-            <button
-              onClick={() => setSourceFilter("WEB")}
-              className={`px-2.5 py-1.5 rounded-lg font-medium border flex items-center gap-1 transition-colors ${
-                sourceFilter === "WEB"
-                  ? "bg-stone-700 text-white border-stone-700"
-                  : "bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100"
-              }`}
-            >
-              <Globe className="w-3 h-3" /> Web Form
-            </button>
-          </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Source Filter Select */}
+          <select
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+            className="px-3 py-1.5 text-xs bg-stone-50 border border-stone-200 rounded-lg font-medium text-stone-800 focus:outline-none focus:border-[#BE2320]"
+          >
+            <option value="ALL">All Sources ({leads.length})</option>
+            <option value="CHATBOT">🤖 AI Chatbot</option>
+            <option value="WEB">🌐 Web Form</option>
+            <option value="CALL">📱 Phone Call</option>
+            <option value="INSTAGRAM">📷 Instagram</option>
+            <option value="WHATSAPP">💬 WhatsApp</option>
+            <option value="ADS">📢 Paid Ads</option>
+          </select>
 
           {/* Search Box */}
-          <div className="relative min-w-[220px] flex-1 sm:flex-initial">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <div className="relative flex-1 sm:w-64">
+            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search leads..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-stone-50 border border-stone-300 rounded-lg text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#BE2320] focus:bg-white transition-colors"
+              className="w-full pl-8 pr-7 py-1.5 text-xs bg-stone-50 border border-stone-200 rounded-lg text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#BE2320] focus:bg-white transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3 h-3" />
               </button>
             )}
           </div>
         </div>
       </div>
 
-      {/* Main Views */}
+      {/* Main View Area: Kanban vs Table */}
       {viewMode === "kanban" ? (
         <LeadsKanbanBoard
           leads={filteredLeads}
@@ -412,85 +405,70 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
           onDeleteLead={(id) => setDeleteId(id)}
         />
       ) : (
-        <div className="space-y-4">
-          {/* Status Filter Pills for Table */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
-            {["ALL", ...PIPELINE_COLUMNS.map((c) => c.key)].map((st) => {
-              const label =
-                st === "ALL"
-                  ? "All Stages"
-                  : PIPELINE_COLUMNS.find((c) => c.key === st)?.label || st;
-              const count =
-                st === "ALL"
-                  ? leads.length
-                  : leads.filter((s) => (s.status || "NEW").toUpperCase() === st).length;
-
-              return (
-                <button
-                  key={st}
-                  onClick={() => setTableStatusFilter(st)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                    tableStatusFilter === st
-                      ? "bg-[#BE2320] text-white"
-                      : "bg-white border border-stone-200 text-stone-600 hover:bg-stone-100"
-                  }`}
-                >
-                  {label} ({count})
-                </button>
-              );
-            })}
-          </div>
-
-          <DataTable
-            columns={tableColumns}
-            data={filteredLeads}
-            searchPlaceholder="Search leads in table..."
-            emptyTitle="No Leads Found"
-            emptyDescription="There are no inquiries matching your active filters."
-          />
-        </div>
+        <DataTable
+          columns={tableColumns}
+          data={filteredLeads}
+          searchPlaceholder="Search leads in table..."
+          emptyTitle="No Leads Found"
+          emptyDescription="No customer inquiries match your filter criteria."
+        />
       )}
 
-      {/* Lead Details & Reply Modal */}
-      {selectedLead && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-stone-200 p-6 space-y-5 max-h-[92vh] overflow-y-auto">
-            <button
-              onClick={() => setSelectedLead(null)}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-1"
-            >
-              <X className="w-5 h-5" />
-            </button>
+      {/* Create Manual Lead Modal */}
+      <ManualLeadModal
+        isOpen={manualModalOpen}
+        onClose={() => setManualModalOpen(false)}
+        onLeadCreated={handleLeadCreated}
+      />
 
+      {/* Lead Details & Reply Drawer / Modal */}
+      {selectedLead && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="fixed inset-0" onClick={() => setSelectedLead(null)} />
+
+          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-stone-200 p-6 z-10 max-h-[90vh] overflow-y-auto space-y-5 animate-in zoom-in-95 duration-150">
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-stone-100 pb-4 gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-xl font-bold text-stone-900">{selectedLead.name}</h3>
-                  {selectedLead.message?.includes("[Captured via AI Chatbot]") && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800">
-                      <Bot className="w-3 h-3" /> AI Chatbot
-                    </span>
-                  )}
+            <div className="flex items-start justify-between border-b border-stone-200 pb-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-heading font-bold text-lg text-stone-900">
+                    {selectedLead.name}
+                  </h3>
+                  <StatusBadge status={selectedLead.status} />
+                  {(() => {
+                    const src = getLeadSourceInfo(selectedLead);
+                    const SrcIcon = src.icon;
+                    return (
+                      <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded border ${src.badgeClass}`}>
+                        <SrcIcon className="w-3 h-3" /> {src.label}
+                      </span>
+                    );
+                  })()}
                 </div>
-                <p className="text-xs text-stone-500">
-                  Received {new Date(selectedLead.createdAt).toLocaleString()}
+                <p className="text-xs text-stone-400">
+                  Received on {new Date(selectedLead.createdAt).toLocaleString()}
                 </p>
               </div>
-              <StatusBadge status={selectedLead.status} />
+
+              <button
+                onClick={() => setSelectedLead(null)}
+                className="text-stone-400 hover:text-stone-700 p-1 rounded-lg hover:bg-stone-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Lead Summary Grid */}
-            <div className="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2.5 text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Customer Details Box */}
+            <div className="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div>
                   <span className="text-[11px] text-stone-500 font-semibold block">PHONE NUMBER:</span>
                   <div className="flex items-center gap-2 mt-0.5">
                     <a
                       href={`tel:${selectedLead.phone.replace(/[^0-9+]/g, "")}`}
-                      className="font-bold text-[#BE2320] hover:underline flex items-center gap-1.5"
+                      className="text-stone-900 font-bold hover:text-[#BE2320] hover:underline flex items-center gap-1.5"
                     >
-                      <Phone className="w-3.5 h-3.5" />
+                      <Phone className="w-3.5 h-3.5 text-stone-400" />
                       {selectedLead.phone}
                     </a>
                     <button
@@ -535,7 +513,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                       </button>
                     </div>
                   ) : (
-                    <span className="text-xs text-stone-400 italic">Not provided by customer</span>
+                    <span className="text-xs text-stone-400 italic">Not provided</span>
                   )}
                 </div>
 
@@ -556,7 +534,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
               </div>
 
               <div className="pt-2 border-t border-stone-200/80">
-                <span className="text-[11px] text-stone-500 font-semibold block mb-1">CUSTOMER INQUIRY:</span>
+                <span className="text-[11px] text-stone-500 font-semibold block mb-1">INQUIRY / CALL DETAILS:</span>
                 <p className="text-xs text-stone-800 bg-white p-2.5 rounded-lg border border-stone-200 leading-relaxed whitespace-pre-wrap">
                   {selectedLead.message || "No extra comments provided."}
                 </p>
@@ -646,7 +624,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                             `Hi ${selectedLead.name},\n\nWe received your inquiry regarding ${selectedLead.service || "pest inspection"}.\n\nOur certified technician is available to perform an on-site inspection in ${selectedLead.city || "your area"}. Would tomorrow morning or afternoon work better for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (416) 555-0199`
                           );
                         }}
-                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium"
+                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"
                       >
                         📅 Schedule Inspection
                       </button>
@@ -658,7 +636,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                             `Hi ${selectedLead.name},\n\nThank you for requesting a quote for ${selectedLead.service || "pest removal"}.\n\nOur standard treatment includes complete eradication, eco-safe application, and a 6-month written warranty. Please call us at (416) 555-0199 so we can finalize the booking.\n\nBest regards,\nK2 Pest Control Team`
                           );
                         }}
-                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium"
+                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"
                       >
                         💰 Quote Follow-up
                       </button>
@@ -670,7 +648,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                             `Hi ${selectedLead.name},\n\nThank you for reaching out regarding commercial pest management for your facility in ${selectedLead.city || "the Greater Toronto Area"}.\n\nWe provide discrete, audit-ready IPM programs with digital health logbooks and 24/7 priority dispatch. Let us know when we can conduct your complimentary on-site walk-through.\n\nBest regards,\nK2 Commercial Division\nPhone: (416) 555-0199`
                           );
                         }}
-                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium"
+                        className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"
                       >
                         🏢 Commercial Proposal
                       </button>
@@ -777,9 +755,8 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         <ExternalLink className="w-3.5 h-3.5 text-sky-600" />
                       </a>
                     ) : (
-                      <div className="p-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-400 flex items-center gap-2 text-xs">
-                        <Mail className="w-4 h-4" />
-                        <span>No Email Provided</span>
+                      <div className="p-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-500 text-xs flex items-center justify-center">
+                        No email provided for mailto
                       </div>
                     )}
                   </div>
@@ -787,62 +764,43 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
               </div>
             </div>
 
-            {/* Quick Stage Status Updater */}
-            <div className="pt-3 border-t border-stone-100 space-y-2">
-              <span className="text-xs font-bold text-stone-600 block">
-                Update Workflow Progress Stage:
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {PIPELINE_COLUMNS.map((col) => {
-                  const isCurrent =
-                    (selectedLead.status || "NEW").toUpperCase() === col.key;
-                  return (
-                    <button
-                      key={col.key}
-                      onClick={() => handleUpdateStatus(selectedLead.id, col.key)}
-                      className={`px-3 py-2 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all ${
-                        isCurrent
-                          ? "bg-stone-900 text-white border-stone-900 shadow-xs"
-                          : "bg-white text-stone-700 border-stone-200 hover:bg-stone-100"
-                      }`}
-                    >
-                      {isCurrent && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
-                      {col.label}
-                    </button>
-                  );
-                })}
+            {/* Quick Status Movement */}
+            <div className="pt-2 border-t border-stone-200 flex items-center justify-between">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-xs text-stone-500 font-medium">Pipeline Stage:</span>
+                {PIPELINE_COLUMNS.map((col) => (
+                  <button
+                    key={col.key}
+                    onClick={() => handleUpdateStatus(selectedLead.id, col.key)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      selectedLead.status === col.key
+                        ? "bg-stone-900 text-white shadow-xs"
+                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                    }`}
+                  >
+                    {col.label}
+                  </button>
+                ))}
               </div>
-            </div>
 
-            {/* Delete Trigger */}
-            <div className="flex justify-between items-center pt-2">
               <button
-                onClick={() => {
-                  setDeleteId(selectedLead.id);
-                }}
-                className="text-xs text-red-600 hover:text-red-800 font-semibold flex items-center gap-1 hover:underline"
+                onClick={() => setDeleteId(selectedLead.id)}
+                className="text-xs text-red-600 hover:text-red-800 font-semibold p-1 hover:bg-red-50 rounded"
               >
-                <Trash2 className="w-3.5 h-3.5" />
-                Delete this lead
-              </button>
-              <button
-                onClick={() => setSelectedLead(null)}
-                className="px-4 py-1.5 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors"
-              >
-                Close
+                Delete
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Confirmation Dialog */}
       <ConfirmDialog
         isOpen={!!deleteId}
         title="Delete Lead Record"
-        message="Are you sure you want to delete this lead from your CRM pipeline? This action cannot be undone."
+        message="Are you sure you want to delete this lead? This action cannot be undone."
         confirmLabel="Delete Lead"
-        onConfirm={handleDelete}
+        onConfirm={handleDeleteLead}
         onClose={() => setDeleteId(null)}
       />
     </div>

@@ -14,6 +14,12 @@ import {
   CheckCircle2,
   ArrowRight,
   GripVertical,
+  Camera,
+  MessageCircle,
+  PhoneCall,
+  Megaphone,
+  Users,
+  UserPlus,
 } from "lucide-react";
 
 export interface LeadItem {
@@ -37,6 +43,34 @@ interface LeadCardProps {
   isDragging?: boolean;
 }
 
+export function getLeadSourceInfo(lead: LeadItem) {
+  const msg = lead.message || "";
+  const srv = lead.service || "";
+
+  if (msg.includes("[Captured via AI Chatbot]") || srv.includes("AI Chatbot")) {
+    return { label: "AI Chatbot", icon: Bot, badgeClass: "bg-purple-50 text-purple-700 border-purple-200" };
+  }
+  if (msg.includes("[Source: Instagram]") || msg.toLowerCase().includes("instagram")) {
+    return { label: "Instagram", icon: Camera, badgeClass: "bg-pink-50 text-pink-700 border-pink-200" };
+  }
+  if (msg.includes("[Source: WhatsApp]") || msg.toLowerCase().includes("whatsapp")) {
+    return { label: "WhatsApp", icon: MessageCircle, badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200" };
+  }
+  if (msg.includes("[Source: Phone Call]") || msg.includes("[Source: Call]")) {
+    return { label: "Phone Call", icon: PhoneCall, badgeClass: "bg-blue-50 text-blue-700 border-blue-200" };
+  }
+  if (msg.includes("[Source: Ads]") || msg.includes("[Source: Google Ads]") || msg.includes("[Source: Facebook Ads]")) {
+    return { label: "Paid Ads", icon: Megaphone, badgeClass: "bg-amber-50 text-amber-800 border-amber-200" };
+  }
+  if (msg.includes("[Source: Referral]")) {
+    return { label: "Referral", icon: Users, badgeClass: "bg-teal-50 text-teal-700 border-teal-200" };
+  }
+  if (msg.includes("[Source: Walk-in]") || msg.includes("[Source: Manual]")) {
+    return { label: "Manual Entry", icon: UserPlus, badgeClass: "bg-stone-100 text-stone-800 border-stone-300" };
+  }
+  return { label: "Web Form", icon: Globe, badgeClass: "bg-stone-100 text-stone-700 border-stone-200" };
+}
+
 export const LeadCard: React.FC<LeadCardProps> = ({
   lead,
   onView,
@@ -46,15 +80,14 @@ export const LeadCard: React.FC<LeadCardProps> = ({
   isDragging = false,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
-
-  const isChatbot =
-    (lead.message && lead.message.includes("[Captured via AI Chatbot]")) ||
-    (lead.service && lead.service.includes("AI Chatbot"));
+  const sourceInfo = getLeadSourceInfo(lead);
+  const SourceIcon = sourceInfo.icon;
 
   const getCleanMessage = (msg?: string | null) => {
     if (!msg) return "";
     return msg
       .replace(/\[Captured via AI Chatbot[^\]]*\]:?\s*/i, "")
+      .replace(/\[Source:[^\]]*\]:?\s*/i, "")
       .replace(/Full user inquiry:\s*"?/i, "")
       .replace(/"$/, "")
       .trim();
@@ -103,17 +136,10 @@ export const LeadCard: React.FC<LeadCardProps> = ({
         <div className="flex items-center gap-1.5">
           <GripVertical className="w-3.5 h-3.5 text-stone-300 group-hover:text-stone-500 shrink-0 transition-colors" />
           
-          {isChatbot ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
-              <Bot className="w-3 h-3 text-purple-600" />
-              AI Chatbot
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-stone-100 text-stone-700 border border-stone-200">
-              <Globe className="w-3 h-3 text-stone-500" />
-              Web Form
-            </span>
-          )}
+          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold border ${sourceInfo.badgeClass}`}>
+            <SourceIcon className="w-3 h-3" />
+            {sourceInfo.label}
+          </span>
         </div>
 
         <div className="flex items-center gap-1">
@@ -150,7 +176,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({
                     className="w-full px-3 py-1.5 text-left text-stone-700 hover:bg-stone-100 flex items-center gap-2"
                   >
                     <Eye className="w-3.5 h-3.5 text-stone-500" />
-                    View Details
+                    View Details &amp; Reply
                   </button>
 
                   <div className="px-3 py-1 text-[10px] font-bold text-stone-400 uppercase tracking-wider border-t border-stone-100 mt-1">
@@ -220,7 +246,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({
       {/* Service & City Tags */}
       <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
         {lead.service && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-stone-100 text-stone-800 border border-stone-200">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-stone-100 text-stone-800 border border-stone-200 truncate max-w-[180px]">
             {lead.service.replace("AI Chatbot Inquiry", "Chat Inquiry")}
           </span>
         )}
@@ -265,10 +291,10 @@ export const LeadCard: React.FC<LeadCardProps> = ({
         <button
           type="button"
           onClick={() => onView(lead)}
-          className="ml-auto inline-flex items-center gap-1 text-[11px] font-semibold text-[#BE2320] hover:text-[#961c1a] hover:bg-red-50 px-2 py-1 rounded-lg transition-colors"
+          className="ml-auto inline-flex items-center gap-1 text-[11px] font-semibold text-[#BE2320] hover:text-[#961c1a] hover:bg-red-50 px-2 py-1 rounded-lg transition-colors cursor-pointer"
         >
           <Eye className="w-3 h-3" />
-          Details
+          Reply
         </button>
       </div>
     </div>

@@ -12,6 +12,7 @@ export async function POST(request: Request) {
       data: {
         name: validated.name,
         phone: validated.phone,
+        email: validated.email ? validated.email.trim() : null,
         service: validated.serviceNeeded,
         city: validated.addressOrCity,
         message: validated.message || "",
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
       id: submission.id,
       name: validated.name,
       phone: validated.phone,
+      email: validated.email ? validated.email.trim() : null,
       service: validated.serviceNeeded,
       city: validated.addressOrCity,
       message: validated.message,

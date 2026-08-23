@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, ContactFormValues } from "@/lib/validations";
 import { SERVICES } from "@/lib/content/services";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2, AlertCircle, Loader2, Send, Building2 } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, Send, Building2, Mail, Phone } from "lucide-react";
 
 interface ContactFormProps {
   defaultService?: string;
@@ -40,6 +40,7 @@ export default function ContactForm({
     defaultValues: {
       name: "",
       phone: "",
+      email: "",
       serviceNeeded: defaultService || "",
       addressOrCity: "",
       message: "",
@@ -95,7 +96,7 @@ export default function ContactForm({
           Request Received!
         </h3>
         <p className="text-sm text-emerald-800 leading-relaxed max-w-md mx-auto">
-          Thank you for contacting K2 Pest Control. Our commercial dispatch specialist is reviewing your facility requirements and will call you shortly.
+          Thank you for contacting K2 Pest Control. Our dispatch specialist is reviewing your inquiry and will contact you promptly.
         </p>
         <div className="pt-2">
           <Button
@@ -143,7 +144,7 @@ export default function ContactForm({
         <input
           id="name"
           type="text"
-          placeholder="e.g. Sarah Jenkins (Operations Manager)"
+          placeholder="e.g. Sarah Jenkins"
           {...register("name")}
           className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
             errors.name
@@ -159,31 +160,62 @@ export default function ContactForm({
         )}
       </div>
 
-      {/* Field 2: Phone */}
-      <div className="space-y-1.5 text-left">
-        <label htmlFor="phone" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Phone Number <span className="text-brand-red">*</span>
-        </label>
-        <input
-          id="phone"
-          type="tel"
-          placeholder="e.g. (416) 555-0199"
-          {...register("phone")}
-          className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
-            errors.phone
-              ? "border-brand-red focus:ring-2 focus:ring-brand-red"
-              : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-          }`}
-        />
-        {errors.phone && (
-          <p className="text-xs font-semibold text-brand-red flex items-center gap-1">
-            <AlertCircle className="w-3.5 h-3.5" />
-            <span>{errors.phone.message}</span>
-          </p>
-        )}
+      {/* Field 2 & 3: Phone & Email in a 2-Column Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Phone */}
+        <div className="space-y-1.5 text-left">
+          <label htmlFor="phone" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+            Phone Number <span className="text-brand-red">*</span>
+          </label>
+          <div className="relative">
+            <input
+              id="phone"
+              type="tel"
+              placeholder="e.g. (416) 555-0199"
+              {...register("phone")}
+              className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
+                errors.phone
+                  ? "border-brand-red focus:ring-2 focus:ring-brand-red"
+                  : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+              }`}
+            />
+          </div>
+          {errors.phone && (
+            <p className="text-xs font-semibold text-brand-red flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span>{errors.phone.message}</span>
+            </p>
+          )}
+        </div>
+
+        {/* Email */}
+        <div className="space-y-1.5 text-left">
+          <label htmlFor="email" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+            Email Address <span className="text-neutral-text text-[10px] lowercase font-normal">(optional)</span>
+          </label>
+          <div className="relative">
+            <input
+              id="email"
+              type="email"
+              placeholder="e.g. sarah@example.com"
+              {...register("email")}
+              className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
+                errors.email
+                  ? "border-brand-red focus:ring-2 focus:ring-brand-red"
+                  : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+              }`}
+            />
+          </div>
+          {errors.email && (
+            <p className="text-xs font-semibold text-brand-red flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span>{errors.email.message}</span>
+            </p>
+          )}
+        </div>
       </div>
 
-      {/* Field 3: Service Needed */}
+      {/* Field 4: Service Needed */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="serviceNeeded" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
           Selected Service / Facility Program <span className="text-brand-red">*</span>
@@ -229,16 +261,16 @@ export default function ContactForm({
           >
             <option value="">-- Select Pest or Facility Type --</option>
             <option value="Commercial Pest Control & Food Safety">
-              🏢 Commercial Pest Control & Food Safety
+              🏢 Commercial Pest Control &amp; Food Safety
             </option>
             <option value="Commercial Restaurant & Kitchen Defense">
-              🍽️ Restaurant & Food Service Program
+              🍽️ Restaurant &amp; Food Service Program
             </option>
             <option value="Commercial Warehouse & Logistics IPM">
-              🏭 Warehouse & Industrial Facility
+              🏭 Warehouse &amp; Industrial Facility
             </option>
             <option value="Commercial Property Management & Multi-Unit">
-              🏬 Multi-Unit Residential & Property Management
+              🏬 Multi-Unit Residential &amp; Property Management
             </option>
             {SERVICES.filter((s) => s.id !== "commercial-pest-control").map((s) => (
               <option key={s.id} value={s.title}>
@@ -257,7 +289,7 @@ export default function ContactForm({
         )}
       </div>
 
-      {/* Field 4: Address/City */}
+      {/* Field 5: Address/City */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="addressOrCity" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
           Facility Address or GTA City <span className="text-brand-red">*</span>
@@ -281,7 +313,7 @@ export default function ContactForm({
         )}
       </div>
 
-      {/* Field 5: Brief Message */}
+      {/* Field 6: Brief Message */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="message" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
           Facility Details or Urgency (Optional)
