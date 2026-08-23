@@ -1,14 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails } from "@/lib/content-db";
+import type { Metadata } from "next";
+import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails, getPublishedLocations } from "@/lib/content-db";
 import { getServiceCoverImage } from "@/lib/content/services";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import ContactForm from "@/components/sections/ContactForm";
 import { Badge } from "@/components/ui/Badge";
-import { ShieldCheck, CheckCircle, AlertTriangle, Phone, FileText, CheckCircle2, ShieldAlert } from "lucide-react";
+import { ShieldCheck, CheckCircle, AlertTriangle, Phone, FileText, CheckCircle2, MapPin, ArrowUpRight } from "lucide-react";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -29,37 +30,79 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     return { title: "Service Not Found" };
   }
 
+  const canonicalUrl = `https://www.k2pc.ca/services/${service.slug}`;
+
   return {
     title: `${service.title} | Exterminator Toronto & GTA`,
     description: service.shortDescription,
+    alternates: {
+      canonical: `/services/${service.slug}`,
+    },
     openGraph: {
       title: `${service.title} | K2PC Pest Control GTA`,
       description: service.shortDescription,
+      url: canonicalUrl,
+      images: service.featuredImage ? [{ url: service.featuredImage, alt: service.title }] : undefined,
     },
   };
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const resolvedParams = await params;
-  const service = await getPublishedServiceBySlug(resolvedParams.slug);
-  const company = await getCompanyDetails();
+  const [service, company, locations] = await Promise.all([
+    getPublishedServiceBySlug(resolvedParams.slug),
+    getCompanyDetails(),
+    getPublishedLocations(),
+  ]);
 
   if (!service) {
     notFound();
   }
+
+  const pageUrl = `https://www.k2pc.ca/services/${service.slug}`;
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.k2pc.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://www.k2pc.ca/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: pageUrl,
+      },
+    ],
+  };
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.title,
     serviceType: service.title,
+    url: pageUrl,
     provider: {
       "@type": "PestControlService",
       name: company.name,
       telephone: company.phone,
       url: "https://www.k2pc.ca",
+      image: "https://www.k2pc.ca/assets/logo.png",
     },
-    areaServed: company.regionsServed,
+    areaServed: (company.regionsServed || []).map((region: string) => ({
+      "@type": "AdministrativeArea",
+      name: region,
+    })),
     description: service.fullDescription || service.shortDescription,
     offers: {
       "@type": "Offer",
@@ -83,6 +126,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
@@ -319,6 +366,53 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           }))}
         />
       )}
+
+      {/* Local GTA Service Areas Cross-Links */}
+      <section className="py-14 bg-surface-warm border-t border-stone-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-brand-red font-bold text-xs font-mono-data uppercase tracking-wider">
+                <MapPin className="w-4 h-4" />
+                <span>Local GTA Coverage</span>
+              </div>
+              <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-ink mt-1">
+                {service.title} Available Across Greater Toronto
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-text mt-1">
+                We provide same-day emergency dispatch for {service.title.toLowerCase()} across all GTA municipalities.
+              </p>
+            </div>
+            <Link
+              href="/locations"
+              className="text-xs font-mono-data font-bold text-brand-red hover:underline flex items-center gap-1 shrink-0"
+            >
+              <span>View All 11 Dispatch Zones</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pt-2">
+            {locations.map((loc) => (
+              <Link
+                key={loc.slug}
+                href={`/locations/${loc.slug}`}
+                className="group bg-white p-3.5 rounded-xl border border-stone-200 hover:border-brand-red hover:shadow-sm transition-all flex items-center justify-between gap-2"
+              >
+                <div className="truncate">
+                  <span className="font-heading font-bold text-xs sm:text-sm text-ink group-hover:text-brand-red transition-colors block truncate">
+                    {loc.name}
+                  </span>
+                  <span className="text-[11px] text-stone-400 font-mono-data block truncate">
+                    {loc.region}
+                  </span>
+                </div>
+                <ArrowUpRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-brand-red shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <CTABand />
     </>

@@ -55,11 +55,20 @@ export const metadata: Metadata = {
     description:
       "Fast, guaranteed pest control for residential & commercial properties across Toronto and the GTA. Ontario Licensed Applicator #ON-849201-P.",
     siteName: "K2 Pest Control",
+    images: [
+      {
+        url: "https://www.k2pc.ca/assets/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "K2 Pest Control - Licensed Exterminators Toronto & GTA",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "K2 Pest Control | Exterminator Toronto & GTA",
     description: "Licensed & guaranteed pest removal in Toronto & GTA. 2-hour emergency response.",
+    images: ["https://www.k2pc.ca/assets/logo.png"],
   },
   icons: {
     icon: "/assets/logo.png",
@@ -79,6 +88,12 @@ export const metadata: Metadata = {
   verification: {
     google: "cmt_uIRcZGXRyGLIOOhaHHyKo_tqGX8Wk1ey79Ct-e8",
   },
+  other: {
+    "geo.region": "CA-ON",
+    "geo.placename": "Toronto",
+    "geo.position": "43.7142;-79.3364",
+    "ICBM": "43.7142, -79.3364",
+  },
 };
 
 export const viewport: Viewport = {
@@ -97,6 +112,31 @@ export default async function RootLayout({
     getPublishedServices(),
   ]);
 
+  const sameAsLinks = Array.from(
+    new Set(
+      [
+        companyDetails.googleMapsUrl || COMPANY_DETAILS.googleMapsUrl,
+        (companyDetails as any).googleBusinessUrl,
+        (companyDetails as any).facebookUrl,
+        (companyDetails as any).instagramUrl,
+        (companyDetails as any).twitterUrl,
+        (companyDetails as any).linkedinUrl,
+      ].filter(Boolean)
+    )
+  );
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: companyDetails.name || COMPANY_DETAILS.name,
+    url: "https://www.k2pc.ca",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://www.k2pc.ca/services?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "PestControlService",
@@ -106,6 +146,13 @@ export default async function RootLayout({
     email: companyDetails.email || COMPANY_DETAILS.email,
     url: "https://www.k2pc.ca",
     logo: "https://www.k2pc.ca/assets/logo.png",
+    image: "https://www.k2pc.ca/assets/logo.png",
+    hasMap: companyDetails.googleMapsUrl || COMPANY_DETAILS.googleMapsUrl,
+    sameAs: sameAsLinks.length > 0 ? sameAsLinks : undefined,
+    currenciesAccepted: "CAD",
+    paymentAccepted: "Cash, Credit Card, Debit, Interac e-Transfer",
+    priceRange: "$$",
+    license: companyDetails.licenseNumber || COMPANY_DETAILS.licenseNumber,
     address: {
       "@type": "PostalAddress",
       streetAddress: companyDetails.address?.street || COMPANY_DETAILS.address.street,
@@ -123,6 +170,28 @@ export default async function RootLayout({
       "@type": "AdministrativeArea",
       name: region,
     })),
+    knowsAbout: [
+      "Pest Control",
+      "Exterminator Services",
+      "Bed Bug Heat Treatment",
+      "Mouse & Rat Control",
+      "Cockroach Extermination",
+      "Carpenter Ant Removal",
+      "Wasp & Hornet Nest Removal",
+      "Commercial Integrated Pest Management",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Pest Control Services",
+      itemListElement: (services || []).map((s: any) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: s.title,
+          url: `https://www.k2pc.ca/services/${s.slug}`,
+        },
+      })),
+    },
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
@@ -144,8 +213,6 @@ export default async function RootLayout({
       bestRating: "5",
       worstRating: "1",
     },
-    priceRange: "$$",
-    license: companyDetails.licenseNumber || COMPANY_DETAILS.licenseNumber,
   };
 
   return (
@@ -156,8 +223,15 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex, nofollow" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

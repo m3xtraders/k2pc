@@ -75,6 +75,13 @@ export interface LocationCity {
   slug: string;
   population?: string;
   description: string;
+  heroTagline?: string;
+  badge?: string;
+  neighborhoods?: string[];
+  commonPests?: string[];
+  landmarks?: string[];
+  postalCodes?: string[];
+  faqs?: { question: string; answer: string }[];
 }
 
 export interface ContactFormData {

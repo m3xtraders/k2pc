@@ -1,5 +1,5 @@
 import React from "react";
-import Metadata from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import StatsCounter from "@/components/sections/StatsCounter";
@@ -9,13 +9,41 @@ import ServiceArea from "@/components/sections/ServiceArea";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } from "lucide-react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "About Us & Provincial Licensing | K2 Pest Control GTA",
   description:
     "Learn about K2 Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Us & Provincial Licensing | K2 Pest Control GTA",
+    description:
+      "Learn about K2 Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
+    url: "https://www.k2pc.ca/about",
+  },
 };
 
 export default function AboutPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.k2pc.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About Us",
+        item: "https://www.k2pc.ca/about",
+      },
+    ],
+  };
+
   const values = [
     {
       title: "Safety & Eco-First IPM",
@@ -56,6 +84,10 @@ export default function AboutPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header Banner */}
       <section className="bg-ink text-white py-16 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">

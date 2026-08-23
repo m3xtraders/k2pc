@@ -1,5 +1,5 @@
 import React from "react";
-import Metadata from "next";
+import type { Metadata } from "next";
 import ContactForm from "@/components/sections/ContactForm";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
@@ -9,10 +9,19 @@ import { getCompanyDetails } from "@/lib/content-db";
 import { GLOBAL_FAQS } from "@/lib/content/faqs";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contact & Free Quote | K2PC Pest Control GTA",
   description:
     "Get a free pest control quote or call our emergency line. Serving Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact & Free Quote | K2PC Pest Control GTA",
+    description:
+      "Get a free pest control quote or call our emergency line. Serving Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville.",
+    url: "https://www.k2pc.ca/contact",
+  },
 };
 
 export default async function ContactPage() {
@@ -25,8 +34,31 @@ export default async function ContactPage() {
   const hours = company?.hours || COMPANY_DETAILS.hours;
   const licenseNumber = company?.licenseNumber || COMPANY_DETAILS.licenseNumber;
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.k2pc.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: "https://www.k2pc.ca/contact",
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header Banner */}
       <section className="bg-ink text-white py-14 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">

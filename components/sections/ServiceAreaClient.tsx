@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
+import { LOCATIONS } from "@/lib/content/locations";
 import {
   MapPin,
   Phone,
   Search,
   CheckCircle2,
   Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
 
 export interface ServiceLocation {
@@ -150,20 +153,34 @@ export const ServiceAreaClient: React.FC<ServiceAreaClientProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {filteredLocations.map((loc, idx) => (
-              <div
-                key={`${loc.name}-${idx}`}
-                className="bg-white p-3.5 sm:p-4 rounded-xl border border-stone-200 hover:border-[#BE2320] shadow-xs transition-colors space-y-1"
-              >
-                <div className="flex items-center gap-2 text-stone-900 font-bold text-sm sm:text-base font-heading">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-                  <span className="truncate">{loc.name}</span>
-                </div>
-                <p className="text-xs text-neutral-text font-mono-data pl-6 truncate">
-                  {loc.region}
-                </p>
-              </div>
-            ))}
+            {filteredLocations.map((loc, idx) => {
+              const matchedLocation = LOCATIONS.find(
+                (l) =>
+                  l.name.toLowerCase() === loc.name.toLowerCase() ||
+                  loc.name.toLowerCase().startsWith(l.name.toLowerCase()) ||
+                  l.slug.toLowerCase() === loc.name.toLowerCase()
+              );
+              const slug = matchedLocation?.slug || loc.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+              return (
+                <Link
+                  key={`${loc.name}-${idx}`}
+                  href={`/locations/${slug}`}
+                  className="group bg-white p-3.5 sm:p-4 rounded-xl border border-stone-200 hover:border-[#BE2320] hover:shadow-md shadow-xs transition-all space-y-1 block"
+                >
+                  <div className="flex items-center justify-between gap-1 text-stone-900 font-bold text-sm sm:text-base font-heading">
+                    <div className="flex items-center gap-2 truncate">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 group-hover:text-[#BE2320] transition-colors" />
+                      <span className="truncate group-hover:text-[#BE2320] transition-colors">{loc.name}</span>
+                    </div>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#BE2320] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+                  </div>
+                  <p className="text-xs text-neutral-text font-mono-data pl-6 truncate">
+                    {loc.region}
+                  </p>
+                </Link>
+              );
+            })}
           </div>
         )}
 

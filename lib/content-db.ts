@@ -3,7 +3,7 @@ import { COMPANY_DETAILS } from "@/lib/content/company";
 import { LOCATIONS } from "@/lib/content/locations";
 import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
 import { BLOG_POSTS } from "@/lib/content/blog";
-import { Service, BlogPost } from "@/lib/types";
+import { Service, BlogPost, LocationCity } from "@/lib/types";
 
 export async function getCompanyDetails() {
   try {
@@ -316,3 +316,85 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
     return BLOG_POSTS.find((b) => b.slug === slug) || null;
   }
 }
+
+export async function getPublishedLocations(): Promise<LocationCity[]> {
+  try {
+    const company = await getCompanyDetails();
+    const rawLocations = company.serviceLocations || [];
+
+    if (!rawLocations || rawLocations.length === 0) {
+      return LOCATIONS;
+    }
+
+    return rawLocations.map((loc: any) => {
+      const cleanName = (loc.name || "Toronto").replace(/\s*\(.*\)/g, "").trim();
+      const slug =
+        loc.slug ||
+        cleanName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      const staticMatch = LOCATIONS.find(
+        (l) =>
+          l.slug === slug ||
+          l.name.toLowerCase() === (loc.name || "").toLowerCase() ||
+          l.name.toLowerCase() === cleanName.toLowerCase() ||
+          (loc.name || "").toLowerCase().includes(l.name.toLowerCase())
+      );
+
+      return {
+        name: loc.name,
+        region: loc.region || staticMatch?.region || "Greater Toronto Area",
+        slug: slug || staticMatch?.slug || "toronto",
+        population: staticMatch?.population || "Growing Municipality",
+        badge: loc.badge || staticMatch?.badge || "2h Fast Response",
+        heroTagline:
+          staticMatch?.heroTagline ||
+          `Licensed, Guaranteed Pest Control & Exterminator Services Across ${loc.name}`,
+        description:
+          loc.description ||
+          staticMatch?.description ||
+          `Fast, licensed residential and commercial extermination services across ${loc.name} and surrounding communities.`,
+        neighborhoods: staticMatch?.neighborhoods || [
+          `${cleanName} Central`,
+          `${cleanName} North`,
+          `${cleanName} South`,
+          `${cleanName} East`,
+          `${cleanName} West`,
+        ],
+        commonPests: staticMatch?.commonPests || [
+          "Mice & Rats (Attic & Foundation Exclusion)",
+          "Bed Bugs (Heat & Steam Treatment)",
+          "Carpenter Ants & Pavement Ants",
+          "Wasps & Hornets",
+          "Cockroaches",
+        ],
+        landmarks: staticMatch?.landmarks || [`${cleanName} Civic Centre`, `${cleanName} Town Plaza`],
+        postalCodes: staticMatch?.postalCodes || [],
+        faqs: staticMatch?.faqs || [
+          {
+            question: `How fast can K2 Pest Control arrive at my property in ${cleanName}?`,
+            answer: `Our mobile extermination units arrive within 2 hours for urgent emergencies in ${cleanName} and surrounding areas.`,
+          },
+          {
+            question: `Do you provide a warranty for pest treatments in ${cleanName}?`,
+            answer: `Yes, all full treatments in ${cleanName} come with our 6-month written eradication warranty and free re-treatment guarantee.`,
+          },
+        ],
+      };
+    });
+  } catch (_error) {
+    return LOCATIONS;
+  }
+}
+
+export async function getPublishedLocationBySlug(slug: string): Promise<LocationCity | null> {
+  try {
+    const locations = await getPublishedLocations();
+    return locations.find((l) => l.slug === slug) || null;
+  } catch (_error) {
+    return LOCATIONS.find((l) => l.slug === slug) || null;
+  }
+}
+

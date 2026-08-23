@@ -1,5 +1,5 @@
 import React from "react";
-import Metadata from "next";
+import type { Metadata } from "next";
 import ServiceGrid from "@/components/sections/ServiceGrid";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
@@ -8,10 +8,19 @@ import { ShieldCheck, Phone } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { getCompanyDetails } from "@/lib/content-db";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Pest Extermination Services | Toronto & GTA",
   description:
     "Explore K2PC's dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Pest Extermination Services | K2 Pest Control Toronto & GTA",
+    description:
+      "Explore K2PC's dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
+    url: "https://www.k2pc.ca/services",
+  },
 };
 
 export default async function ServicesPage() {
@@ -19,8 +28,32 @@ export default async function ServicesPage() {
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.k2pc.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://www.k2pc.ca/services",
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       {/* Header Banner */}
       <section className="bg-ink text-white py-14 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">

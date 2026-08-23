@@ -1,20 +1,52 @@
-import React from "react";
+import { Metadata } from "next";
 import { getPublishedBlogPosts } from "@/lib/content-db";
 import { BlogCard } from "@/components/ui/BlogCard";
 import CTABand from "@/components/sections/CTABand";
 import { BookOpen } from "lucide-react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Pest Control Blog & Prevention Guides | Toronto & GTA",
   description:
     "Expert articles on Ontario fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Pest Control Blog & Prevention Guides | K2PC Toronto & GTA",
+    description:
+      "Expert articles on Ontario fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
+    url: "https://www.k2pc.ca/blog",
+  },
 };
 
 export default async function BlogListPage() {
   const posts = await getPublishedBlogPosts();
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.k2pc.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: "https://www.k2pc.ca/blog",
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header Banner */}
       <section className="bg-ink text-white py-14 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
