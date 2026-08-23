@@ -11,6 +11,15 @@ export const serviceSchema = z.object({
   metaDescription: z.string().max(160, "Meta description should be 160 characters or less").optional().nullable(),
   displayOrder: z.coerce.number().int().default(0),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
+  faqs: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    )
+    .optional()
+    .nullable(),
 });
 
 export type ServiceInput = z.infer<typeof serviceSchema>;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails, getPublishedLocations } from "@/lib/content-db";
+import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails, getPublishedLocations, getPublishedFaqs } from "@/lib/content-db";
 import { getServiceCoverImage } from "@/lib/content/services";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
@@ -49,10 +49,11 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const resolvedParams = await params;
-  const [service, company, locations] = await Promise.all([
+  const [service, company, locations, allFaqs] = await Promise.all([
     getPublishedServiceBySlug(resolvedParams.slug),
     getCompanyDetails(),
     getPublishedLocations(),
+    getPublishedFaqs(),
   ]);
 
   if (!service) {
@@ -60,6 +61,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const pageUrl = `https://www.k2pc.ca/services/${service.slug}`;
+  const effectiveFaqs = service.faqs && service.faqs.length > 0 ? service.faqs : (allFaqs || []);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -114,7 +116,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: (service.faqs || []).map((faq) => ({
+    mainEntity: effectiveFaqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
@@ -354,15 +356,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       </section>
 
       {/* Service FAQs */}
-      {service.faqs && service.faqs.length > 0 && (
+      {effectiveFaqs && effectiveFaqs.length > 0 && (
         <FAQAccordion
-          title={`${service.title} FAQs`}
-          subtitle="Specific questions answered by our licensed entomologists."
-          items={service.faqs.map((f, i) => ({
-            id: `service-faq-${i}`,
+          title={`${service.title} FAQs & Treatment Info`}
+          subtitle="Frequently asked questions about our pest elimination methods, safety protocols, and warranty coverage."
+          items={effectiveFaqs.map((f: any, i: number) => ({
+            id: f.id || `service-faq-${i}`,
             question: f.question,
             answer: f.answer,
-            category: "General",
+            category: f.category || "General",
           }))}
         />
       )}

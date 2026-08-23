@@ -5,8 +5,9 @@ import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import { CommercialHighlightBanner } from "@/components/sections/CommercialHighlightBanner";
 import { ShieldCheck, Phone } from "lucide-react";
+import FAQAccordion from "@/components/sections/FAQAccordion";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails } from "@/lib/content-db";
+import { getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
 
 export const metadata: Metadata = {
   title: "Pest Extermination Services | Toronto & GTA",
@@ -24,7 +25,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const company = await getCompanyDetails();
+  const [company, faqs] = await Promise.all([
+    getCompanyDetails(),
+    getPublishedFaqs(),
+  ]);
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
 
@@ -93,6 +97,12 @@ export default async function ServicesPage() {
           </a>
         </div>
       </section>
+
+      <FAQAccordion
+        title="Frequently Asked Extermination Questions"
+        subtitle="Clear answers about residential treatment safety, warranties, commercial scheduling, and GTA pricing."
+        items={faqs}
+      />
 
       <CTABand />
     </>

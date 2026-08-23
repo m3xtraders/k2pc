@@ -59,6 +59,7 @@ model Service {
   metaDescription  String?  @db.Text
   displayOrder     Int      @default(0)
   status           Status   @default(DRAFT)
+  faqs             Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
@@ -93,6 +94,17 @@ model ContactSubmission {
   createdAt DateTime   @default(now())
 }
 
+model Faq {
+  id           String   @id @default(cuid())
+  question     String   @db.Text
+  answer       String   @db.Text
+  category     String   @default("General")
+  displayOrder Int      @default(0)
+  status       Status   @default(PUBLISHED)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
 enum Status {
   DRAFT
   PUBLISHED
@@ -106,3 +118,4 @@ enum LeadStatus {
   CLOSED
   LOST
 }
+

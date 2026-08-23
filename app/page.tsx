@@ -10,9 +10,11 @@ import BlogGrid from "@/components/sections/BlogGrid";
 import CTABand from "@/components/sections/CTABand";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
-import { GLOBAL_FAQS } from "@/lib/content/faqs";
+import { getPublishedFaqs } from "@/lib/content-db";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const faqs = await getPublishedFaqs();
+
   return (
     <>
       <Hero />
@@ -24,7 +26,7 @@ export default function HomePage() {
       <ServiceArea />
       <LocationMapWidget />
       <BlogGrid limit={3} />
-      <FAQAccordion items={GLOBAL_FAQS.slice(0, 4)} />
+      <FAQAccordion items={faqs.slice(0, 6)} />
       <CTABand />
     </>
   );

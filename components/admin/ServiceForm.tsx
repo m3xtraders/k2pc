@@ -8,8 +8,20 @@ import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { createServiceAction, updateServiceAction } from "@/app/admin/actions";
 import { ServiceInput } from "@/lib/validations/service";
-import { getServiceCoverImage } from "@/lib/content/services";
-import { ExternalLink, Save, Loader2, Bug, Building2, Sparkles } from "lucide-react";
+import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
+import {
+  ExternalLink,
+  Save,
+  Loader2,
+  Bug,
+  Building2,
+  Sparkles,
+  HelpCircle,
+  Plus,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+} from "lucide-react";
 
 interface ServiceFormProps {
   initialData?: any;
@@ -79,7 +91,21 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     metaDescription: initialData?.metaDescription || "",
     displayOrder: initialData?.displayOrder || 0,
     status: initialData?.status || "DRAFT",
+    faqs: initialData?.faqs || [],
   });
+
+  const fallbackFaqs = SERVICES.find((s) => s.slug === initialData?.slug)?.faqs || [];
+  const initialFaqs =
+    Array.isArray(initialData?.faqs) && initialData.faqs.length > 0
+      ? initialData.faqs
+      : fallbackFaqs;
+
+  const [serviceFaqs, setServiceFaqs] = useState<Array<{ question: string; answer: string }>>(
+    initialFaqs.map((f: any) => ({
+      question: f.question || "",
+      answer: f.answer || "",
+    }))
+  );
 
   const [autoSlug, setAutoSlug] = useState(!initialData);
 
@@ -104,6 +130,32 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
           .trim()
           .replace(/\s+/g, "-");
       }
+      return updated;
+    });
+  };
+
+  const handleAddFaq = () => {
+    setServiceFaqs((prev) => [...prev, { question: "", answer: "" }]);
+  };
+
+  const handleRemoveFaq = (index: number) => {
+    setServiceFaqs((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleFaqChange = (index: number, field: "question" | "answer", value: string) => {
+    setServiceFaqs((prev) =>
+      prev.map((faq, i) => (i === index ? { ...faq, [field]: value } : faq))
+    );
+  };
+
+  const handleMoveFaq = (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= serviceFaqs.length) return;
+    setServiceFaqs((prev) => {
+      const updated = [...prev];
+      const temp = updated[index];
+      updated[index] = updated[targetIndex];
+      updated[targetIndex] = temp;
       return updated;
     });
   };
@@ -133,12 +185,21 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
 
     setLoading(true);
 
+    const cleanFaqs = serviceFaqs
+      .map((f) => ({ question: f.question.trim(), answer: f.answer.trim() }))
+      .filter((f) => f.question && f.answer);
+
+    const payload = {
+      ...formData,
+      faqs: cleanFaqs,
+    };
+
     try {
       if (initialData?.id) {
-        await updateServiceAction(initialData.id, formData);
+        await updateServiceAction(initialData.id, payload);
         toast.success("Service updated successfully");
       } else {
-        await createServiceAction(formData);
+        await createServiceAction(payload);
         toast.success("Service created successfully");
       }
 
@@ -310,6 +371,114 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
               placeholder="Detailed treatment protocols, audit compliance features, and guarantee details..."
             />
           </FormField>
+
+          {/* Service-Specific FAQs Builder Card */}
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+              <div>
+                <h3 className="font-heading font-bold text-base text-stone-900 flex items-center gap-2">
+                  <HelpCircle className="w-5 h-5 text-[#BE2320]" />
+                  <span>Service-Specific FAQs ({serviceFaqs.length})</span>
+                </h3>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Custom questions &amp; answers for this specific service. If left empty, the service page will show your universal FAQs from the FAQ page.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddFaq}
+                className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-[#BE2320] border border-red-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shrink-0 self-start sm:self-auto cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Add FAQ Item</span>
+              </button>
+            </div>
+
+            {serviceFaqs.length === 0 ? (
+              <div className="p-6 text-center bg-stone-50 rounded-xl border border-dashed border-stone-200 space-y-2">
+                <p className="text-xs text-stone-500">
+                  No custom FAQs added for this service yet. The public page will automatically display your universal FAQs.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddFaq}
+                  className="text-xs font-bold text-[#BE2320] hover:underline cursor-pointer"
+                >
+                  + Add first custom FAQ for this service
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {serviceFaqs.map((faq, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 space-y-3 relative group"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-mono-data font-bold text-stone-600 bg-white px-2 py-0.5 rounded border border-stone-200">
+                        FAQ #{idx + 1}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          disabled={idx === 0}
+                          onClick={() => handleMoveFaq(idx, "up")}
+                          className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                          title="Move Up"
+                        >
+                          <ArrowUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          disabled={idx === serviceFaqs.length - 1}
+                          onClick={() => handleMoveFaq(idx, "down")}
+                          className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                          title="Move Down"
+                        >
+                          <ArrowDown className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveFaq(idx)}
+                          className="p-1 text-red-500 hover:text-red-700 rounded cursor-pointer ml-1"
+                          title="Remove FAQ"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-stone-600 uppercase tracking-wider block">
+                        Question
+                      </label>
+                      <input
+                        type="text"
+                        value={faq.question}
+                        onChange={(e) => handleFaqChange(idx, "question", e.target.value)}
+                        placeholder="e.g. How long does treatment take?"
+                        className="w-full px-3 py-1.5 bg-white border border-stone-300 rounded-lg text-xs font-semibold text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#BE2320]"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-stone-600 uppercase tracking-wider block">
+                        Answer
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={faq.answer}
+                        onChange={(e) => handleFaqChange(idx, "answer", e.target.value)}
+                        placeholder="Provide a specific answer for this pest service..."
+                        className="w-full px-3 py-1.5 bg-white border border-stone-300 rounded-lg text-xs text-stone-800 focus:outline-none focus:ring-1 focus:ring-[#BE2320] leading-relaxed"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right Col: Metadata, Status, Image */}

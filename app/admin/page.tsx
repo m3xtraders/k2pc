@@ -3,17 +3,18 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { StatCard } from "@/components/admin/StatCard";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock } from "lucide-react";
+import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock, HelpCircle } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const [servicesCount, publishedPosts, draftPosts, leadsCount, recentLeads, recentServices] =
+  const [servicesCount, publishedPosts, draftPosts, leadsCount, faqsCount, recentLeads, recentServices] =
     await Promise.all([
       prisma.service.count(),
       prisma.blogPost.count({ where: { status: "PUBLISHED" } }),
       prisma.blogPost.count({ where: { status: "DRAFT" } }),
       prisma.contactSubmission.count({ where: { status: "NEW" } }),
+      prisma.faq.count(),
       prisma.contactSubmission.findMany({
         take: 5,
         orderBy: { createdAt: "desc" },
@@ -35,6 +36,12 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <Link
+            href="/admin/faqs"
+            className="px-4 py-2 bg-white border border-stone-300 hover:bg-stone-50 text-stone-800 text-sm font-medium rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
+          >
+            <HelpCircle className="w-4 h-4 text-[#BE2320]" /> Manage FAQs
+          </Link>
           <Link
             href="/admin/services/new"
             className="px-4 py-2 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-sm font-medium rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
@@ -65,17 +72,17 @@ export default async function AdminDashboardPage() {
           icon={FileText}
         />
         <StatCard
+          title="FAQs"
+          value={faqsCount}
+          description="Live customer Q&As"
+          icon={HelpCircle}
+        />
+        <StatCard
           title="New Leads (Action Req.)"
           value={leadsCount}
           description="Inquiries requiring initial response"
           icon={MessageSquare}
           trend={leadsCount > 0 ? "Action required" : "All caught up"}
-        />
-        <StatCard
-          title="System Status"
-          value="Online"
-          description="Prisma DB + Gemini AI active"
-          icon={ArrowUpRight}
         />
       </div>
 

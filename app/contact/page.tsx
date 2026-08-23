@@ -5,8 +5,7 @@ import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails } from "@/lib/content-db";
-import { GLOBAL_FAQS } from "@/lib/content/faqs";
+import { getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -25,7 +24,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const company = await getCompanyDetails();
+  const [company, faqs] = await Promise.all([
+    getCompanyDetails(),
+    getPublishedFaqs(),
+  ]);
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
   const email = company?.email || COMPANY_DETAILS.email;
@@ -168,7 +170,7 @@ export default async function ContactPage() {
       {/* Interactive Location Map Widget */}
       <LocationMapWidget />
 
-      <FAQAccordion items={GLOBAL_FAQS} />
+      <FAQAccordion items={faqs} />
       <CTABand />
     </>
   );

@@ -3,7 +3,8 @@ import { COMPANY_DETAILS } from "@/lib/content/company";
 import { LOCATIONS } from "@/lib/content/locations";
 import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
 import { BLOG_POSTS } from "@/lib/content/blog";
-import { Service, BlogPost, LocationCity } from "@/lib/types";
+import { GLOBAL_FAQS } from "@/lib/content/faqs";
+import { Service, BlogPost, LocationCity, FAQItem } from "@/lib/types";
 
 export async function getCompanyDetails() {
   try {
@@ -171,7 +172,7 @@ export async function getPublishedServices(): Promise<Service[]> {
         ],
         pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
         warranty: staticService?.warranty || "Guaranteed Eradication",
-        faqs: staticService?.faqs || [],
+        faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
         featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
       };
     });
@@ -234,7 +235,7 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
           ],
       pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
       warranty: staticService?.warranty || "Guaranteed Eradication",
-      faqs: staticService?.faqs || [],
+      faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
       featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
     };
   } catch (_error) {
@@ -397,4 +398,59 @@ export async function getPublishedLocationBySlug(slug: string): Promise<Location
     return LOCATIONS.find((l) => l.slug === slug) || null;
   }
 }
+
+export async function getPublishedFaqs(): Promise<FAQItem[]> {
+  try {
+    const faqs = await prisma.faq.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { displayOrder: "asc" },
+    });
+
+    if (!faqs || faqs.length === 0) {
+      return GLOBAL_FAQS;
+    }
+
+    return faqs.map((f: any) => ({
+      id: f.id,
+      question: f.question,
+      answer: f.answer,
+      category: f.category || "General",
+    }));
+  } catch (_error) {
+    return GLOBAL_FAQS;
+  }
+}
+
+export async function getAllFaqs() {
+  try {
+    return await prisma.faq.findMany({
+      orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
+    });
+  } catch (_error) {
+    return [];
+  }
+}
+
+export async function seedDefaultFaqsIfEmpty() {
+  try {
+    const count = await prisma.faq.count();
+    if (count === 0) {
+      for (let i = 0; i < GLOBAL_FAQS.length; i++) {
+        const item = GLOBAL_FAQS[i];
+        await prisma.faq.create({
+          data: {
+            question: item.question,
+            answer: item.answer,
+            category: item.category || "General",
+            displayOrder: i,
+            status: "PUBLISHED",
+          },
+        });
+      }
+    }
+  } catch (err) {
+    console.error("Error seeding default FAQs:", err);
+  }
+}
+
 

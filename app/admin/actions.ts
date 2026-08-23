@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { serviceSchema } from "@/lib/validations/service";
 import { blogPostSchema } from "@/lib/validations/blogPost";
 import { businessInfoSchema } from "@/lib/validations/businessInfo";
+import { faqSchema } from "@/lib/validations/faq";
 import { sanitizeHtml } from "@/lib/sanitizer";
 import { revalidatePath } from "next/cache";
 
@@ -278,5 +279,102 @@ export async function createManualLeadAction(data: {
   revalidatePath("/admin");
   return { success: true, lead: created };
 }
+
+// FAQ ACTIONS
+export async function createFaqAction(data: any) {
+  const validated = faqSchema.parse(data);
+
+  const faq = await prisma.faq.create({
+    data: {
+      question: validated.question.trim(),
+      answer: validated.answer.trim(),
+      category: validated.category.trim() || "General",
+      displayOrder: validated.displayOrder,
+      status: validated.status,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true, faq };
+}
+
+export async function updateFaqAction(id: string, data: any) {
+  const validated = faqSchema.parse(data);
+
+  const faq = await prisma.faq.update({
+    where: { id },
+    data: {
+      question: validated.question.trim(),
+      answer: validated.answer.trim(),
+      category: validated.category.trim() || "General",
+      displayOrder: validated.displayOrder,
+      status: validated.status,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true, faq };
+}
+
+export async function deleteFaqAction(id: string) {
+  await prisma.faq.delete({
+    where: { id },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true };
+}
+
+export async function toggleFaqStatusAction(id: string, currentStatus: "PUBLISHED" | "DRAFT") {
+  const newStatus = currentStatus === "PUBLISHED" ? "DRAFT" : "PUBLISHED";
+  const updated = await prisma.faq.update({
+    where: { id },
+    data: { status: newStatus },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true, status: updated.status };
+}
+
+export async function reorderFaqsAction(items: { id: string; displayOrder: number }[]) {
+  await prisma.$transaction(
+    items.map((item) =>
+      prisma.faq.update({
+        where: { id: item.id },
+        data: { displayOrder: item.displayOrder },
+      })
+    )
+  );
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true };
+}
+
+export async function seedFaqsAction() {
+  const { seedDefaultFaqsIfEmpty } = await import("@/lib/content-db");
+  await seedDefaultFaqsIfEmpty();
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  revalidatePath("/contact");
+  revalidatePath("/admin/faqs");
+  return { success: true };
+}
+
 
 

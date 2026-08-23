@@ -10,6 +10,7 @@ import {
   FileText,
   Settings,
   MessageSquare,
+  HelpCircle,
   Menu,
   X,
   ShieldAlert,
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Services", href: "/admin/services", icon: Bug },
   { label: "Blog Posts", href: "/admin/blog", icon: FileText },
+  { label: "FAQs", href: "/admin/faqs", icon: HelpCircle },
   { label: "Form Messages & Leads", href: "/admin/messages", icon: MessageSquare },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
