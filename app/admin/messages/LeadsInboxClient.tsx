@@ -35,6 +35,7 @@ import {
   Check,
   ExternalLink,
   MessageSquareReply,
+  MessageSquare,
   UserPlus,
   PhoneCall,
   Camera,
@@ -274,6 +275,28 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* Top Page Header with Prominent Top-Right Button */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-stone-900 tracking-tight flex items-center gap-2">
+            <MessageSquare className="w-6 h-6 text-[#BE2320]" />
+            Leads &amp; Pipeline CRM
+          </h2>
+          <p className="text-sm text-stone-500 mt-1">
+            Drag &amp; drop customer inquiries across workflow progress stages, manage multi-channel inquiries, and reply directly.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setManualModalOpen(true)}
+          className="px-4 py-2.5 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-sm font-semibold rounded-xl shadow-xs hover:shadow-md transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+        >
+          <UserPlus className="w-4 h-4" />
+          <span>+ Create Manual Lead</span>
+        </button>
+      </div>
+
       {/* Metric Stat Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         <div className="bg-white p-4 rounded-xl border border-stone-200 shadow-2xs">
@@ -317,43 +340,32 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
         </div>
       </div>
 
-      {/* Control Bar: View Toggle, Create Button, Search, and Source Filter */}
+      {/* Control Bar: View Toggle, Search, and Source Filter */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-2xs">
-        {/* Left: View Mode Toggle & Add Manual Lead Button */}
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1 p-1 bg-stone-100 rounded-lg">
-            <button
-              onClick={() => setViewMode("kanban")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-                viewMode === "kanban"
-                  ? "bg-white text-stone-900 shadow-xs"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              <Kanban className="w-3.5 h-3.5 text-[#BE2320]" />
-              Kanban Board
-            </button>
-
-            <button
-              onClick={() => setViewMode("table")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-                viewMode === "table"
-                  ? "bg-white text-stone-900 shadow-xs"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              <ListFilter className="w-3.5 h-3.5 text-[#BE2320]" />
-              Table List
-            </button>
-          </div>
+        {/* Left: View Mode Toggle */}
+        <div className="flex items-center gap-1 p-1 bg-stone-100 rounded-lg w-fit">
+          <button
+            onClick={() => setViewMode("kanban")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+              viewMode === "kanban"
+                ? "bg-white text-stone-900 shadow-xs"
+                : "text-stone-600 hover:text-stone-900"
+            }`}
+          >
+            <Kanban className="w-3.5 h-3.5 text-[#BE2320]" />
+            Kanban Board
+          </button>
 
           <button
-            type="button"
-            onClick={() => setManualModalOpen(true)}
-            className="px-3.5 py-2 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+            onClick={() => setViewMode("table")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+              viewMode === "table"
+                ? "bg-white text-stone-900 shadow-xs"
+                : "text-stone-600 hover:text-stone-900"
+            }`}
           >
-            <UserPlus className="w-3.5 h-3.5" />
-            <span>+ Create Manual Lead</span>
+            <ListFilter className="w-3.5 h-3.5 text-[#BE2320]" />
+            Table List
           </button>
         </div>
 

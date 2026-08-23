@@ -31,6 +31,7 @@ interface Message {
     phone: string;
     service?: string;
     city?: string;
+    alreadySubmitted?: boolean;
   };
 }
 
@@ -299,13 +300,45 @@ export function ChatWidget({ companyDetails }: ChatWidgetProps) {
 
                   {/* Lead Captured Confirmation Card */}
                   {msg.leadCaptured && (
-                    <div className="mt-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 flex flex-col gap-1.5">
-                      <div className="flex items-center gap-1.5 font-bold text-xs text-emerald-800">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                        <span>Inspection Request Dispatched!</span>
+                    <div
+                      className={`mt-3 p-3 rounded-xl border flex flex-col gap-1.5 ${
+                        msg.leadCaptured.alreadySubmitted
+                          ? "bg-amber-50/90 border-amber-200 text-amber-950"
+                          : "bg-emerald-50 border-emerald-200 text-emerald-950"
+                      }`}
+                    >
+                      <div
+                        className={`flex items-center gap-1.5 font-bold text-xs ${
+                          msg.leadCaptured.alreadySubmitted ? "text-amber-800" : "text-emerald-800"
+                        }`}
+                      >
+                        <CheckCircle2
+                          className={`w-4 h-4 shrink-0 ${
+                            msg.leadCaptured.alreadySubmitted ? "text-amber-600" : "text-emerald-600"
+                          }`}
+                        />
+                        <span>
+                          {msg.leadCaptured.alreadySubmitted
+                            ? "Request Already on File"
+                            : "Inspection Request Dispatched!"}
+                        </span>
                       </div>
-                      <p className="text-[11px] text-emerald-800/90 leading-tight">
-                        We have logged your request for <strong>{msg.leadCaptured.name}</strong> ({msg.leadCaptured.phone}). A licensed GTA exterminator is reviewing your file.
+                      <p
+                        className={`text-[11px] leading-tight ${
+                          msg.leadCaptured.alreadySubmitted ? "text-amber-900/90" : "text-emerald-800/90"
+                        }`}
+                      >
+                        {msg.leadCaptured.alreadySubmitted ? (
+                          <>
+                            Your inquiry for <strong>{msg.leadCaptured.name}</strong> (
+                            {msg.leadCaptured.phone}) is already in our system. Our technician will contact you ASAP.
+                          </>
+                        ) : (
+                          <>
+                            We have logged your request for <strong>{msg.leadCaptured.name}</strong> (
+                            {msg.leadCaptured.phone}). A licensed GTA exterminator is reviewing your file.
+                          </>
+                        )}
                       </p>
                     </div>
                   )}
