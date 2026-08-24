@@ -174,17 +174,14 @@ export default function Footer({ companyDetails }: FooterProps) {
         {/* Bottom Legal */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
           <p>
-            © {new Date().getFullYear()} {company.name || COMPANY_DETAILS.name}. All rights reserved. Exterminator & Pest Control Toronto & GTA.
+            © {new Date().getFullYear()} {company.name || COMPANY_DETAILS.name}. All rights reserved. Exterminator &amp; Pest Control Toronto &amp; GTA.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/contact" className="hover:text-stone-200">
+            <Link href="/privacy" className="hover:text-stone-200 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/contact" className="hover:text-stone-200">
+            <Link href="/terms" className="hover:text-stone-200 transition-colors">
               Terms of Service
-            </Link>
-            <Link href="/sitemap.xml" className="hover:text-stone-200">
-              Sitemap
             </Link>
           </div>
         </div>
