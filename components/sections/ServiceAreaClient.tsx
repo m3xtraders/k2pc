@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Link from "next/link";
-import { LOCATIONS } from "@/lib/content/locations";
 import {
   MapPin,
   Phone,
   Search,
   CheckCircle2,
   Sparkles,
-  ArrowUpRight,
 } from "lucide-react";
 
 export interface ServiceLocation {
@@ -134,7 +131,7 @@ export const ServiceAreaClient: React.FC<ServiceAreaClientProps> = ({
           </div>
         </div>
 
-        {/* 3. Location Cards Grid */}
+        {/* 3. Location Cards Grid — plain cards, no individual pages */}
         {filteredLocations.length === 0 ? (
           <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center space-y-3 shadow-xs">
             <MapPin className="w-8 h-8 text-stone-400 mx-auto" />
@@ -153,34 +150,30 @@ export const ServiceAreaClient: React.FC<ServiceAreaClientProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {filteredLocations.map((loc, idx) => {
-              const matchedLocation = LOCATIONS.find(
-                (l) =>
-                  l.name.toLowerCase() === loc.name.toLowerCase() ||
-                  loc.name.toLowerCase().startsWith(l.name.toLowerCase()) ||
-                  l.slug.toLowerCase() === loc.name.toLowerCase()
-              );
-              const slug = matchedLocation?.slug || loc.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+            {filteredLocations.map((loc, idx) => (
+              <div
+                key={`${loc.name}-${idx}`}
+                className="group relative bg-white p-3.5 sm:p-4 rounded-xl border border-stone-200 shadow-xs space-y-1 cursor-default transition-all duration-300 hover:border-[#BE2320] hover:shadow-[0_0_20px_rgba(190,35,32,0.18),0_4px_16px_rgba(190,35,32,0.12)] hover:-translate-y-0.5 overflow-hidden"
+              >
+                {/* Red glow overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#BE2320]/[0.06] via-transparent to-[#BE2320]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none" />
+                {/* Top accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#BE2320] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
 
-              return (
-                <Link
-                  key={`${loc.name}-${idx}`}
-                  href={`/locations/${slug}`}
-                  className="group bg-white p-3.5 sm:p-4 rounded-xl border border-stone-200 hover:border-[#BE2320] hover:shadow-md shadow-xs transition-all space-y-1 block"
-                >
-                  <div className="flex items-center justify-between gap-1 text-stone-900 font-bold text-sm sm:text-base font-heading">
-                    <div className="flex items-center gap-2 truncate">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 group-hover:text-[#BE2320] transition-colors" />
-                      <span className="truncate group-hover:text-[#BE2320] transition-colors">{loc.name}</span>
-                    </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#BE2320] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
-                  </div>
-                  <p className="text-xs text-neutral-text font-mono-data pl-6 truncate">
-                    {loc.region}
+                <div className="flex items-center gap-2 truncate text-stone-900 font-bold text-sm sm:text-base font-heading relative">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 group-hover:text-[#BE2320] transition-colors duration-300" />
+                  <span className="truncate group-hover:text-[#BE2320] transition-colors duration-300">{loc.name}</span>
+                </div>
+                <p className="text-xs text-neutral-text font-mono-data pl-6 truncate relative group-hover:text-stone-600 transition-colors duration-300">
+                  {loc.region}
+                </p>
+                {loc.badge && (
+                  <p className="text-[11px] text-[#BE2320] font-semibold pl-6 truncate relative">
+                    {loc.badge}
                   </p>
-                </Link>
-              );
-            })}
+                )}
+              </div>
+            ))}
           </div>
         )}
 

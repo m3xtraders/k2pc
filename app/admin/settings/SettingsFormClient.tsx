@@ -306,16 +306,15 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
 
       {/* 4. Service Areas & Coverage Manager */}
       <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
-        <div className="border-b border-stone-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="border-b border-stone-100 pb-3">
           <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
             <Globe2 className="w-5 h-5 text-[#BE2320]" />
-            Service Areas & Municipal Coverage (Homepage & SEO)
+            Service Areas &amp; Municipal Coverage
           </h3>
+          <p className="text-xs text-stone-500 mt-1">
+            Manage the cities shown in the &quot;Areas We Serve&quot; section on the homepage.
+          </p>
         </div>
-
-        <p className="text-xs text-stone-600 -mt-2">
-          Manage the cities and regions where K2 Pest Control provides extermination services. This directly powers the &quot;Areas We Serve&quot; homepage section, region filters, and local SEO metadata.
-        </p>
 
         <ServiceAreasEditor
           areas={(formData.serviceAreas as ServiceAreaItem[]) || []}
@@ -323,7 +322,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
         />
       </div>
 
-      {/* 4. Social Links */}
+      {/* 5. Social Links */}
       <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
         <h3 className="text-base font-bold text-stone-900 flex items-center gap-2 border-b border-stone-100 pb-3">
           <Share2 className="w-5 h-5 text-[#BE2320]" />

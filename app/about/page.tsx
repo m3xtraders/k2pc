@@ -257,6 +257,7 @@ export default function AboutPage() {
       {/* GTA Service Locations Section */}
       <ServiceArea />
 
+
       {/* Interactive Google Map Section */}
       <LocationMapWidget />
 

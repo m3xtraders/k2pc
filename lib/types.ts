@@ -69,6 +69,7 @@ export interface FAQItem {
   category: 'General' | 'Safety & Eco' | 'Pricing & Guarantees' | 'Preparation';
 }
 
+
 export interface LocationCity {
   name: string;
   region: string;

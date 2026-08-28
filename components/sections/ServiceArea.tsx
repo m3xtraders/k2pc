@@ -4,7 +4,7 @@ import { ServiceAreaClient } from "./ServiceAreaClient";
 
 export default async function ServiceArea() {
   const companyDetails = await getCompanyDetails();
-  const locations = companyDetails.serviceLocations || [];
+  const locations = (companyDetails as any).serviceLocations || [];
 
   return (
     <ServiceAreaClient
@@ -13,4 +13,3 @@ export default async function ServiceArea() {
     />
   );
 }
-

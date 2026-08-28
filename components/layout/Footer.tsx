@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Phone, Mail, MapPin, Shield, CheckCircle2 } from "lucide-react";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { SERVICES } from "@/lib/content/services";
-import { LOCATIONS } from "@/lib/content/locations";
+
 
 interface FooterProps {
   companyDetails?: any;
@@ -83,11 +83,7 @@ export default function Footer({ companyDetails }: FooterProps) {
                   All Services
                 </Link>
               </li>
-              <li>
-                <Link href="/locations" className="hover:text-action-yellow transition-colors">
-                  GTA Service Locations
-                </Link>
-              </li>
+
               <li>
                 <Link href="/commercial" className="hover:text-action-yellow transition-colors font-semibold text-action-yellow">
                   Commercial &amp; Facility IPM
@@ -151,25 +147,7 @@ export default function Footer({ companyDetails }: FooterProps) {
           </div>
         </div>
 
-        {/* Areas Served Row with Clickable Location Links */}
-        <div className="py-6 border-b border-stone-800 text-xs text-stone-400 leading-relaxed">
-          <span className="font-semibold text-white mr-2">Service Areas Across GTA:</span>
-          {(company.serviceLocations && company.serviceLocations.length > 0 ? company.serviceLocations : LOCATIONS).map((loc: any, idx: number, arr: any[]) => {
-            const cleanName = (loc.name || "Toronto").replace(/\s*\(.*\)/g, "").trim();
-            const slug = loc.slug || cleanName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-            return (
-              <React.Fragment key={slug + idx}>
-                <Link
-                  href={`/locations/${slug}`}
-                  className="hover:text-action-yellow hover:underline transition-colors text-stone-300"
-                >
-                  {loc.name}
-                </Link>
-                {idx < arr.length - 1 && <span className="mx-2 text-stone-600">•</span>}
-              </React.Fragment>
-            );
-          })}
-        </div>
+
 
         {/* Bottom Legal */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">

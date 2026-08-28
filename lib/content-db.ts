@@ -12,11 +12,7 @@ export async function getCompanyDetails() {
     if (!info) {
       return {
         ...COMPANY_DETAILS,
-        serviceLocations: LOCATIONS.map((l) => ({
-          name: l.name,
-          region: l.region,
-          description: l.description,
-        })),
+        serviceLocations: COMPANY_DETAILS.serviceLocations,
       };
     }
 
@@ -57,11 +53,7 @@ export async function getCompanyDetails() {
       });
       regionsServedNames = serviceLocations.map((l) => l.name);
     } else {
-      serviceLocations = LOCATIONS.map((l) => ({
-        name: l.name,
-        region: l.region,
-        description: l.description,
-      }));
+      serviceLocations = COMPANY_DETAILS.serviceLocations;
       regionsServedNames = COMPANY_DETAILS.regionsServed;
     }
 
@@ -93,14 +85,7 @@ export async function getCompanyDetails() {
       guarantee: COMPANY_DETAILS.guarantee,
       serviceRadiusKm: COMPANY_DETAILS.serviceRadiusKm,
       regionsServed: regionsServedNames.length > 0 ? regionsServedNames : COMPANY_DETAILS.regionsServed,
-      serviceLocations:
-        serviceLocations.length > 0
-          ? serviceLocations
-          : LOCATIONS.map((l) => ({
-              name: l.name,
-              region: l.region,
-              description: l.description,
-            })),
+      serviceLocations: serviceLocations.length > 0 ? serviceLocations : COMPANY_DETAILS.serviceLocations,
       facebookUrl: info.facebookUrl,
       instagramUrl: info.instagramUrl,
       twitterUrl: info.twitterUrl,
@@ -120,6 +105,47 @@ export async function getCompanyDetails() {
     };
   } catch (_error) {
     return COMPANY_DETAILS;
+  }
+}
+
+export async function getPublishedLocations(): Promise<LocationCity[]> {
+  try {
+    const company = await getCompanyDetails();
+    const rawLocations = (company as any).serviceLocations || [];
+
+    if (!rawLocations || rawLocations.length === 0) {
+      return LOCATIONS;
+    }
+
+    return rawLocations.map((loc: any) => {
+      const cleanName = (loc.name || "Toronto").replace(/\s*\(.*\)/g, "").trim();
+      const slug =
+        loc.slug ||
+        cleanName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      const staticMatch = LOCATIONS.find(
+        (l) =>
+          l.slug === slug ||
+          l.name.toLowerCase() === (loc.name || "").toLowerCase() ||
+          l.name.toLowerCase() === cleanName.toLowerCase()
+      );
+
+      return {
+        name: loc.name,
+        region: loc.region || staticMatch?.region || "Greater Toronto Area",
+        slug,
+        badge: loc.badge || staticMatch?.badge || "2h Fast Response",
+        description:
+          loc.description ||
+          staticMatch?.description ||
+          `Fast, licensed pest control across ${loc.name} and surrounding communities.`,
+      };
+    });
+  } catch (_error) {
+    return LOCATIONS;
   }
 }
 
@@ -318,86 +344,6 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
   }
 }
 
-export async function getPublishedLocations(): Promise<LocationCity[]> {
-  try {
-    const company = await getCompanyDetails();
-    const rawLocations = company.serviceLocations || [];
-
-    if (!rawLocations || rawLocations.length === 0) {
-      return LOCATIONS;
-    }
-
-    return rawLocations.map((loc: any) => {
-      const cleanName = (loc.name || "Toronto").replace(/\s*\(.*\)/g, "").trim();
-      const slug =
-        loc.slug ||
-        cleanName
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "");
-
-      const staticMatch = LOCATIONS.find(
-        (l) =>
-          l.slug === slug ||
-          l.name.toLowerCase() === (loc.name || "").toLowerCase() ||
-          l.name.toLowerCase() === cleanName.toLowerCase() ||
-          (loc.name || "").toLowerCase().includes(l.name.toLowerCase())
-      );
-
-      return {
-        name: loc.name,
-        region: loc.region || staticMatch?.region || "Greater Toronto Area",
-        slug: slug || staticMatch?.slug || "toronto",
-        population: staticMatch?.population || "Growing Municipality",
-        badge: loc.badge || staticMatch?.badge || "2h Fast Response",
-        heroTagline:
-          staticMatch?.heroTagline ||
-          `Licensed, Guaranteed Pest Control & Exterminator Services Across ${loc.name}`,
-        description:
-          loc.description ||
-          staticMatch?.description ||
-          `Fast, licensed residential and commercial extermination services across ${loc.name} and surrounding communities.`,
-        neighborhoods: staticMatch?.neighborhoods || [
-          `${cleanName} Central`,
-          `${cleanName} North`,
-          `${cleanName} South`,
-          `${cleanName} East`,
-          `${cleanName} West`,
-        ],
-        commonPests: staticMatch?.commonPests || [
-          "Mice & Rats (Attic & Foundation Exclusion)",
-          "Bed Bugs (Heat & Steam Treatment)",
-          "Carpenter Ants & Pavement Ants",
-          "Wasps & Hornets",
-          "Cockroaches",
-        ],
-        landmarks: staticMatch?.landmarks || [`${cleanName} Civic Centre`, `${cleanName} Town Plaza`],
-        postalCodes: staticMatch?.postalCodes || [],
-        faqs: staticMatch?.faqs || [
-          {
-            question: `How fast can K2 Pest Control arrive at my property in ${cleanName}?`,
-            answer: `Our mobile extermination units arrive within 2 hours for urgent emergencies in ${cleanName} and surrounding areas.`,
-          },
-          {
-            question: `Do you provide a warranty for pest treatments in ${cleanName}?`,
-            answer: `Yes, all full treatments in ${cleanName} come with our 6-month written eradication warranty and free re-treatment guarantee.`,
-          },
-        ],
-      };
-    });
-  } catch (_error) {
-    return LOCATIONS;
-  }
-}
-
-export async function getPublishedLocationBySlug(slug: string): Promise<LocationCity | null> {
-  try {
-    const locations = await getPublishedLocations();
-    return locations.find((l) => l.slug === slug) || null;
-  } catch (_error) {
-    return LOCATIONS.find((l) => l.slug === slug) || null;
-  }
-}
 
 export async function getPublishedFaqs(): Promise<FAQItem[]> {
   try {
