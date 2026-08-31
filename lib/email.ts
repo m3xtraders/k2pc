@@ -167,7 +167,7 @@ export async function sendLeadReplyEmail(params: {
 
   const company = await getCompanyDetails().catch(() => ({
     name: "K2 Pest Control",
-    phone: "(416) 555-0199",
+    phone: "(306) 407-0007",
   }));
 
   const transporter = createTransporter(config);
@@ -179,7 +179,7 @@ export async function sendLeadReplyEmail(params: {
           ${company.name || "K2 Pest Control"}
         </h2>
         <p style="color: #fee2e2; margin: 4px 0 0 0; font-size: 13px;">
-          Licensed & Guaranteed Pest Control &bull; Ontario
+          Licensed & Guaranteed Pest Control &bull; Saskatchewan
         </p>
       </div>
 
@@ -195,7 +195,7 @@ export async function sendLeadReplyEmail(params: {
         <div style="background-color: #fafaf9; border-left: 4px solid #BE2320; padding: 12px 16px; margin: 24px 0; border-radius: 4px;">
           <p style="margin: 0; font-size: 13px; color: #44403c;">
             <strong>Need urgent assistance or 2-hour emergency dispatch?</strong><br>
-            Call our team directly at <strong>${company.phone || "(416) 555-0199"}</strong>.
+            Call our team directly at <strong>${company.phone || "(306) 407-0007"}</strong>.
           </p>
         </div>
 

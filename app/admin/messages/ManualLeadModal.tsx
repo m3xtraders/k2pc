@@ -211,7 +211,7 @@ export const ManualLeadModal: React.FC<ManualLeadModalProps> = ({
                 required
                 value={formData.phone}
                 onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                placeholder="e.g. (416) 555-0199"
+                placeholder="e.g. (306) 407-0007"
                 className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-stone-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
               />
             </div>

@@ -1,9 +1,13 @@
 import React from "react";
 import Hero from "@/components/sections/Hero";
 import PestStrip from "@/components/sections/PestStrip";
+import AboutSection from "@/components/sections/AboutSection";
 import ServiceGrid from "@/components/sections/ServiceGrid";
 import WhyUs from "@/components/sections/WhyUs";
+import StatsCounter from "@/components/sections/StatsCounter";
 import ProcessSteps from "@/components/sections/ProcessSteps";
+import BenefitsSection from "@/components/sections/BenefitsSection";
+import EcoFriendlyCTA from "@/components/sections/EcoFriendlyCTA";
 import ServiceArea from "@/components/sections/ServiceArea";
 import Testimonials from "@/components/sections/Testimonials";
 import BlogGrid from "@/components/sections/BlogGrid";
@@ -19,9 +23,13 @@ export default async function HomePage() {
     <>
       <Hero />
       <PestStrip />
+      <AboutSection />
       <ServiceGrid limit={6} />
       <WhyUs />
+      <StatsCounter />
       <ProcessSteps />
+      <BenefitsSection />
+      <EcoFriendlyCTA />
       <Testimonials />
       <ServiceArea />
       <LocationMapWidget />

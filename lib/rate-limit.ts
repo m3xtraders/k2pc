@@ -85,7 +85,7 @@ export function checkRateLimit(
   if (record.timestamps.length >= maxPerHour) {
     return {
       allowed: false,
-      reason: "Chat limit reached for this session. Please call our 24/7 emergency dispatch at (416) 555-0199 for assistance.",
+      reason: "Chat limit reached for this session. Please call our 24/7 emergency dispatch at (306) 407-0007 for assistance.",
       retryAfterSeconds: 300,
     };
   }

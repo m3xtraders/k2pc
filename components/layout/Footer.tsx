@@ -16,7 +16,7 @@ export default function Footer({ companyDetails }: FooterProps) {
   return (
     <footer className="bg-ink text-white pt-16 pb-12 border-t-4 border-brand-red">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-stone-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#1C4E75]/50">
           {/* Column 1: Brand & NAP */}
           <div className="space-y-4">
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-2">
@@ -69,10 +69,10 @@ export default function Footer({ companyDetails }: FooterProps) {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-stone-800 pb-2">
-              Quick Links
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
+              Navigation
             </h3>
-            <ul className="space-y-2.5 text-sm text-stone-300">
+            <ul className="space-y-2 text-sm text-stone-300">
               <li>
                 <Link href="/" className="hover:text-action-yellow transition-colors">
                   Home
@@ -83,25 +83,24 @@ export default function Footer({ companyDetails }: FooterProps) {
                   All Services
                 </Link>
               </li>
-
               <li>
-                <Link href="/commercial" className="hover:text-action-yellow transition-colors font-semibold text-action-yellow">
-                  Commercial &amp; Facility IPM
+                <Link href="/commercial" className="hover:text-action-yellow transition-colors">
+                  Commercial Solutions
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-action-yellow transition-colors">
-                  About K2 Pest Control &amp; Licensing
+                  About K2 Pest Control
                 </Link>
               </li>
               <li>
                 <Link href="/blog" className="hover:text-action-yellow transition-colors">
-                  Pest Guides & Blog
+                  Pest Identification Guide
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-action-yellow transition-colors">
-                  Get Free Quote & Contact
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -109,7 +108,7 @@ export default function Footer({ companyDetails }: FooterProps) {
 
           {/* Column 3: Core Pest Services */}
           <div>
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-stone-800 pb-2">
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
               Pest Extermination
             </h3>
             <ul className="space-y-2 text-sm text-stone-300">
@@ -128,10 +127,10 @@ export default function Footer({ companyDetails }: FooterProps) {
 
           {/* Column 4: Licensing & Trust Badges */}
           <div className="space-y-4">
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-stone-800 pb-2">
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
               Licensing & Trust
             </h3>
-            <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl space-y-3">
+            <div className="bg-[#143D5C] border border-[#1C4E75]/60 p-4 rounded-xl space-y-3">
               <div className="flex items-center gap-2 text-action-yellow font-bold text-sm">
                 <Shield className="w-5 h-5 shrink-0" />
                 <span>Ontario License #{company.licenseNumber || COMPANY_DETAILS.licenseNumber}</span>

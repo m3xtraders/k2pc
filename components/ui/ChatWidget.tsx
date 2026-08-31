@@ -38,8 +38,8 @@ interface Message {
 export function ChatWidget({ companyDetails }: ChatWidgetProps) {
   const isEnabled = companyDetails?.chatbotEnabled ?? true;
   const botName = companyDetails?.chatbotName || "K2 Pest Assistant";
-  const phone = companyDetails?.phone || "(416) 555-0199";
-  const phoneRaw = companyDetails?.phoneRaw || "4165550199";
+  const phone = companyDetails?.phone || "(306) 407-0007";
+  const phoneRaw = companyDetails?.phoneRaw || "3064070007";
 
   const initialGreeting =
     companyDetails?.chatbotGreeting ||
@@ -180,7 +180,7 @@ export function ChatWidget({ companyDetails }: ChatWidgetProps) {
       {/* Floating Launcher Button */}
       <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex items-center gap-3">
         {!isOpen && !hasInteracted && (
-          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 bg-stone-900/95 text-white text-xs font-medium rounded-full shadow-xl border border-stone-700/50 backdrop-blur-sm animate-bounce cursor-pointer hover:bg-stone-800 transition-colors"
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 bg-[#0E2F48]/95 text-white text-xs font-medium rounded-full shadow-xl border border-[#1C4E75] backdrop-blur-sm animate-bounce cursor-pointer hover:bg-[#143D5C] transition-colors"
                onClick={() => setIsOpen(true)}>
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Need Fast Pest Help? Chat 24/7</span>
@@ -192,7 +192,7 @@ export function ChatWidget({ companyDetails }: ChatWidgetProps) {
           aria-label={isOpen ? "Close Chat Assistant" : "Open 24/7 AI Pest Assistant"}
           className={`relative flex items-center justify-center rounded-full shadow-2xl transition-all duration-300 transform active:scale-95 ${
             isOpen
-              ? "w-12 h-12 bg-stone-800 text-stone-200 hover:bg-stone-900 border border-stone-700"
+              ? "w-12 h-12 bg-[#0E2F48] text-stone-200 hover:bg-[#143D5C] border border-[#1C4E75]"
               : "w-14 h-14 bg-gradient-to-tr from-[#BE2320] to-[#E53E3E] text-white hover:shadow-[#BE2320]/30 hover:scale-105"
           }`}
         >
@@ -219,13 +219,13 @@ export function ChatWidget({ companyDetails }: ChatWidgetProps) {
           aria-labelledby="chat-title"
         >
           {/* Header */}
-          <div className="bg-stone-900 text-white px-4 py-3.5 flex items-center justify-between border-b border-stone-800 select-none">
+          <div className="bg-[#0E2F48] text-white px-4 py-3.5 flex items-center justify-between border-b border-[#1C4E75] select-none">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-9 h-9 rounded-full bg-[#BE2320] flex items-center justify-center text-white font-bold text-sm shadow-inner">
                   <Bot className="w-5 h-5 text-amber-300" />
                 </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-stone-900 rounded-full"></span>
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-[#0E2F48] rounded-full"></span>
               </div>
               <div>
                 <h3 id="chat-title" className="font-bold text-sm text-stone-100 flex items-center gap-1.5 leading-tight">

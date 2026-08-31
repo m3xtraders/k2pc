@@ -105,7 +105,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
             </span>
           </div>
           <div className="flex items-center gap-4 text-stone-300">
-            <span className="truncate max-w-xs">{company.slogan || company.tagline || "Serving Toronto & GTA"}</span>
+            <span className="truncate max-w-xs">{company.slogan || company.tagline || "Serving Saskatoon & Area"}</span>
             <a
               href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
               className="text-action-yellow hover:underline font-bold"
@@ -136,7 +136,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                 K2 Pest Control
               </span>
               <span className="text-[11px] font-semibold text-brand-red tracking-wider uppercase font-mono-data">
-                GTA Exterminator
+                Licensed Exterminator
               </span>
             </div>
           </Link>
@@ -189,7 +189,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
 
                             <div className="flex items-center gap-3 shrink-0">
                               <Link
-                                href="/commercial"
+                                href="/services?tab=commercial"
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="text-xs font-mono-data font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100 transition-colors flex items-center gap-1.5"
                               >
@@ -248,7 +248,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                                   Need 2-Hour Emergency Pest Dispatch?
                                 </span>
                                 <span className="text-[11px] text-stone-300">
-                                  On-call exterminators standing by 24/7 across Toronto & GTA.
+                                  On-call exterminators standing by 24/7 across Saskatoon &amp; Area.
                                 </span>
                               </div>
                             </div>

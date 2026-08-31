@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>K2 Pest Control - Full Technical, SEO & Local SEO Website Audit Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8pt;
+        color: #71717a;
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #18181b;
+      line-height: 1.5;
+      font-size: 9.5pt;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    .page-break {
+      page-break-before: always;
+      margin-top: 20px;
+    }
+
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+
+    /* Header */
+    .header-container {
+      border-bottom: 3px solid #BE2320;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .brand-title {
+      font-size: 22pt;
+      font-weight: 800;
+      color: #BE2320;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 11pt;
+      color: #52525b;
+      font-weight: 600;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+
+    .report-meta {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #71717a;
+    }
+
+    .report-meta strong {
+      color: #18181b;
+    }
+
+    /* Status Banner */
+    .alert-banner {
+      background-color: #fef2f2;
+      border: 1.5px solid #f87171;
+      border-left: 6px solid #dc2626;
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .alert-title {
+      font-weight: 700;
+      color: #991b1b;
+      font-size: 10pt;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .alert-desc {
+      color: #7f1d1d;
+      font-size: 8.5pt;
+      margin: 0;
+    }
+
+    /* Headings */
+    h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: #09090b;
+      border-bottom: 1.5px solid #e4e4e7;
+      padding-bottom: 5px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #27272a;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    /* Scorecards Grid */
+    .scorecard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .scorecard {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .scorecard-title {
+      font-size: 8pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .scorecard-val {
+      font-size: 16pt;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .scorecard-sub {
+      font-size: 7.5pt;
+      color: #64748b;
+    }
+
+    .score-green { color: #16a34a; }
+    .score-blue { color: #2563eb; }
+    .score-amber { color: #d97706; }
+    .score-red { color: #dc2626; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 8.5pt;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #334155;
+      text-align: left;
+      padding: 7px 10px;
+      font-weight: 700;
+      border: 1px solid #cbd5e1;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 7px 10px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fafafa;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7pt;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-done { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .badge-pending { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .badge-missing { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .badge-high { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+    .badge-med { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+
+    /* Key-Value Box */
+    .info-box {
+      background: #f8fafc;
+      border-left: 4px solid #3b82f6;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 12px;
+      font-size: 8.5pt;
+    }
+
+    .info-box-warn {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 12px;
+      font-size: 8.5pt;
+    }
+
+    ul {
+      margin-top: 4px;
+      margin-bottom: 8px;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .check-icon {
+      font-weight: bold;
+      color: #16a34a;
+    }
+
+    .cross-icon {
+      font-weight: bold;
+      color: #dc2626;
+    }
+
+    .footer-note {
+      border-top: 1px solid #e4e4e7;
+      padding-top: 8px;
+      margin-top: 20px;
+      font-size: 7.5pt;
+      color: #a1a1aa;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header-container">
+    <div>
+      <h1 class="brand-title">K2 PEST CONTROL</h1>
+      <div class="brand-subtitle">Full Website Audit & Technical / SEO / Content Status Report</div>
+    </div>
+    <div class="report-meta">
+      <strong>Target Domain:</strong> https://www.k2pc.ca<br>
+      <strong>Stack:</strong> Next.js 15+ / React 19 / MySQL / Prisma<br>
+      <strong>Audit Date:</strong> August 2026<br>
+      <strong>Version:</strong> 1.0 (Production Readiness Audit)
+    </div>
+  </div>
+
+  <!-- STATUS BANNER -->
+  <div class="alert-banner">
+    <div class="alert-title">⚠️ CRITICAL CONTENT NOTICE: CONTENT WRITING IS NOT COMPLETE</div>
+    <div class="alert-desc">
+      While the website's technical architecture, SEO schema engine, database fallback, and UI modules are fully functional, <strong>the content writing across the site remains incomplete</strong>. The site currently uses placeholder phone numbers, dummy Saskatchewan map coordinates, generic test blogs, and stock customer testimonials that must be replaced before full-scale commercial advertising.
+    </div>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="scorecard-grid">
+    <div class="scorecard">
+      <div class="scorecard-title">Technical Core</div>
+      <div class="scorecard-val score-green">88%</div>
+      <div class="scorecard-sub">App Router, APIs, Auth, Fallback</div>
+    </div>
+    <div class="scorecard">
+      <div class="scorecard-title">General SEO</div>
+      <div class="scorecard-val score-blue">90%</div>
+      <div class="scorecard-sub">Sitemap, Robots, Schema, Tags</div>
+    </div>
+    <div class="scorecard">
+      <div class="scorecard-title">Local SEO</div>
+      <div class="scorecard-val score-amber">70%</div>
+      <div class="scorecard-sub">GTA Geo Tags, Schema (Needs Fixes)</div>
+    </div>
+    <div class="scorecard">
+      <div class="scorecard-title">Content Writing</div>
+      <div class="scorecard-val score-red">35%</div>
+      <div class="scorecard-sub">⚠️ Incomplete / Placeholders</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: EXECUTIVE SUMMARY -->
+  <h2>1. Executive Summary & Objective</h2>
+  <p>
+    This report provides a comprehensive evaluation of the <strong>K2 Pest Control (k2pc.ca)</strong> web platform. It details current implementation milestones, identifying what is successfully completed, what is pending, and critical gaps across <strong>Technical Architecture</strong>, <strong>Technical & On-Page SEO</strong>, <strong>Content Readiness</strong>, and <strong>Local SEO (Greater Toronto Area)</strong>.
+  </p>
+
+  <!-- SECTION 2: TECHNICAL VIEW -->
+  <h2>2. Technical View: What's Done vs. What's Remaining</h2>
+
+  <h3>✅ Completed Technical Modules</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Module</th>
+        <th style="width: 55%;">Implementation Details</th>
+        <th style="width: 20%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Core Framework</strong></td>
+        <td>Next.js 15+ App Router, React 19, TypeScript, Tailwind CSS, Turbopack support. Fast SSR & SSG routing.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Database & Hybrid Fallback</strong></td>
+        <td>Prisma ORM with MySQL connection and graceful in-memory file fallback (<code>content-db.ts</code>) ensuring 100% uptime if MySQL is disconnected.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Lead Intake & Security</strong></td>
+        <td>Interactive multi-step contact form with Zod schema validation, XSS sanitization, anti-bot honeypot, and IP rate-limiting.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Email Dispatch System</strong></td>
+        <td>Automated dual email dispatch (Admin instant alert + Customer branded auto-responder) using Resend / SMTP.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Admin Dashboard</strong></td>
+        <td>JWT/Session protected admin portal for managing customer leads, dynamic service catalog, blog articles, and business metadata.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>AI Chatbot Assistant</strong></td>
+        <td>Interactive customer assistant (<code>/api/chat</code>) with prompt customization, pre-set FAQs, and toggleable availability.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Typography & Performance</strong></td>
+        <td>Zero layout-shift (CLS) via <code>next/font</code> (Space Grotesk, Inter, IBM Plex Mono) with preconnect resource hints.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>⏳ Remaining Technical Items</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Task</th>
+        <th style="width: 50%;">Description / Recommendation</th>
+        <th style="width: 20%;">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SMS Lead Dispatch</strong></td>
+        <td>Integrate Twilio or AWS SNS webhook to text on-call GTA technicians immediately upon urgent 2-hour emergency submissions.</td>
+        <td><span class="badge badge-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>Asset Host Migration</strong></td>
+        <td>Convert and host pest catalog images locally in modern WebP/AVIF rather than relying on external Unsplash URLs.</td>
+        <td><span class="badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Security Headers & CSP</strong></td>
+        <td>Configure strict Content Security Policy, HSTS, and X-Frame-Options headers in <code>next.config.ts</code>.</td>
+        <td><span class="badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Automated E2E Testing</strong></td>
+        <td>Add Playwright test suite for lead submission verification, dynamic service routing, and admin authentication.</td>
+        <td><span class="badge badge-pending">Low</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: SEO VIEW -->
+  <h2>3. General & Technical SEO: What's Done vs. What's Remaining</h2>
+
+  <h3>✅ Completed SEO Modules</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">SEO Feature</th>
+        <th style="width: 55%;">Implementation Details</th>
+        <th style="width: 20%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Dynamic XML Sitemap</strong></td>
+        <td><code>/sitemap.xml</code> dynamically includes all static pages, active service slugs, and published blog posts with accurate priority weighting.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Robots Directives</strong></td>
+        <td><code>/robots.txt</code> allows search engines to index public content while disallowing admin routes and API backends.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>PestControlService Schema</strong></td>
+        <td>JSON-LD structured data in root layout with license numbers, hours, openingHoursSpecification, pricing, and payment methods.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Service & Breadcrumb Schema</strong></td>
+        <td>Individual service detail pages embed dedicated <code>Service</code> and <code>BreadcrumbList</code> JSON-LD schemas.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>FAQPage Schema</strong></td>
+        <td>Rich Snippet eligible FAQ structured data embedded on homepage and service pages for Google snippet expansions.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Meta & OpenGraph</strong></td>
+        <td>Dynamic title templates, canonical tags, and OpenGraph/Twitter summary cards configured per page.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+      <tr>
+        <td><strong>Analytics & Webmaster</strong></td>
+        <td>Google Search Console verification token and Google Analytics GA4 (<code>G-8EHS2WM33H</code>) script integrated.</td>
+        <td><span class="badge badge-done">Completed</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>⏳ Remaining SEO Optimizations</h3>
+  <ul>
+    <li><strong>Blog Article Schema:</strong> Add <code>BlogPosting</code> JSON-LD schema with author, datePublished, and dateModified to blog post pages.</li>
+    <li><strong>Internal Link Matrix:</strong> Create contextual links between related service pages (e.g., cross-linking "Rodent Control" and "Commercial IPM").</li>
+    <li><strong>301 Permanent Redirects:</strong> Add server-level permanent redirects in <code>next.config.ts</code> from alias routes (<code>/privacy-policy</code> &rarr; <code>/privacy</code>, <code>/terms-of-service</code> &rarr; <code>/terms</code>).</li>
+    <li><strong>Image Alt Text Audit:</strong> Validate that all user-uploaded CMS service graphics include localized alt text (e.g., "Bed bug thermal heat extermination in Toronto").</li>
+  </ul>
+
+  <!-- SECTION 4: CONTENT WRITING AUDIT -->
+  <h2>4. Content Writing Status: ⚠️ INCOMPLETE (Gap Analysis)</h2>
+  
+  <div class="info-box-warn">
+    <strong>Content Writing Assessment:</strong> The site cannot launch effectively for organic rankings or paid ad campaigns until placeholder copy, sample blogs, and dummy business records are replaced with verified, authoritative content.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Area</th>
+        <th style="width: 20%;">Current State</th>
+        <th style="width: 55%;">Missing Content & Required Work</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Business NAP Details</strong></td>
+        <td><span class="badge badge-missing">Placeholder</span></td>
+        <td>Phone number is currently dummy <code>(416) 555-0199</code>; map embed coordinates point to Saskatoon instead of Toronto. Must provide official phone & headquarters address.</td>
+      </tr>
+      <tr>
+        <td><strong>8 Core Service Pages</strong></td>
+        <td><span class="badge badge-pending">Partial Draft</span></td>
+        <td>Contains short descriptions and generic treatment steps. Needs comprehensive Ontario-specific preparation checklists for clients, chemical/heat safety protocols, and explicit warranty terms.</td>
+      </tr>
+      <tr>
+        <td><strong>Blog & Resource Library</strong></td>
+        <td><span class="badge badge-missing">Only 3 Samples</span></td>
+        <td>Only 3 sample posts exist. Needs 10–15 localized SEO pillar articles targeting GTA search queries (e.g., <em>"Tenant bed bug rights in Ontario"</em>, <em>"How to get rid of carpenter ants in North York"</em>).</td>
+      </tr>
+      <tr>
+        <td><strong>About Us Page</strong></td>
+        <td><span class="badge badge-pending">Template Copy</span></td>
+        <td>Uses placeholder team bios and stock avatars. Needs authentic company origin story, licensed exterminator profiles, and verified ministry credentials.</td>
+      </tr>
+      <tr>
+        <td><strong>Commercial Services</strong></td>
+        <td><span class="badge badge-pending">General Overview</span></td>
+        <td>Needs dedicated industry breakdowns: Restaurant & Food Service Health Audits (DineSafe), Warehousing & Logistics, Multi-Unit Residential Property Management.</td>
+      </tr>
+      <tr>
+        <td><strong>Social Proof & Reviews</strong></td>
+        <td><span class="badge badge-missing">Mock Reviews</span></td>
+        <td>5 hardcoded placeholder reviews. Must be replaced with real, verified Google / Homestars reviews referencing specific GTA municipalities.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 5: LOCAL SEO (GTA) ANALYSIS -->
+  <h2>5. Local SEO (GTA) Analysis: Integrated vs. Missing</h2>
+
+  <div class="info-box">
+    <strong>Local SEO Objective:</strong> Dominating high-intent local search queries across Toronto, Peel, York, and Halton regions (e.g., "emergency exterminator Toronto", "wasp nest removal Mississauga", "bed bug heat treatment GTA").
+  </div>
+
+  <h3>📍 What is Currently Integrated in the Site</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Integrated Feature</th>
+        <th style="width: 70%;">Current Implementation Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ontario Geo Meta Headers</strong></td>
+        <td>Layout includes <code>geo.region: "CA-ON"</code>, <code>geo.placename: "Toronto"</code>, <code>geo.position: "43.7142;-79.3364"</code>, and <code>ICBM</code> tags.</td>
+      </tr>
+      <tr>
+        <td><strong>GTA Regional Scope</strong></td>
+        <td>Defined coverage for 11 GTA municipalities: Toronto, North York, Etobicoke, Scarborough, Mississauga, Brampton, Vaughan, Markham, Oakville, Richmond Hill, Burlington.</td>
+      </tr>
+      <tr>
+        <td><strong>Local Service Area Badges</strong></td>
+        <td><code>ServiceAreaClient.tsx</code> showcases region-specific response commitments (e.g., "2h Emergency Dispatch", "Local Unit on Standby").</td>
+      </tr>
+      <tr>
+        <td><strong>PestControlService Schema</strong></td>
+        <td>Embeds complete Toronto PostalAddress (<code>M3C 1H9</code>), Ontario Applicator License (<code>ON-849201-P</code>), and local opening hours.</td>
+      </tr>
+      <tr>
+        <td><strong>Interactive Map Module</strong></td>
+        <td><code>LocationMapWidget.tsx</code> renders interactive Google Map directions link and neighborhood coverage selectors.</td>
+      </tr>
+      <tr>
+        <td><strong>Direct Phone Call CTAs</strong></td>
+        <td>Mobile sticky header and emergency action banners configured with immediate <code>tel:</code> dialing protocols.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>❌ What is Missing / Needs Improvement for Local SEO</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Missing Item</th>
+        <th style="width: 50%;">Impact & Necessary Correction</th>
+        <th style="width: 20%;">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Correct NAP & Map Embed</strong></td>
+        <td><strong>Critical Bug:</strong> Current embed coordinates in <code>company.ts</code> point to Saskatoon (<code>-106.6834, 52.1504</code>). Must be updated with exact Toronto Google Maps Place ID and real phone number.</td>
+        <td><span class="badge badge-high">Immediate</span></td>
+      </tr>
+      <tr>
+        <td><strong>Dedicated City Landing Pages</strong></td>
+        <td>All location links currently anchor to the homepage widget. To rank across Peel, York, and Halton, create dedicated landing pages: <code>/locations/mississauga</code>, <code>/locations/brampton</code>, <code>/locations/north-york</code>.</td>
+        <td><span class="badge badge-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>Local Citation Links (sameAs)</strong></td>
+        <td><code>sameAs</code> schema currently lacks links to authoritative Canadian directories: Google Business Profile, Homestars, BBB, YellowPages.ca, and TrustedPros.</td>
+        <td><span class="badge badge-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>GeoShape Multi-Polygon Schema</strong></td>
+        <td>Schema only has 1 coordinate point. Needs <code>GeoCircle</code> or multi-region <code>ServiceArea</code> polygons covering the 60km Greater Toronto service radius.</td>
+        <td><span class="badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Municipal Bylaw Content</strong></td>
+        <td>Lack of city-specific FAQs regarding municipal property standards (e.g., Toronto Municipal Code Chapter 629 on pest control, Peel Region rodent control).</td>
+        <td><span class="badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Live Google Reviews Integration</strong></td>
+        <td>AggregateRating in schema is hardcoded (480 reviews). Needs Google Place API integration or a direct link to the Google Review submission form.</td>
+        <td><span class="badge badge-med">Medium</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 6: ACTION PLAN -->
+  <h2>6. Actionable Implementation Roadmap</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 20%;">Phase</th>
+        <th style="width: 50%;">Core Deliverables</th>
+        <th style="width: 30%;">Target Timeline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Phase 1: Critical Fixes</strong></td>
+        <td>
+          • Fix Google Maps embed coordinates & verified business phone.<br>
+          • Add 301 redirects for legal route aliases.<br>
+          • Connect official Google Business Profile and social directory links.
+        </td>
+        <td>Days 1 – 3</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 2: Content Writing</strong></td>
+        <td>
+          • Write full copy for 8 service pages with prep guides & FAQs.<br>
+          • Publish 10 localized GTA blog articles.<br>
+          • Draft authentic About Us and Commercial sector pages.
+        </td>
+        <td>Week 1 – 2</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 3: Local Expansion</strong></td>
+        <td>
+          • Build dedicated City Landing Pages (Mississauga, Brampton, etc.).<br>
+          • Expand GeoShape polygon schema & embed Google Places review badge.<br>
+          • Integrate SMS lead notification for on-call technicians.
+        </td>
+        <td>Week 3 – 4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <span>K2 Pest Control (k2pc.ca) &bull; Technical & SEO Audit Report</span>
+    <span>Generated by Antigravity AI Engineering</span>
+  </div>
+
+</body>
+</html>

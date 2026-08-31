@@ -1,13 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import ServiceGrid from "@/components/sections/ServiceGrid";
+import { ServicesTabbedSection } from "@/components/sections/ServicesTabbedSection";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
-import { CommercialHighlightBanner } from "@/components/sections/CommercialHighlightBanner";
 import { ShieldCheck, Phone } from "lucide-react";
 import FAQAccordion from "@/components/sections/FAQAccordion";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
+import { getCompanyDetails, getPublishedFaqs, getPublishedServices } from "@/lib/content-db";
 
 export const metadata: Metadata = {
   title: "Pest Extermination Services | Toronto & GTA",
@@ -25,9 +24,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [company, faqs] = await Promise.all([
+  const [company, faqs, services] = await Promise.all([
     getCompanyDetails(),
     getPublishedFaqs(),
+    getPublishedServices(),
   ]);
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
@@ -59,7 +59,7 @@ export default async function ServicesPage() {
       />
 
       {/* Header Banner */}
-      <section className="bg-ink text-white py-14 border-b border-stone-800">
+      <section className="bg-ink text-white py-14 border-b border-[#1C4E75]/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <ShieldCheck className="w-4 h-4" />
@@ -74,10 +74,9 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* For Your Business / Commercial Top Feature Section */}
-      <CommercialHighlightBanner />
+      {/* Interactive Domestic vs Commercial Tabbed Section */}
+      <ServicesTabbedSection services={services || []} />
 
-      <ServiceGrid showHeading={false} />
       <ProcessSteps />
 
       <section className="py-12 bg-surface-warm border-t border-stone-200 text-center">

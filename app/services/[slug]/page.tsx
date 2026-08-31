@@ -141,7 +141,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       />
 
       {/* Service Hero Header */}
-      <section className="bg-ink text-white py-12 md:py-16 border-b border-stone-800">
+      <section className="bg-ink text-white py-12 md:py-16 border-b border-[#1C4E75]/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
@@ -181,7 +181,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </div>
 
             {/* Quick Call Box */}
-            <div className="lg:col-span-4 bg-stone-900/90 border border-stone-800 p-6 rounded-2xl space-y-4 text-center shadow-xl">
+            <div className="lg:col-span-4 bg-[#143D5C] border border-[#1C4E75] p-6 rounded-2xl space-y-4 text-center shadow-xl">
               <h3 className="font-heading font-bold text-xl text-white">
                 Urgent Pest Emergency?
               </h3>
@@ -307,7 +307,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               )}
 
               {/* Why Choose K2PC Cards */}
-              <div className="bg-stone-900 text-white p-8 rounded-2xl space-y-6 border border-stone-800 shadow-lg">
+              <div className="bg-[#143D5C] text-white p-8 rounded-2xl space-y-6 border border-[#1C4E75] shadow-lg">
                 <h3 className="font-heading font-bold text-2xl text-white">
                   Why Choose K2PC for {service.title}?
                 </h3>
@@ -315,7 +315,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-sm text-white">100% Eradication Guarantee</h4>
+                      <h4 className="font-bold text-sm text-white">99.9% Eradication Guarantee</h4>
                       <p className="text-xs text-stone-400">Complete pest removal with free re-treatment warranty.</p>
                     </div>
                   </div>

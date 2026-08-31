@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
         {
           response:
             rateLimit.reason ||
-            "You have sent several messages quickly! Please wait a moment or call our 24/7 emergency dispatch at (416) 555-0199.",
+            "You have sent several messages quickly! Please wait a moment or call our 24/7 emergency dispatch at (306) 407-0007.",
         },
         { status: 429 }
       );
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
         {
           response:
             "Our live chat is currently offline. Please call our 24/7 emergency dispatch directly at " +
-            (companyDetails.phone || "(416) 555-0199") +
+            (companyDetails.phone || "(306) 407-0007") +
             " or visit our contact page.",
         },
         { status: 200 }
@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
         {
           response:
             "AI assistant is currently initializing. Please contact us directly at " +
-            (companyDetails.phone || "(416) 555-0199") +
+            (companyDetails.phone || "(306) 407-0007") +
             ".",
         },
         { status: 200 }
@@ -160,7 +160,7 @@ You assist homeowners, landlords, restaurant owners, and property managers acros
 ### 🏢 COMPANY PROFILE & CREDENTIALS:
 - **Company Name**: ${companyDetails.name || "K2 Pest Control"}
 - **Ontario Ministry License**: ${companyDetails.licenseNumber || "ON-849201-P"} (Ministry of Environment Licensed & Insured)
-- **Primary Phone (Call / SMS)**: ${companyDetails.phone || "(416) 555-0199"}
+- **Primary Phone (Call / SMS)**: ${companyDetails.phone || "(306) 407-0007"}
 - **Emergency Service**: 2-Hour Rapid Emergency Response Available 24/7
 - **Operating Hours**: ${hoursText}
 - **Service Regions**: ${serviceAreasText}
@@ -307,7 +307,7 @@ ${customAdminPrompt}
                 alreadySubmitted: true,
               };
 
-              finalAssistantText = `Your request has already been submitted and delivered to our dispatch team! 📋 Our certified technician is currently reviewing your file and will contact you at **${args.phone}** ASAP.\n\nNeed urgent 24/7 assistance? Feel free to call our dispatch line directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
+              finalAssistantText = `Your request has already been submitted and delivered to our dispatch team! 📋 Our certified technician is currently reviewing your file and will contact you at **${args.phone}** ASAP.\n\nNeed urgent 24/7 assistance? Feel free to call our dispatch line directly at **${companyDetails.phone || "(306) 407-0007"}**.`;
             } else {
               const savedLead = await prisma.contactSubmission.create({
                 data: {
@@ -342,7 +342,7 @@ ${customAdminPrompt}
               }).catch((err) => console.error("Async chatbot email error:", err));
 
               if (!finalAssistantText) {
-                finalAssistantText = `Thank you, **${args.name}**! 🎉 Your request for **${args.service || "pest inspection"}** has been sent to our on-duty dispatcher. One of our licensed exterminators will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
+                finalAssistantText = `Thank you, **${args.name}**! 🎉 Your request for **${args.service || "pest inspection"}** has been sent to our on-duty dispatcher. One of our licensed exterminators will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(306) 407-0007"}**.`;
               }
             }
           } catch (dbErr) {
@@ -356,7 +356,7 @@ ${customAdminPrompt}
               alreadySubmitted: false,
             };
             if (!finalAssistantText) {
-              finalAssistantText = `Thank you, **${args.name || "for reaching out"}**! 🎉 Your request for **${args.service || "pest inspection"}** has been recorded. Our dispatcher will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
+              finalAssistantText = `Thank you, **${args.name || "for reaching out"}**! 🎉 Your request for **${args.service || "pest inspection"}** has been recorded. Our dispatcher will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(306) 407-0007"}**.`;
             }
           }
         }
@@ -385,7 +385,7 @@ ${customAdminPrompt}
               alreadySubmitted: true,
             };
 
-            finalAssistantText = `Your request is already on file with our team! 📋 Our technician will reach out to you at **${extractedPhone}** ASAP.\n\nIf you require immediate 24/7 emergency dispatch, please call us directly at **${companyDetails.phone || "(416) 555-0199"}**.`;
+            finalAssistantText = `Your request is already on file with our team! 📋 Our technician will reach out to you at **${extractedPhone}** ASAP.\n\nIf you require immediate 24/7 emergency dispatch, please call us directly at **${companyDetails.phone || "(306) 407-0007"}**.`;
           } else {
             // Try to extract name if format is "my name is X" or "I'm X"
             const nameMatch = lastUserMsg.match(/(?:my name is|i am|i'm|this is)\s+([A-Za-z]+(?:\s+[A-Za-z]+)?)/i);
@@ -420,7 +420,7 @@ ${customAdminPrompt}
     if (!finalAssistantText) {
       finalAssistantText =
         "I'm here to help with all your pest control needs! You can ask about our treatments, pricing, or call us directly at " +
-        (companyDetails.phone || "(416) 555-0199") +
+        (companyDetails.phone || "(306) 407-0007") +
         ".";
     }
 
@@ -434,7 +434,7 @@ ${customAdminPrompt}
     return NextResponse.json(
       {
         response:
-          "I'm temporarily experiencing high traffic, but our team is standing by! Please give our 24/7 hotline a quick call at **(416) 555-0199** for immediate assistance.",
+          "I'm temporarily experiencing high traffic, but our team is standing by! Please give our 24/7 hotline a quick call at **(306) 407-0007** for immediate assistance.",
         error: error.message || "Internal error",
       },
       { status: 200 }

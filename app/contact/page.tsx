@@ -62,7 +62,7 @@ export default async function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header Banner */}
-      <section className="bg-ink text-white py-14 border-b border-stone-800">
+      <section className="bg-ink text-white py-14 border-b border-[#1C4E75]/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <Zap className="w-4 h-4 text-action-yellow" />

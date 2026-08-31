@@ -76,7 +76,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
     setRecipientEmail(lead.email || "");
     setReplySubject(`Re: Pest Control Inquiry - ${lead.service || "K2 Pest Control"}`);
     setReplyMessage(
-      `Hi ${lead.name},\n\nThank you for reaching out to K2 Pest Control regarding your inquiry for ${lead.service || "pest inspection"}.\n\nOur certified technician can perform an on-site inspection and quote in ${lead.city || "your area"}. What day and time works best for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (416) 555-0199`
+      `Hi ${lead.name},\n\nThank you for reaching out to K2 Pest Control regarding your inquiry for ${lead.service || "pest inspection"}.\n\nOur certified technician can perform an on-site inspection and quote in ${lead.city || "your area"}. What day and time works best for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (306) 407-0007`
     );
   };
 
@@ -633,7 +633,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         onClick={() => {
                           setReplySubject(`Inspection Appointment - K2 Pest Control`);
                           setReplyMessage(
-                            `Hi ${selectedLead.name},\n\nWe received your inquiry regarding ${selectedLead.service || "pest inspection"}.\n\nOur certified technician is available to perform an on-site inspection in ${selectedLead.city || "your area"}. Would tomorrow morning or afternoon work better for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (416) 555-0199`
+                            `Hi ${selectedLead.name},\n\nWe received your inquiry regarding ${selectedLead.service || "pest inspection"}.\n\nOur certified technician is available to perform an on-site inspection in ${selectedLead.city || "your area"}. Would tomorrow morning or afternoon work better for you?\n\nBest regards,\nK2 Pest Control Dispatch Team\nPhone: (306) 407-0007`
                           );
                         }}
                         className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"
@@ -645,7 +645,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         onClick={() => {
                           setReplySubject(`Pest Control Quote - ${selectedLead.service || "K2 Pest Control"}`);
                           setReplyMessage(
-                            `Hi ${selectedLead.name},\n\nThank you for requesting a quote for ${selectedLead.service || "pest removal"}.\n\nOur standard treatment includes complete eradication, eco-safe application, and a 6-month written warranty. Please call us at (416) 555-0199 so we can finalize the booking.\n\nBest regards,\nK2 Pest Control Team`
+                            `Hi ${selectedLead.name},\n\nThank you for requesting a quote for ${selectedLead.service || "pest removal"}.\n\nOur standard treatment includes complete eradication, eco-safe application, and a 6-month written warranty. Please call us at (306) 407-0007 so we can finalize the booking.\n\nBest regards,\nK2 Pest Control Team`
                           );
                         }}
                         className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"
@@ -657,7 +657,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         onClick={() => {
                           setReplySubject(`Commercial Facility IPM Proposal - K2 Pest Control`);
                           setReplyMessage(
-                            `Hi ${selectedLead.name},\n\nThank you for reaching out regarding commercial pest management for your facility in ${selectedLead.city || "the Greater Toronto Area"}.\n\nWe provide discrete, audit-ready IPM programs with digital health logbooks and 24/7 priority dispatch. Let us know when we can conduct your complimentary on-site walk-through.\n\nBest regards,\nK2 Commercial Division\nPhone: (416) 555-0199`
+                            `Hi ${selectedLead.name},\n\nThank you for reaching out regarding commercial pest management for your facility in ${selectedLead.city || "the Greater Toronto Area"}.\n\nWe provide discrete, audit-ready IPM programs with digital health logbooks and 24/7 priority dispatch. Let us know when we can conduct your complimentary on-site walk-through.\n\nBest regards,\nK2 Commercial Division\nPhone: (306) 407-0007`
                           );
                         }}
                         className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"

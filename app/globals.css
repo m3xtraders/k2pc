@@ -5,9 +5,12 @@
   --color-brand-red-dark: #8E1A18;
   --color-action-yellow: #F2B705;
   --color-surface-white: #FFFFFF;
-  --color-surface-warm: #FAF7F2;
-  --color-ink: #1C1917;
-  --color-neutral-text: #6B6560;
+  --color-surface-warm: #F4F8FA;
+  --color-ink: #0E2F48;
+  --color-ink-surface: #143D5C;
+  --color-ink-card: #18496E;
+  --color-ink-border: #1C4E75;
+  --color-neutral-text: #4E657B;
 
   --font-heading: var(--font-space-grotesk), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
@@ -16,10 +19,11 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1C1917;
+  --foreground: #0E2F48;
 }
 
 html {
+  font-size: 17px;
   scroll-behavior: smooth;
   color-scheme: light;
 }
@@ -28,6 +32,8 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

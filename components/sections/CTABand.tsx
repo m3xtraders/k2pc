@@ -30,7 +30,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
               Ready to Eliminate Your Pest Problem?
             </h2>
             <p className="text-stone-100 text-base sm:text-lg max-w-2xl">
-              Get an instant online quote or speak directly with an Ontario licensed exterminator. 100% satisfaction guaranteed with zero obligation.
+              Get an instant online quote or speak directly with an Ontario licensed exterminator. 99.9% satisfaction guaranteed with zero obligation.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
             </Button>
             <a
               href={`tel:${phoneRaw}`}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-ink hover:bg-stone-950 text-white font-bold text-base transition-colors border border-stone-800 min-h-[52px]"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-ink hover:bg-[#082033] text-white font-bold text-base transition-colors border border-[#1C4E75]/60 min-h-[52px]"
             >
               <Phone className="w-5 h-5 text-action-yellow" />
               <span>Call {phone}</span>

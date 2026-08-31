@@ -1,79 +1,127 @@
 import React from "react";
-import { Search, ShieldAlert, ShieldCheck } from "lucide-react";
+import { PhoneCall, SearchCheck, Sparkles, RefreshCw, ArrowRight, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { COMPANY_DETAILS } from "@/lib/content/company";
+
+const steps = [
+  {
+    step: 1,
+    num: "1",
+    title: "Contact",
+    tagline: "Fast Dispatch",
+    icon: PhoneCall,
+    description: "Call or request a free quote online. Our team stands by to quickly confirm your appointment.",
+  },
+  {
+    step: 2,
+    num: "2",
+    title: "Free Inspection",
+    tagline: "Root-Cause Scan",
+    icon: SearchCheck,
+    description: "A licensed technician finds the pest problem, entry points, and moisture or nesting root causes.",
+  },
+  {
+    step: 3,
+    num: "3",
+    title: "Targeted Treatment",
+    tagline: "Eco & Pet-Safe",
+    icon: Sparkles,
+    description: "Science-based eradication using low-volatility, family- and pet-safe IPM formulations.",
+  },
+  {
+    step: 4,
+    num: "4",
+    title: "Follow-Up & Warranty",
+    tagline: "Satisfaction Focused",
+    icon: RefreshCw,
+    description: "We check back and provide free re-treatments throughout your 6-month written warranty window.",
+  },
+];
 
 export default function ProcessSteps() {
-  const steps = [
-    {
-      step: 1,
-      title: "Inspect & Trace",
-      icon: Search,
-      description:
-        "Our licensed exterminator conducts a 360° inspection of your interior rooms, moisture hot-spots, wall cavities, and exterior foundation gaps to locate the parent pest nest.",
-    },
-    {
-      step: 2,
-      title: "Targeted Eradication",
-      icon: ShieldAlert,
-      description:
-        "Using eco-conscious IPM methods — non-repellent micro-baits, thermal heat, or perimeter barriers — we eradicate active adult pests and halt egg hatch cycles safely.",
-    },
-    {
-      step: 3,
-      title: "Exclusion & Protect",
-      icon: ShieldCheck,
-      description:
-        "We seal structural entry holes with galvanized steel mesh and silicone, applying long-lasting exterior defense barriers backed by our written 6-month warranty.",
-    },
-  ];
-
   return (
-    <section className="py-16 bg-surface-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <span className="text-xs font-mono-data font-bold text-brand-red uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">
-            Our 3-Step System
-          </span>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
+    <section className="pt-20 lg:pt-24 pb-12 lg:pb-14 bg-surface-white text-ink relative overflow-hidden border-t border-stone-200/80">
+      {/* Subtle soft ambient light */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[350px] bg-red-50/50 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 text-brand-red text-xs font-mono-data font-bold uppercase tracking-widest border border-red-200/70 shadow-2xs">
+            <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
+            <span>Our 4-Step System</span>
+          </div>
+
+          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ink tracking-tight leading-[1.15]">
             How We Permanently Eliminate Pests
           </h2>
-          <p className="text-base text-neutral-text">
-            A systematic, inspection-first approach that addresses the root cause of infestation.
+
+          <p className="text-base sm:text-lg text-neutral-text leading-relaxed max-w-2xl mx-auto">
+            From first call to follow-up, a proven four-step system that delivers fast, satisfaction-focused results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {steps.map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <div
-                key={item.step}
-                className="relative bg-surface-warm p-8 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6 group hover:border-brand-red transition-all"
-              >
-                {/* Step Number Badge */}
-                <div className="flex items-center justify-between">
-                  <span className="w-10 h-10 rounded-full bg-brand-red text-white font-mono-data font-bold text-lg flex items-center justify-center shadow-sm">
-                    0{item.step}
-                  </span>
-                  <div className="w-12 h-12 rounded-xl bg-white text-brand-red flex items-center justify-center shadow-xs border border-stone-200 group-hover:bg-brand-red group-hover:text-action-yellow transition-colors">
-                    <IconComponent className="w-6 h-6" />
+        {/* 4 Connected Process Nodes */}
+        <div className="relative">
+          {/* Connecting Track Line on Desktop */}
+          <div className="hidden lg:block absolute top-8 left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-brand-red via-action-yellow to-emerald-500 opacity-60 z-0" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative z-10">
+            {steps.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={item.step} className="group flex flex-col items-center text-center">
+                  {/* Glowing Node Icon Orb */}
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-red to-[#E53E3E] text-white flex items-center justify-center shadow-lg shadow-brand-red/25 ring-4 ring-white group-hover:scale-110 group-hover:shadow-brand-red/40 transition-all duration-300">
+                      <IconComponent className="w-7 h-7" />
+                    </div>
+
+                    {/* Numeric Step Badge */}
+                    <span className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#0E2F48] text-white font-mono-data font-black text-xs flex items-center justify-center shadow-md ring-2 ring-white">
+                      {item.num}
+                    </span>
+                  </div>
+
+                  {/* Card Content Box */}
+                  <div className="w-full bg-surface-warm hover:bg-white border border-stone-200/90 hover:border-brand-red/40 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 space-y-2.5 flex-1 flex flex-col justify-between shadow-2xs">
+                    <div className="space-y-1.5">
+                      <span className="text-[11px] font-mono-data font-bold uppercase tracking-wider text-brand-red block">
+                        {item.tagline}
+                      </span>
+                      <h3 className="font-heading font-bold text-xl text-ink group-hover:text-brand-red transition-colors leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-[13px] text-neutral-text leading-relaxed pt-1">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-stone-200/60 flex items-center justify-center gap-1 text-[11px] font-mono-data text-stone-400 group-hover:text-ink transition-colors">
+                      <span>Phase {item.num} of 4</span>
+                    </div>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        </div>
 
-                <div className="space-y-3">
-                  <h3 className="font-heading font-bold text-2xl text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-neutral-text leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-stone-200 text-xs font-mono-data text-brand-red font-semibold">
-                  Step 0{item.step} of 03 Complete Protocol
-                </div>
-              </div>
-            );
-          })}
+        {/* Bottom Fast Action Prompt */}
+        <div className="mt-14 p-5 sm:p-6 bg-surface-warm rounded-2xl border border-stone-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <p className="text-sm text-stone-700 font-medium">
+              Need urgent pest help? Dispatch standing by across Saskatoon &amp; surrounding areas.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-action-yellow hover:bg-amber-400 text-[#0E2F48] font-heading font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>Request Free Inspection</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

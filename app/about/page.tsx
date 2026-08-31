@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import StatsCounter from "@/components/sections/StatsCounter";
+import AboutSection from "@/components/sections/AboutSection";
 import CTABand from "@/components/sections/CTABand";
 import Testimonials from "@/components/sections/Testimonials";
 import ServiceArea from "@/components/sections/ServiceArea";
@@ -89,7 +90,7 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header Banner */}
-      <section className="bg-ink text-white py-16 border-b border-stone-800">
+      <section className="bg-ink text-white pt-16 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <Shield className="w-4 h-4 text-action-yellow" />
@@ -104,7 +105,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <StatsCounter />
+      <StatsCounter className="border-t-0 pt-6 pb-16" />
+
+      <AboutSection />
 
       {/* Licensing & Credentials Section - PROMINENT TRUST LEVER */}
       <section className="py-16 bg-surface-warm border-b border-stone-200">

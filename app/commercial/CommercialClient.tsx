@@ -120,8 +120,8 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
   const [selectedService, setSelectedService] = useState("Commercial Pest Control & Food Safety");
   const [activeIndustry, setActiveIndustry] = useState(INDUSTRIES[0].id);
 
-  const phone = companyDetails?.phone || "(416) 555-0199";
-  const phoneRaw = companyDetails?.phoneRaw || "4165550199";
+  const phone = companyDetails?.phone || "(306) 407-0007";
+  const phoneRaw = companyDetails?.phoneRaw || "3064070007";
 
   const handleOpenAssessment = (serviceName?: string) => {
     if (serviceName) {
@@ -150,7 +150,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
   return (
     <>
       {/* 1. Commercial Hero Banner */}
-      <section className="bg-gradient-to-b from-[#0F1D2F] via-[#132238] to-[#0F1D2F] text-white py-16 sm:py-20 border-b border-stone-800 relative overflow-hidden">
+      <section className="bg-gradient-to-b from-[#0E2F48] via-[#143D5C] to-[#0E2F48] text-white py-16 sm:py-20 border-b border-[#1C4E75]/50 relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-action-yellow/10 rounded-full blur-3xl pointer-events-none" />
@@ -409,7 +409,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
             {AUDIT_STANDARDS.map((audit, i) => (
               <div
                 key={i}
-                className="bg-stone-900/90 rounded-2xl p-6 border border-stone-800 space-y-3 hover:border-action-yellow/40 transition-colors"
+                className="bg-[#143D5C] rounded-2xl p-6 border border-[#1C4E75] space-y-3 hover:border-action-yellow/40 transition-colors"
               >
                 <div className="w-10 h-10 rounded-xl bg-amber-400/10 text-action-yellow flex items-center justify-center font-bold">
                   <FileText className="w-5 h-5" />

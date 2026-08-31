@@ -99,7 +99,7 @@ export default async function LocationMapWidget({
           </div>
 
           {/* Right: Dark Luxury Info Card matching reference */}
-          <div className="lg:col-span-5 bg-[#141414] text-white p-6 sm:p-8 rounded-3xl border border-stone-800 shadow-xl flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 bg-[#0E2F48] text-white p-6 sm:p-8 rounded-3xl border border-[#1C4E75] shadow-xl flex flex-col justify-between space-y-6">
             {/* Header */}
             <div className="space-y-1">
               <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-tight uppercase">
@@ -114,11 +114,11 @@ export default async function LocationMapWidget({
             <div className="space-y-5">
               {/* Location */}
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-stone-800/80 border border-stone-700 flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
+                <div className="w-10 h-10 rounded-full bg-[#143D5C] border border-[#1C4E75] flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-400 font-semibold block">
+                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-300 font-semibold block">
                     DISPATCH LOCATION
                   </span>
                   <p className="text-sm font-semibold text-stone-100 leading-snug">
@@ -137,11 +137,11 @@ export default async function LocationMapWidget({
 
               {/* Phone & Emergency Line */}
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-stone-800/80 border border-stone-700 flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
+                <div className="w-10 h-10 rounded-full bg-[#143D5C] border border-[#1C4E75] flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-400 font-semibold block">
+                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-300 font-semibold block">
                     PHONE & EMERGENCY DISPATCH
                   </span>
                   <a
@@ -155,11 +155,11 @@ export default async function LocationMapWidget({
 
               {/* Working Hours */}
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-stone-800/80 border border-stone-700 flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
+                <div className="w-10 h-10 rounded-full bg-[#143D5C] border border-[#1C4E75] flex items-center justify-center text-action-yellow shrink-0 mt-0.5">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-400 font-semibold block">
+                  <span className="text-[11px] font-mono-data uppercase tracking-wider text-stone-300 font-semibold block">
                     WORKING HOURS
                   </span>
                   <p className="text-xs sm:text-sm text-stone-200 leading-snug">
@@ -175,7 +175,7 @@ export default async function LocationMapWidget({
                 href={directMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:flex-1 bg-action-yellow hover:bg-amber-400 text-stone-950 font-heading font-extrabold text-sm py-3.5 px-5 rounded-xl text-center shadow-md transition-all uppercase tracking-wider"
+                className="w-full sm:flex-1 bg-action-yellow hover:bg-amber-400 text-[#0E2F48] font-heading font-extrabold text-sm py-3.5 px-5 rounded-xl text-center shadow-md transition-all uppercase tracking-wider"
               >
                 GET DIRECTIONS &rarr;
               </a>
