@@ -5,16 +5,16 @@ import CTABand from "@/components/sections/CTABand";
 import { BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Pest Control Blog & Prevention Guides | Toronto & GTA",
+  title: "Pest Control Blog & Prevention Guides | Saskatoon & Area",
   description:
-    "Expert articles on Ontario fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
+    "Expert articles on Saskatchewan fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Pest Control Blog & Prevention Guides | K2PC Toronto & GTA",
+    title: "Pest Control Blog & Prevention Guides | K2PC Saskatoon & Area",
     description:
-      "Expert articles on Ontario fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
+      "Expert articles on Saskatchewan fall rodent migrations, bed bug tenant rights, spring carpenter ant identification, and eco-friendly IPM tips.",
     url: "https://www.k2pc.ca/blog",
   },
 };
@@ -58,7 +58,7 @@ export default async function BlogListPage() {
             Pest Control Intelligence & Guides
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
-            Practical, evidence-backed advice from licensed Ontario exterminators to protect your home, family, and tenants.
+            Practical, evidence-backed advice from licensed Saskatchewan exterminators to protect your home, family, and tenants.
           </p>
         </div>
       </section>

@@ -129,11 +129,11 @@ export async function POST(req: NextRequest) {
           `  - Starting Price: ${s.pricingStartsAt || "Custom Quote"}\n` +
           `  - Warranty: ${s.warranty || "Guaranteed Eradication"}\n` +
           `  - Description: ${s.shortDescription}\n` +
-          `  - Target Pests: ${s.targetPests?.join(", ") || "Ontario Pests"}`
+          `  - Target Pests: ${s.targetPests?.join(", ") || "Saskatchewan Pests"}`
       )
       .join("\n\n");
 
-    const serviceAreasText = companyDetails.regionsServed?.join(", ") || "Greater Toronto Area";
+    const serviceAreasText = companyDetails.regionsServed?.join(", ") || "Saskatoon & Surrounding Area";
     const hoursText = companyDetails.hours
       ? companyDetails.hours.map((h: any) => `${h.days}: ${h.times}`).join(", ")
       : "Monday-Sunday 24/7 Emergency Dispatch";
@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
     // 5. Construct master system instruction with strict Security Guardrails
     const systemInstruction = `
 You are "${botName}", the expert, friendly, and licensed 24/7 AI Pest Control Consultant for **${companyDetails.name || "K2 Pest Control"}**.
-You assist homeowners, landlords, restaurant owners, and property managers across Toronto and the Greater Toronto Area (GTA).
+You assist homeowners, landlords, restaurant owners, and property managers across Saskatoon and surrounding Saskatchewan communities.
 
 ---
 ### 🔒 SECURITY & BOUNDARY RULES (MANDATORY):
@@ -159,9 +159,9 @@ You assist homeowners, landlords, restaurant owners, and property managers acros
 ---
 ### 🏢 COMPANY PROFILE & CREDENTIALS:
 - **Company Name**: ${companyDetails.name || "K2 Pest Control"}
-- **Ontario Ministry License**: ${companyDetails.licenseNumber || "ON-849201-P"} (Ministry of Environment Licensed & Insured)
+- **Saskatchewan Ministry License**: ${companyDetails.licenseNumber || "SK-719402"} (Saskatchewan Ministry of Environment Licensed & Insured)
 - **Primary Phone (Call / SMS)**: ${companyDetails.phone || "(306) 407-0007"}
-- **Emergency Service**: 2-Hour Rapid Emergency Response Available 24/7
+- **Emergency Service**: Rapid Emergency Response Available 24/7
 - **Operating Hours**: ${hoursText}
 - **Service Regions**: ${serviceAreasText}
 - **Eco & Safety Guarantee**: 100% Health Canada approved IPM solutions, safe for children and household pets. 100% money-back / re-treatment guarantee.
@@ -173,7 +173,7 @@ ${servicesListText}
 ---
 ### 🎯 YOUR CORE OBJECTIVES:
 1. **Pest Identification & Consultation**:
-   - Provide practical Ontario pest advice (e.g. German Cockroaches vs. Wood Roaches, Carpenter Ants vs. Moisture Ants, Bed Bug heat treatment vs. chemical, Rodent exclusion).
+   - Provide practical Saskatchewan pest advice (e.g. German Cockroaches vs. Wood Roaches, Carpenter Ants vs. Pavement Ants, Bed Bug heat treatment vs. chemical, Rodent exclusion).
    - Educate on signs of infestation (droppings, entry points, scratching in walls).
 2. **Safety & Preparation Instructions**:
    - Always reassure customers that treatments are family- and pet-safe once dry (typical 4-hour re-entry safety window).
@@ -220,7 +220,7 @@ ${customAdminPrompt}
                 },
                 city: {
                   type: Type.STRING,
-                  description: "City or address in the GTA (e.g., Toronto, Mississauga, Brampton, Markham, Vaughan)",
+                  description: "City or address in the Saskatoon area (e.g., Saskatoon, Warman, Martensville, Osler)",
                 },
                 service: {
                   type: Type.STRING,

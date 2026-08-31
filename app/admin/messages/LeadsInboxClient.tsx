@@ -230,7 +230,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
       cell: (item) => (
         <span className="text-xs text-stone-600 flex items-center gap-1">
           <MapPin className="w-3 h-3 text-stone-400" />
-          {item.city || "Greater Toronto Area"}
+          {item.city || "Saskatoon & Area"}
         </span>
       ),
     },
@@ -540,7 +540,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                   <span className="text-[11px] text-stone-500 font-semibold block">LOCATION / AREA:</span>
                   <span className="text-stone-800 font-medium flex items-center gap-1 mt-0.5 text-xs">
                     <MapPin className="w-3.5 h-3.5 text-stone-400" />
-                    {selectedLead.city || "Greater Toronto Area"}
+                    {selectedLead.city || "Saskatoon & Area"}
                   </span>
                 </div>
               </div>
@@ -657,7 +657,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         onClick={() => {
                           setReplySubject(`Commercial Facility IPM Proposal - K2 Pest Control`);
                           setReplyMessage(
-                            `Hi ${selectedLead.name},\n\nThank you for reaching out regarding commercial pest management for your facility in ${selectedLead.city || "the Greater Toronto Area"}.\n\nWe provide discrete, audit-ready IPM programs with digital health logbooks and 24/7 priority dispatch. Let us know when we can conduct your complimentary on-site walk-through.\n\nBest regards,\nK2 Commercial Division\nPhone: (306) 407-0007`
+                            `Hi ${selectedLead.name},\n\nThank you for reaching out regarding commercial pest management for your facility in ${selectedLead.city || "Saskatoon & Area"}.\n\nWe provide discrete, audit-ready IPM programs with digital health logbooks and 24/7 priority dispatch. Let us know when we can conduct your complimentary on-site walk-through.\n\nBest regards,\nK2 Commercial Division\nPhone: (306) 407-0007`
                           );
                         }}
                         className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"

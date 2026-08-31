@@ -20,6 +20,20 @@ export const serviceSchema = z.object({
     )
     .optional()
     .nullable(),
+  signsOfInfestation: z.array(z.string()).optional().nullable(),
+  treatmentProcess: z
+    .array(
+      z.object({
+        step: z.number().int().optional(),
+        title: z.string(),
+        description: z.string(),
+      })
+    )
+    .optional()
+    .nullable(),
+  pricingStartsAt: z.string().optional().nullable(),
+  warranty: z.string().optional().nullable(),
+  pestCategory: z.string().optional().nullable(),
 });
 
 export type ServiceInput = z.infer<typeof serviceSchema>;

@@ -60,7 +60,7 @@ export const ManualLeadModal: React.FC<ManualLeadModalProps> = ({
     name: "",
     phone: "",
     email: "",
-    city: "Toronto",
+    city: "Saskatoon",
     service: "General Inspection / Emergency Call",
     source: "Phone Call",
     status: "NEW",
@@ -100,7 +100,7 @@ export const ManualLeadModal: React.FC<ManualLeadModalProps> = ({
           name: "",
           phone: "",
           email: "",
-          city: "Toronto",
+          city: "Saskatoon",
           service: "General Inspection / Emergency Call",
           source: "Phone Call",
           status: "NEW",
@@ -234,13 +234,13 @@ export const ManualLeadModal: React.FC<ManualLeadModalProps> = ({
 
             <div>
               <label className="block text-xs font-bold text-stone-800 uppercase font-mono-data mb-1">
-                GTA City / Municipality
+                Saskatoon Area City / Municipality
               </label>
               <input
                 type="text"
                 value={formData.city}
                 onChange={(e) => setFormData((p) => ({ ...p, city: e.target.value }))}
-                placeholder="e.g. Toronto, Mississauga, Vaughan"
+                placeholder="e.g. Saskatoon, Warman, Martensville"
                 className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-stone-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
               />
             </div>

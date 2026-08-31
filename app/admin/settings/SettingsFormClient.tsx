@@ -39,26 +39,29 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
     Array.isArray(rawServiceAreas) && rawServiceAreas.length > 0
       ? rawServiceAreas.map((item: any) => {
           if (typeof item === "string") {
-            return { name: item, region: "Greater Toronto Area" };
+            return { name: item, region: "Saskatoon & Area" };
           }
           return {
-            name: item?.name || "Toronto",
-            region: item?.region || "Greater Toronto Area",
+            name: item?.name || "Saskatoon",
+            region: item?.region || "Saskatoon & Area",
             badge: item?.badge || undefined,
           };
         })
       : [
-          { name: "Toronto (Downtown & East/West)", region: "City of Toronto", badge: "2h Emergency Dispatch" },
-          { name: "North York", region: "City of Toronto", badge: "2h Fast Response" },
-          { name: "Etobicoke", region: "City of Toronto", badge: "Local Unit on Standby" },
-          { name: "Scarborough", region: "City of Toronto", badge: "2h Fast Response" },
-          { name: "Mississauga", region: "Peel Region", badge: "2h Emergency Dispatch" },
-          { name: "Brampton", region: "Peel Region", badge: "2h Fast Response" },
-          { name: "Vaughan", region: "York Region", badge: "Local Unit on Standby" },
-          { name: "Markham", region: "York Region", badge: "2h Fast Response" },
-          { name: "Oakville", region: "Halton Region", badge: "2h Fast Response" },
-          { name: "Richmond Hill", region: "York Region", badge: "Local Unit on Standby" },
-          { name: "Burlington", region: "Halton Region", badge: "2h Fast Response" },
+          { name: "Saskatoon (Central & Suburbs)", region: "City of Saskatoon", badge: "Central Dispatch HQ" },
+          { name: "Warman", region: "Saskatoon Metro Corridor", badge: "~15-20 min dispatch" },
+          { name: "Martensville", region: "Saskatoon Metro Corridor", badge: "~15 min dispatch" },
+          { name: "Osler", region: "Saskatoon Metro Corridor", badge: "~20-25 min dispatch" },
+          { name: "Dalmeny", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+          { name: "Langham", region: "Saskatoon Metro Corridor", badge: "~30 min dispatch" },
+          { name: "Vanscoy", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+          { name: "Corman Park", region: "Rural Municipality", badge: "~15-30 min dispatch" },
+          { name: "Dundurn", region: "Saskatoon Metro Corridor", badge: "~35 min dispatch" },
+          { name: "Clavet", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+          { name: "Greenbryre", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
+          { name: "The Willows", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
+          { name: "Riverside Estates", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
+          { name: "Grasswood", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
         ];
 
   const [formData, setFormData] = useState<BusinessInfoInput>({
@@ -90,7 +93,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
       "👋 Hello! I'm your K2 Pest Control assistant. How can I help you today? Ask about pricing, treatments, or book a quick inspection!",
     chatbotSystemPrompt:
       initialData?.chatbotSystemPrompt ||
-      "You are the friendly, professional AI assistant for K2 Pest Control in Toronto & the GTA. Guide users through pest identification, explain safe preparation protocols, highlight our licensed technicians, and encourage them to book an inspection or call our emergency hotline.",
+      "You are the friendly, professional AI assistant for K2 Pest Control in Saskatoon & area. Guide users through pest identification, explain safe preparation protocols, highlight our licensed technicians, and encourage them to book an inspection or call our emergency hotline.",
     chatbotApiKey: initialData?.chatbotApiKey || "",
     chatbotQuickPrompts: defaultQuickPrompts,
   });
@@ -458,7 +461,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               <div className="mt-1.5 p-2.5 rounded-lg bg-stone-50 border border-stone-200 text-xs text-stone-600 flex items-start gap-2">
                 <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <span>
-                  <strong>Tip:</strong> Live services, starting prices, office phone numbers, and GTA service cities are automatically injected from your database into the AI context on every request.
+                  <strong>Tip:</strong> Live services, starting prices, office phone numbers, and Saskatoon area service cities are automatically injected from your database into the AI context on every request.
                 </span>
               </div>
             </FormField>

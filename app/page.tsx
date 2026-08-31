@@ -16,6 +16,9 @@ import FAQAccordion from "@/components/sections/FAQAccordion";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { getPublishedFaqs } from "@/lib/content-db";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function HomePage() {
   const faqs = await getPublishedFaqs();
 
@@ -30,9 +33,9 @@ export default async function HomePage() {
       <ProcessSteps />
       <BenefitsSection />
       <EcoFriendlyCTA />
-      <Testimonials />
       <ServiceArea />
       <LocationMapWidget />
+      <Testimonials />
       <BlogGrid limit={3} />
       <FAQAccordion items={faqs.slice(0, 6)} />
       <CTABand />

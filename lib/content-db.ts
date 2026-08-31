@@ -34,7 +34,7 @@ export async function getCompanyDetails() {
           );
           return {
             name: item,
-            region: matched?.region || "Greater Toronto Area",
+            region: matched?.region || "Saskatoon & Area",
             badge: undefined,
             description: matched?.description || undefined,
           };
@@ -43,13 +43,13 @@ export async function getCompanyDetails() {
             (l) => l.name.toLowerCase() === (item.name || "").toLowerCase()
           );
           return {
-            name: item.name || "Toronto",
-            region: item.region || matched?.region || "Greater Toronto Area",
+            name: item.name || "Saskatoon",
+            region: item.region || matched?.region || "Saskatoon & Area",
             badge: item.badge || undefined,
             description: item.description || matched?.description || undefined,
           };
         }
-        return { name: String(item), region: "Greater Toronto Area" };
+        return { name: String(item), region: "Saskatoon & Area" };
       });
       regionsServedNames = serviceLocations.map((l) => l.name);
     } else {
@@ -118,7 +118,7 @@ export async function getPublishedLocations(): Promise<LocationCity[]> {
     }
 
     return rawLocations.map((loc: any) => {
-      const cleanName = (loc.name || "Toronto").replace(/\s*\(.*\)/g, "").trim();
+      const cleanName = (loc.name || "Saskatoon").replace(/\s*\(.*\)/g, "").trim();
       const slug =
         loc.slug ||
         cleanName
@@ -135,7 +135,7 @@ export async function getPublishedLocations(): Promise<LocationCity[]> {
 
       return {
         name: loc.name,
-        region: loc.region || staticMatch?.region || "Greater Toronto Area",
+        region: loc.region || staticMatch?.region || "Saskatoon & Area",
         slug,
         badge: loc.badge || staticMatch?.badge || "2h Fast Response",
         description:
@@ -168,36 +168,40 @@ export async function getPublishedServices(): Promise<Service[]> {
         shortDescription: s.shortDescription || staticService?.shortDescription || "",
         fullDescription: s.content || staticService?.fullDescription || s.shortDescription || "",
         icon: (s.icon as any) || staticService?.icon || "bug",
-        pestCategory: staticService?.pestCategory || "insects",
+        pestCategory: s.pestCategory || staticService?.pestCategory || "insects",
         targetPests: staticService?.targetPests || [],
-        signsOfInfestation: staticService?.signsOfInfestation || [
-          "Unusual noises inside walls or subflooring during evening hours",
-          "Visible droppings, shed skins, or pest entry trails along baseboards",
-          "Damaged food packaging, chewed electrical wires, or wood shavings",
-          "Persistent unexplainable odors in dark or damp areas",
-        ],
-        treatmentProcess: staticService?.treatmentProcess || [
-          {
-            step: 1,
-            title: "Comprehensive Inspection",
-            description:
-              "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
-          },
-          {
-            step: 2,
-            title: "Targeted Eradication Treatment",
-            description:
-              "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
-          },
-          {
-            step: 3,
-            title: "Exclusion & Perimeter Sealing",
-            description:
-              "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
-          },
-        ],
-        pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
-        warranty: staticService?.warranty || "Guaranteed Eradication",
+        signsOfInfestation: Array.isArray(s.signsOfInfestation) && s.signsOfInfestation.length > 0
+          ? s.signsOfInfestation
+          : (staticService?.signsOfInfestation || [
+              "Unusual noises inside walls or subflooring during evening hours",
+              "Visible droppings, shed skins, or pest entry trails along baseboards",
+              "Damaged food packaging, chewed electrical wires, or wood shavings",
+              "Persistent unexplainable odors in dark or damp areas",
+            ]),
+        treatmentProcess: Array.isArray(s.treatmentProcess) && s.treatmentProcess.length > 0
+          ? s.treatmentProcess
+          : (staticService?.treatmentProcess || [
+              {
+                step: 1,
+                title: "Comprehensive Inspection",
+                description:
+                  "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
+              },
+              {
+                step: 2,
+                title: "Targeted Eradication Treatment",
+                description:
+                  "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
+              },
+              {
+                step: 3,
+                title: "Exclusion & Perimeter Sealing",
+                description:
+                  "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
+              },
+            ]),
+        pricingStartsAt: s.pricingStartsAt || staticService?.pricingStartsAt || "$189",
+        warranty: s.warranty || staticService?.warranty || "Guaranteed Eradication",
         faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
         featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
       };
@@ -227,40 +231,44 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
       shortDescription: s.shortDescription || staticService?.shortDescription || "",
       fullDescription: s.content || staticService?.fullDescription || s.shortDescription || "",
       icon: (s.icon as any) || staticService?.icon || "bug",
-      pestCategory: staticService?.pestCategory || "insects",
+      pestCategory: s.pestCategory || staticService?.pestCategory || "insects",
       targetPests: staticService?.targetPests || [],
-      signsOfInfestation: staticService?.signsOfInfestation && staticService.signsOfInfestation.length > 0
-        ? staticService.signsOfInfestation
-        : [
-            "Unusual noises inside walls or subflooring during evening hours",
-            "Visible droppings, shed skins, or pest entry trails along baseboards",
-            "Damaged food packaging, chewed electrical wires, or wood shavings",
-            "Persistent unexplainable odors in dark or damp areas",
-          ],
-      treatmentProcess: staticService?.treatmentProcess && staticService.treatmentProcess.length > 0
-        ? staticService.treatmentProcess
-        : [
-            {
-              step: 1,
-              title: "Comprehensive Inspection",
-              description:
-                "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
-            },
-            {
-              step: 2,
-              title: "Targeted Eradication Treatment",
-              description:
-                "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
-            },
-            {
-              step: 3,
-              title: "Exclusion & Perimeter Sealing",
-              description:
-                "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
-            },
-          ],
-      pricingStartsAt: staticService?.pricingStartsAt || "Contact for Quote",
-      warranty: staticService?.warranty || "Guaranteed Eradication",
+      signsOfInfestation: Array.isArray(s.signsOfInfestation) && s.signsOfInfestation.length > 0
+        ? s.signsOfInfestation
+        : (staticService?.signsOfInfestation && staticService.signsOfInfestation.length > 0
+            ? staticService.signsOfInfestation
+            : [
+                "Unusual noises inside walls or subflooring during evening hours",
+                "Visible droppings, shed skins, or pest entry trails along baseboards",
+                "Damaged food packaging, chewed electrical wires, or wood shavings",
+                "Persistent unexplainable odors in dark or damp areas",
+              ]),
+      treatmentProcess: Array.isArray(s.treatmentProcess) && s.treatmentProcess.length > 0
+        ? s.treatmentProcess
+        : (staticService?.treatmentProcess && staticService.treatmentProcess.length > 0
+            ? staticService.treatmentProcess
+            : [
+                {
+                  step: 1,
+                  title: "Comprehensive Inspection",
+                  description:
+                    "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
+                },
+                {
+                  step: 2,
+                  title: "Targeted Eradication Treatment",
+                  description:
+                    "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
+                },
+                {
+                  step: 3,
+                  title: "Exclusion & Perimeter Sealing",
+                  description:
+                    "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
+                },
+              ]),
+      pricingStartsAt: s.pricingStartsAt || staticService?.pricingStartsAt || "$189",
+      warranty: s.warranty || staticService?.warranty || "Guaranteed Eradication",
       faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
       featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
     };
@@ -353,7 +361,7 @@ export async function getPublishedFaqs(): Promise<FAQItem[]> {
     });
 
     if (!faqs || faqs.length === 0) {
-      return GLOBAL_FAQS;
+      return [];
     }
 
     return faqs.map((f: any) => ({
@@ -363,7 +371,7 @@ export async function getPublishedFaqs(): Promise<FAQItem[]> {
       category: f.category || "General",
     }));
   } catch (_error) {
-    return GLOBAL_FAQS;
+    return [];
   }
 }
 

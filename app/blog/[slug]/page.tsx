@@ -207,7 +207,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               Need Professional Pest Extermination?
             </h3>
             <p className="text-sm text-neutral-text">
-              Don't let pest infestations worsen. K2PC Pest Control provides licensed, guaranteed extermination across Toronto & the GTA.
+              Don't let pest infestations worsen. K2PC Pest Control provides licensed, guaranteed extermination across Saskatoon &amp; surrounding communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Link

@@ -336,7 +336,7 @@ export function ChatWidget({ companyDetails }: ChatWidgetProps) {
                         ) : (
                           <>
                             We have logged your request for <strong>{msg.leadCaptured.name}</strong> (
-                            {msg.leadCaptured.phone}). A licensed GTA exterminator is reviewing your file.
+                            {msg.leadCaptured.phone}). A licensed Saskatoon exterminator is reviewing your file.
                           </>
                         )}
                       </p>

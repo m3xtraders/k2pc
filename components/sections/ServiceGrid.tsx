@@ -24,7 +24,7 @@ export default async function ServiceGrid({ limit, showHeading = true }: Service
               Comprehensive Pest Control Solutions
             </h2>
             <p className="text-base text-neutral-text leading-relaxed">
-              From residential homes to commercial facilities, our Ontario licensed applicators provide targeted, long-lasting pest elimination across Toronto & the GTA.
+              From residential homes to commercial facilities, our Saskatchewan licensed applicators provide targeted, long-lasting pest elimination across Saskatoon &amp; surrounding communities.
             </p>
           </div>
         )}

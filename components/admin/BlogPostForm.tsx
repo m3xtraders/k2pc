@@ -140,7 +140,7 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
               required
               value={formData.title}
               onChange={handleTitleChange}
-              placeholder="e.g. Ontario Fall Rodent Migration: 5 Prevention Steps"
+              placeholder="e.g. Saskatchewan Fall Rodent Migration: 5 Prevention Steps"
               className="w-full px-4 py-2.5 bg-white border border-stone-300 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
             />
           </FormField>
@@ -154,7 +154,7 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
                 setAutoSlug(false);
                 setFormData((p) => ({ ...p, slug: e.target.value }));
               }}
-              placeholder="e.g. fall-rodent-migration-ontario"
+              placeholder="e.g. fall-rodent-migration-saskatchewan"
               className="w-full px-4 py-2.5 bg-white border border-stone-300 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320] font-mono"
             />
           </FormField>
@@ -237,7 +237,7 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
               <TagInput
                 tags={formData.tags || []}
                 onChange={(tags) => setFormData((p) => ({ ...p, tags }))}
-                placeholder="Add tag (e.g. Mice, Toronto)..."
+                placeholder="Add tag (e.g. Mice, Saskatoon)..."
               />
             </FormField>
           </div>

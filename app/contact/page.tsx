@@ -9,19 +9,22 @@ import { getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact & Free Quote | K2PC Pest Control GTA",
+  title: "Contact & Free Quote | K2PC Pest Control Saskatoon",
   description:
-    "Get a free pest control quote or call our emergency line. Serving Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville.",
+    "Get a free pest control quote or call our emergency line. Serving Saskatoon, Warman, Martensville, and surrounding Saskatchewan communities.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact & Free Quote | K2PC Pest Control GTA",
+    title: "Contact & Free Quote | K2PC Pest Control Saskatoon",
     description:
-      "Get a free pest control quote or call our emergency line. Serving Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville.",
+      "Get a free pest control quote or call our emergency line. Serving Saskatoon, Warman, Martensville, and surrounding Saskatchewan communities.",
     url: "https://www.k2pc.ca/contact",
   },
 };
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ContactPage() {
   const [company, faqs] = await Promise.all([
@@ -72,7 +75,7 @@ export default async function ContactPage() {
             Contact {name}
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
-            Reach out for a fast, guaranteed pest quote or speak directly with an Ontario licensed exterminator.
+            Reach out for a fast, guaranteed pest quote or speak directly with a Saskatchewan licensed exterminator.
           </p>
         </div>
       </section>
@@ -154,7 +157,7 @@ export default async function ContactPage() {
 
                 <div className="pt-2 border-t border-stone-200 text-xs font-mono-data text-emerald-700 flex items-center gap-1.5 font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Ontario License #{licenseNumber}</span>
+                  <span>Saskatchewan License #{licenseNumber}</span>
                 </div>
               </div>
             </div>

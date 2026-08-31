@@ -33,13 +33,13 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const canonicalUrl = `https://www.k2pc.ca/services/${service.slug}`;
 
   return {
-    title: `${service.title} | Exterminator Toronto & GTA`,
+    title: `${service.title} | Exterminator Saskatoon & Area`,
     description: service.shortDescription,
     alternates: {
       canonical: `/services/${service.slug}`,
     },
     openGraph: {
-      title: `${service.title} | K2PC Pest Control GTA`,
+      title: `${service.title} | K2PC Pest Control Saskatoon`,
       description: service.shortDescription,
       url: canonicalUrl,
       images: service.featuredImage ? [{ url: service.featuredImage, alt: service.title }] : undefined,
@@ -165,7 +165,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono-data text-stone-300">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle className="w-4 h-4 text-action-yellow" />
-                  Ontario Licensed Exterminators
+                  Saskatchewan Licensed Exterminators
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1.5">
@@ -186,7 +186,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 Urgent Pest Emergency?
               </h3>
               <p className="text-xs text-stone-400">
-                Speak directly with an active GTA technician for instant pricing.
+                Speak directly with an active Saskatoon technician for instant pricing.
               </p>
               <a
                 href={`tel:${company.phoneRaw}`}
@@ -252,10 +252,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 />
               </div>
 
-              {/* Signs of Infestation */}
+              {/* Signs of Infestation / Symptoms */}
               {service.signsOfInfestation && service.signsOfInfestation.length > 0 && (
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <AlertTriangle className="w-6 h-6 text-brand-red shrink-0" />
                     <h2 className="font-heading font-extrabold text-2xl text-ink">
                       Key Signs of {service.title} Needed
@@ -265,9 +265,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     {service.signsOfInfestation.map((sign, index) => (
                       <li
                         key={index}
-                        className="bg-surface-warm p-4 rounded-xl border border-stone-200 text-sm text-ink flex items-start gap-3 shadow-2xs"
+                        className="bg-surface-warm hover:bg-stone-50/80 p-4 sm:p-5 rounded-2xl border border-stone-200 text-sm sm:text-base text-stone-800 font-medium flex items-center gap-3.5 shadow-2xs transition-colors"
                       >
-                        <span className="w-6 h-6 rounded-full bg-red-100 text-brand-red flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                        <span className="w-7 h-7 rounded-full bg-red-100/90 text-brand-red flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
                           {index + 1}
                         </span>
                         <span className="leading-relaxed">{sign}</span>
@@ -322,22 +322,22 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-sm text-white">Ontario Licensed Applicators</h4>
-                      <p className="text-xs text-stone-400">Fully insured & Ministry certified extermination experts.</p>
+                      <h4 className="font-bold text-sm text-white">Saskatchewan Licensed Applicators</h4>
+                      <p className="text-xs text-stone-400">Fully insured &amp; Ministry certified extermination experts.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-sm text-white">Pet & Family Safe Methods</h4>
+                      <h4 className="font-bold text-sm text-white">Pet &amp; Family Safe Methods</h4>
                       <p className="text-xs text-stone-400">Integrated Pest Management safe for kids and domestic pets.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-sm text-white">Fast 2-Hour Response</h4>
-                      <p className="text-xs text-stone-400">Same-day dispatch across Toronto & all 11 GTA regions.</p>
+                      <h4 className="font-bold text-sm text-white">Fast Local Response</h4>
+                      <p className="text-xs text-stone-400">Reliable dispatch across Saskatoon &amp; surrounding communities.</p>
                     </div>
                   </div>
                 </div>

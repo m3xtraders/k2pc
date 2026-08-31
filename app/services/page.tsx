@@ -9,19 +9,22 @@ import { COMPANY_DETAILS } from "@/lib/content/company";
 import { getCompanyDetails, getPublishedFaqs, getPublishedServices } from "@/lib/content-db";
 
 export const metadata: Metadata = {
-  title: "Pest Extermination Services | Toronto & GTA",
+  title: "Pest Extermination Services | Saskatoon & Area",
   description:
     "Explore K2PC's dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Pest Extermination Services | K2 Pest Control Toronto & GTA",
+    title: "Pest Extermination Services | K2 Pest Control Saskatoon & Area",
     description:
       "Explore K2PC's dedicated extermination services: ant control, rodent proofing, bed bug heat treatment, wasp removal, roach control, and commercial IPM.",
     url: "https://www.k2pc.ca/services",
   },
 };
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ServicesPage() {
   const [company, faqs, services] = await Promise.all([
@@ -63,13 +66,13 @@ export default async function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <ShieldCheck className="w-4 h-4" />
-            Ontario Licensed Exterminators
+            Saskatchewan Licensed Exterminators
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
             Our Pest Control & Extermination Services
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
-            Targeted pest elimination for Southern Ontario homes and businesses. Backed by science, eco-friendly IPM methods, and a 6-month written warranty.
+            Targeted pest elimination for Saskatoon &amp; Saskatchewan homes and businesses. Backed by science, eco-friendly IPM methods, and a 6-month written warranty.
           </p>
         </div>
       </section>
@@ -85,7 +88,7 @@ export default async function ServicesPage() {
             Don't See Your Specific Pest Listed?
           </h3>
           <p className="text-sm text-neutral-text">
-            We handle custom wildlife, earwigs, centipedes, and commercial audit requirements across all 11 GTA municipalities.
+            We handle custom wildlife, earwigs, centipedes, and commercial audit requirements across Saskatoon and surrounding communities.
           </p>
           <a
             href={`tel:${phoneRaw}`}
@@ -99,7 +102,7 @@ export default async function ServicesPage() {
 
       <FAQAccordion
         title="Frequently Asked Extermination Questions"
-        subtitle="Clear answers about residential treatment safety, warranties, commercial scheduling, and GTA pricing."
+        subtitle="Clear answers about residential treatment safety, warranties, commercial scheduling, and local Saskatoon pricing."
         items={faqs}
       />
 

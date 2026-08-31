@@ -30,7 +30,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
               Ready to Eliminate Your Pest Problem?
             </h2>
             <p className="text-stone-100 text-base sm:text-lg max-w-2xl">
-              Get an instant online quote or speak directly with an Ontario licensed exterminator. 99.9% satisfaction guaranteed with zero obligation.
+              Get an instant online quote or speak directly with a Saskatchewan licensed exterminator. 99.9% satisfaction guaranteed with zero obligation.
             </p>
           </div>
 

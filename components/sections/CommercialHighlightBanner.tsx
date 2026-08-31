@@ -31,7 +31,7 @@ export function CommercialHighlightBanner() {
                   Discreet, Audit-Ready Protection for Your Business
                 </h2>
                 <p className="text-sm sm:text-base text-neutral-text leading-relaxed">
-                  Scheduled Integrated Pest Management (IPM) designed for restaurants, warehouses, offices, and property managers across the GTA.
+                  Scheduled Integrated Pest Management (IPM) designed for restaurants, warehouses, offices, and property managers across Saskatoon &amp; surrounding areas.
                 </p>
               </div>
 

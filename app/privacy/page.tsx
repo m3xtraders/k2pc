@@ -18,16 +18,16 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | K2 Pest Control Toronto & GTA",
+  title: "Privacy Policy | K2 Pest Control Saskatoon & Area",
   description:
-    "Review K2 Pest Control's Privacy Policy. Learn how we collect, use, and protect your personal information in compliance with PIPEDA and Ontario regulations.",
+    "Review K2 Pest Control's Privacy Policy. Learn how we collect, use, and protect your personal information in compliance with PIPEDA and Saskatchewan regulations.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | K2 Pest Control Toronto & GTA",
+    title: "Privacy Policy | K2 Pest Control Saskatoon & Area",
     description:
-      "Review K2 Pest Control's Privacy Policy. Learn how we collect, use, and protect your personal information in compliance with PIPEDA and Ontario regulations.",
+      "Review K2 Pest Control's Privacy Policy. Learn how we collect, use, and protect your personal information in compliance with PIPEDA and Saskatchewan regulations.",
     url: "https://www.k2pc.ca/privacy",
   },
 };
@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
                 </h2>
               </div>
               <p className="text-stone-700 text-sm sm:text-base leading-relaxed pl-11">
-                This Privacy Policy applies to personal information collected by <strong>{COMPANY_DETAILS.name}</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) when you visit our website (<Link href="/" className="text-brand-red font-semibold hover:underline">k2pc.ca</Link>), request a quote, contact our dispatch team, or utilize our residential and commercial pest control services across Ontario and the Greater Toronto Area (GTA).
+                This Privacy Policy applies to personal information collected by <strong>{COMPANY_DETAILS.name}</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) when you visit our website (<Link href="/" className="text-brand-red font-semibold hover:underline">k2pc.ca</Link>), request a quote, contact our dispatch team, or utilize our residential and commercial pest control services across Saskatoon and surrounding Saskatchewan communities.
               </p>
             </section>
 
@@ -168,10 +168,10 @@ export default function PrivacyPolicyPage() {
                 <p>We use your personal data strictly for legitimate operational purposes, including:</p>
                 <ul className="list-disc pl-5 space-y-2 text-stone-600">
                   <li>Preparing and delivering free inspection estimates and service quotes.</li>
-                  <li>Scheduling and routing Ontario-licensed pest control technicians to your location.</li>
+                  <li>Scheduling and routing Saskatchewan-licensed pest control technicians to your location.</li>
                   <li>Providing pre-treatment preparation checklists, post-treatment safety instructions, and re-entry guidelines.</li>
                   <li>Maintaining warranty records for our 6-month re-treatment guarantee.</li>
-                  <li>Meeting statutory reporting and safety record-keeping mandated by the Ontario Ministry of the Environment, Conservation and Parks.</li>
+                  <li>Meeting statutory reporting and safety record-keeping mandated by the Saskatchewan Ministry of Environment.</li>
                   <li>Responding to customer inquiries, complaints, or emergency dispatch requests.</li>
                 </ul>
               </div>
@@ -186,22 +186,22 @@ export default function PrivacyPolicyPage() {
                   4
                 </div>
                 <h2 className="font-heading font-bold text-xl sm:text-2xl text-ink">
-                  Information Sharing &amp; Disclosure
+                  Sharing &amp; Disclosure
                 </h2>
               </div>
               <div className="text-stone-700 text-sm sm:text-base leading-relaxed pl-11 space-y-3">
                 <p>
-                  <strong>We do not sell, rent, or trade your personal information.</strong> We only share information with trusted third parties under strict confidentiality agreements for essential business operations:
+                  We strictly respect your privacy. <strong>We do not sell, rent, or lease your personal information to third parties.</strong> We disclose personal data only under specific circumstances:
                 </p>
                 <ul className="list-disc pl-5 space-y-2 text-stone-600">
                   <li>
-                    <strong>Licensed Field Technicians:</strong> Contact and address details for technicians assigned to your property inspection or treatment.
+                    <strong>Service Providers:</strong> Trusted third-party technology providers (such as hosting partners, SMS notification services, and email dispatch tools) bound by confidentiality agreements.
                   </li>
                   <li>
-                    <strong>Service Providers:</strong> Secure hosting, transactional email delivery, SMS notification gateways, and PCI-compliant payment processors.
+                    <strong>Regulatory Authorities:</strong> Where required by law, court subpoena, or to comply with official environmental reporting guidelines.
                   </li>
                   <li>
-                    <strong>Legal &amp; Regulatory Compliance:</strong> When required by law, subpoena, or health and safety regulations to protect the vital interests of occupants, technicians, or the public.
+                    <strong>Safety &amp; Emergency:</strong> When necessary to prevent imminent harm to individuals, pets, or property.
                   </li>
                 </ul>
               </div>
@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
                   We implement robust technical and organizational security measures to protect your personal data against unauthorized access, disclosure, alteration, or destruction. All web traffic is encrypted via HTTPS (SSL/TLS).
                 </p>
                 <p>
-                  We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, enforce warranty coverage, or comply with applicable legal, accounting, and Ontario environmental regulations.
+                  We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, enforce warranty coverage, or comply with applicable legal, accounting, and Saskatchewan environmental regulations.
                 </p>
               </div>
             </section>

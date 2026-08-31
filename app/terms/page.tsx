@@ -18,14 +18,14 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service & Warranty Policy | K2 Pest Control GTA",
+  title: "Terms of Service & Warranty Policy | K2 Pest Control Saskatoon",
   description:
     "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 6-month written warranty, customer prep requirements, and payment policies.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
-    title: "Terms of Service & Warranty Policy | K2 Pest Control GTA",
+    title: "Terms of Service & Warranty Policy | K2 Pest Control Saskatoon",
     description:
       "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 6-month written warranty, customer prep requirements, and payment policies.",
     url: "https://www.k2pc.ca/terms",
@@ -95,7 +95,7 @@ export default function TermsOfServicePage() {
                   Our Service Commitment &amp; Guarantee
                 </h2>
                 <p className="text-sm text-stone-600 leading-relaxed">
-                  We stand firmly behind our extermination services with an Ontario Ministry-licensed team, upfront written quotes, and our signature <strong>6-month re-treatment warranty</strong> on qualifying treatments. Please review the terms below for details regarding customer preparation, warranties, cancellations, and liability.
+                  We stand firmly behind our extermination services with a Saskatchewan Ministry-licensed team, upfront written quotes, and our signature <strong>6-month re-treatment warranty</strong> on qualifying treatments. Please review the terms below for details regarding customer preparation, warranties, cancellations, and liability.
                 </p>
               </div>
             </div>
@@ -229,7 +229,7 @@ export default function TermsOfServicePage() {
                 </h2>
               </div>
               <p className="text-stone-700 text-sm sm:text-base leading-relaxed pl-11">
-                All pest management operations are executed by technicians certified by the <strong>{COMPANY_DETAILS.provincialBody}</strong> under Ontario License #{COMPANY_DETAILS.licenseNumber}. All pest control products used are approved by Health Canada&apos;s Pest Management Regulatory Agency (PMRA) and applied in strict accordance with manufacturer label instructions and Ontario environmental safety laws.
+                All pest management operations are executed by technicians certified by the <strong>{COMPANY_DETAILS.provincialBody}</strong> under Saskatchewan License #{COMPANY_DETAILS.licenseNumber}. All pest control products used are approved by Health Canada&apos;s Pest Management Regulatory Agency (PMRA) and applied in strict accordance with manufacturer label instructions and Saskatchewan environmental safety laws.
               </p>
             </section>
 
@@ -271,7 +271,7 @@ export default function TermsOfServicePage() {
               </div>
               <div className="text-stone-700 text-sm sm:text-base leading-relaxed pl-11 space-y-3">
                 <p>
-                  To the maximum extent permitted by Ontario law:
+                  To the maximum extent permitted by Saskatchewan law:
                 </p>
                 <ul className="list-disc pl-5 space-y-2 text-stone-600">
                   <li>
@@ -300,7 +300,7 @@ export default function TermsOfServicePage() {
                 </h2>
               </div>
               <p className="text-stone-700 text-sm sm:text-base leading-relaxed pl-11">
-                These terms shall be governed by and interpreted in accordance with the laws of the Province of Ontario and the applicable federal laws of Canada. Any legal proceedings arising from this agreement shall be submitted to the exclusive jurisdiction of the courts located in Toronto, Ontario.
+                These terms shall be governed by and interpreted in accordance with the laws of the Province of Saskatchewan and the applicable federal laws of Canada. Any legal proceedings arising from this agreement shall be submitted to the exclusive jurisdiction of the courts located in Saskatoon, Saskatchewan.
               </p>
             </section>
 

@@ -27,19 +27,19 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "K2 Pest Control | Exterminator Toronto & GTA",
+    default: "K2 Pest Control | Exterminator Saskatoon & Area",
     template: "%s | K2 Pest Control",
   },
   description:
-    "Licensed, guaranteed exterminator and pest control services in Toronto & Greater Toronto Area. Fast 2-hour emergency response for ants, mice, bed bugs, wasps, and roaches.",
+    "Licensed, guaranteed exterminator and pest control services in Saskatoon & surrounding Saskatchewan communities. Fast response for ants, mice, bed bugs, wasps, and roaches.",
   keywords: [
-    "pest control Toronto",
-    "exterminator GTA",
-    "mouse control Toronto",
-    "bed bug heat treatment GTA",
-    "ant exterminator Toronto",
-    "wasp nest removal Mississauga",
-    "commercial pest control GTA",
+    "pest control Saskatoon",
+    "exterminator Saskatoon",
+    "mouse control Saskatoon",
+    "bed bug treatment Saskatoon",
+    "ant exterminator Saskatoon",
+    "wasp nest removal Warman",
+    "commercial pest control Saskatoon",
   ],
   authors: [{ name: "K2 Pest Control" }],
   creator: "K2 Pest Control",
@@ -51,23 +51,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_CA",
     url: "https://www.k2pc.ca",
-    title: "K2 Pest Control | Licensed Exterminators Toronto & GTA",
+    title: "K2 Pest Control | Licensed Exterminators Saskatoon & Area",
     description:
-      "Fast, guaranteed pest control for residential & commercial properties across Toronto and the GTA. Ontario Licensed Applicator #ON-849201-P.",
+      "Fast, guaranteed pest control for residential & commercial properties across Saskatoon and area. Saskatchewan Licensed Applicator #SK-719402.",
     siteName: "K2 Pest Control",
     images: [
       {
         url: "https://www.k2pc.ca/assets/logo.png",
         width: 1200,
         height: 630,
-        alt: "K2 Pest Control - Licensed Exterminators Toronto & GTA",
+        alt: "K2 Pest Control - Licensed Exterminators Saskatoon & Area",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "K2 Pest Control | Exterminator Toronto & GTA",
-    description: "Licensed & guaranteed pest removal in Toronto & GTA. 2-hour emergency response.",
+    title: "K2 Pest Control | Exterminator Saskatoon & Area",
+    description: "Licensed & guaranteed pest removal in Saskatoon & surrounding areas.",
     images: ["https://www.k2pc.ca/assets/logo.png"],
   },
   icons: {
@@ -90,10 +90,10 @@ export const metadata: Metadata = {
     google: "cmt_uIRcZGXRyGLIOOhaHHyKo_tqGX8Wk1ey79Ct-e8",
   },
   other: {
-    "geo.region": "CA-ON",
-    "geo.placename": "Toronto",
-    "geo.position": "43.7142;-79.3364",
-    "ICBM": "43.7142, -79.3364",
+    "geo.region": "CA-SK",
+    "geo.placename": "Saskatoon",
+    "geo.position": "52.1332;-106.6700",
+    "ICBM": "52.1332, -106.6700",
   },
 };
 
@@ -164,8 +164,8 @@ export default async function RootLayout({
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 43.7142,
-      longitude: -79.3364,
+      latitude: 52.1332,
+      longitude: -106.6700,
     },
     areaServed: (companyDetails.regionsServed || COMPANY_DETAILS.regionsServed).map((region: string) => ({
       "@type": "AdministrativeArea",

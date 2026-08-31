@@ -9,18 +9,21 @@ interface ServiceAreasEditorProps {
   onChange: (areas: ServiceAreaItem[]) => void;
 }
 
-const DEFAULT_GTA_AREAS: ServiceAreaItem[] = [
-  { name: "Toronto (Downtown & East/West)", region: "City of Toronto", badge: "2h Emergency Dispatch" },
-  { name: "North York", region: "City of Toronto", badge: "2h Fast Response" },
-  { name: "Etobicoke", region: "City of Toronto", badge: "Local Unit on Standby" },
-  { name: "Scarborough", region: "City of Toronto", badge: "2h Fast Response" },
-  { name: "Mississauga", region: "Peel Region", badge: "2h Emergency Dispatch" },
-  { name: "Brampton", region: "Peel Region", badge: "2h Fast Response" },
-  { name: "Vaughan", region: "York Region", badge: "Local Unit on Standby" },
-  { name: "Markham", region: "York Region", badge: "2h Fast Response" },
-  { name: "Oakville", region: "Halton Region", badge: "2h Fast Response" },
-  { name: "Richmond Hill", region: "York Region", badge: "Local Unit on Standby" },
-  { name: "Burlington", region: "Halton Region", badge: "2h Fast Response" },
+const DEFAULT_SASKATOON_AREAS: ServiceAreaItem[] = [
+  { name: "Saskatoon (Central & Suburbs)", region: "City of Saskatoon", badge: "Central Dispatch HQ" },
+  { name: "Warman", region: "Saskatoon Metro Corridor", badge: "~15-20 min dispatch" },
+  { name: "Martensville", region: "Saskatoon Metro Corridor", badge: "~15 min dispatch" },
+  { name: "Osler", region: "Saskatoon Metro Corridor", badge: "~20-25 min dispatch" },
+  { name: "Dalmeny", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+  { name: "Langham", region: "Saskatoon Metro Corridor", badge: "~30 min dispatch" },
+  { name: "Vanscoy", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+  { name: "Corman Park", region: "Rural Municipality", badge: "~15-30 min dispatch" },
+  { name: "Dundurn", region: "Saskatoon Metro Corridor", badge: "~35 min dispatch" },
+  { name: "Clavet", region: "Saskatoon Metro Corridor", badge: "~25 min dispatch" },
+  { name: "Greenbryre", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
+  { name: "The Willows", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
+  { name: "Riverside Estates", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
+  { name: "Grasswood", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
 ];
 
 export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, onChange }) => {
@@ -29,8 +32,8 @@ export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, o
   const handleAdd = () => {
     const newItem: ServiceAreaItem = {
       name: "",
-      region: "Greater Toronto Area",
-      badge: "2h Fast Response",
+      region: "Saskatoon & Area",
+      badge: "Fast Response",
     };
     onChange([...areas, newItem]);
     setExpandedIndex(areas.length);
@@ -77,11 +80,11 @@ export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, o
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={() => handleAddPreset(DEFAULT_GTA_AREAS)}
+          onClick={() => handleAddPreset(DEFAULT_SASKATOON_AREAS)}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 text-xs font-semibold text-stone-700 transition-colors"
         >
           <MapPin className="w-3.5 h-3.5 text-[#BE2320]" />
-          Load All GTA Defaults
+          Load All Saskatoon Defaults
         </button>
         <button
           type="button"
@@ -97,7 +100,7 @@ export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, o
       <div className="space-y-2">
         {areas.length === 0 && (
           <div className="text-center py-8 text-stone-400 text-sm border-2 border-dashed border-stone-200 rounded-xl">
-            No service areas added yet. Click &quot;Load All GTA Defaults&quot; or add manually.
+            No service areas added yet. Click &quot;Load All Saskatoon Defaults&quot; or add manually.
           </div>
         )}
 

@@ -3,8 +3,8 @@ import { FAQItem } from "../types";
 export const GLOBAL_FAQS: FAQItem[] = [
   {
     id: "faq-1",
-    question: "How fast can an exterminator arrive at my GTA home?",
-    answer: "We offer guaranteed same-day emergency service across Toronto, Mississauga, Brampton, Vaughan, Markham, and Oakville. For urgent pest issues (such as wasps or heavy rodent activity), our average dispatch response time is under 2 hours.",
+    question: "How fast can an exterminator arrive at my Saskatoon property?",
+    answer: "We offer guaranteed fast service across Saskatoon, Warman, Martensville, and surrounding communities. For urgent pest issues (such as wasps or heavy rodent activity), our dispatch response time is fast and reliable.",
     category: "General",
   },
   {
@@ -16,7 +16,7 @@ export const GLOBAL_FAQS: FAQItem[] = [
   {
     id: "faq-3",
     question: "What licenses and insurance do K2 Pest Control exterminators hold?",
-    answer: "All K2 Pest Control technicians carry an active Ontario Provincial Pesticide Applicator License issued by the Ministry of the Environment, Conservation and Parks (License #ON-849201-P). We hold $5,000,000 in commercial general liability insurance and full WSIB coverage.",
+    answer: "All K2 Pest Control technicians carry an active Saskatchewan Provincial Pesticide Applicator License issued by the Saskatchewan Ministry of Environment (License #SK-719402). We hold $5,000,000 in commercial general liability insurance and full WCB coverage.",
     category: "General",
   },
   {

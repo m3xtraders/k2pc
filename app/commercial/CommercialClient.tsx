@@ -38,10 +38,10 @@ const INDUSTRIES = [
     id: "restaurants",
     name: "Restaurants & Bars",
     icon: Utensils,
-    badge: "DineSafe Toronto Ready",
+    badge: "Health Inspection Ready",
     headline: "Zero-tolerance pest defense for commercial kitchens & bars",
     description:
-      "Pass Toronto Public Health DineSafe inspections with flying colors. We eliminate drain flies, German cockroaches, and mice using non-contaminating gel baits and organic enzyme drain treatments.",
+      "Pass Saskatchewan Health Authority inspections with flying colors. We eliminate drain flies, German cockroaches, and mice using non-contaminating gel baits and organic enzyme drain treatments.",
     protocols: ["Kitchen Drain Bio-Sanitation", "Nightly Cockroach Matrix Baits", "Tamper-Proof Rodent Stations", "Digital Health Audit Logbook"],
   },
   {
@@ -98,7 +98,7 @@ const INDUSTRIES = [
 
 const AUDIT_STANDARDS = [
   {
-    title: "Toronto Public Health DineSafe Compliance",
+    title: "Saskatchewan Health Authority Inspection Compliance",
     description: "Complete compliance logs and SDS documentation required by municipal health inspectors.",
   },
   {
@@ -107,7 +107,7 @@ const AUDIT_STANDARDS = [
   },
   {
     title: "Ministry of Environment Licensed Applicators",
-    description: "Every technician holds active Ontario applicator licenses with $5,000,000 commercial liability.",
+    description: "Every technician holds active Saskatchewan applicator licenses with $5,000,000 commercial liability.",
   },
   {
     title: "Digital Client Portal & Logbook Records",
@@ -158,7 +158,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/15 text-action-yellow border border-amber-400/30 text-xs font-mono-data uppercase font-bold tracking-wider">
             <ShieldCheck className="w-4 h-4 text-action-yellow" />
-            <span>Ontario Licensed #ON-849201-P &bull; Commercial IPM Division</span>
+            <span>Saskatchewan Licensed #SK-719402 &bull; Commercial IPM Division</span>
           </div>
 
           <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
@@ -166,7 +166,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
           </h1>
 
           <p className="text-base sm:text-lg text-stone-300 max-w-3xl mx-auto leading-relaxed">
-            Discreet, scheduled, and certified Integrated Pest Management for restaurants, food processing, logistics warehouses, healthcare, rentals, and corporate offices across Toronto &amp; GTA.
+            Discreet, scheduled, and certified Integrated Pest Management for restaurants, food processing, logistics warehouses, healthcare, rentals, and corporate offices across Saskatoon &amp; area.
           </p>
 
           {/* 3 Pill Badges */}
@@ -258,7 +258,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
                 <span className="text-xs font-mono-data font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase tracking-wider">
                   {currentIndustry.badge}
                 </span>
-                <span className="text-xs text-stone-400 font-mono-data">Toronto &amp; GTA</span>
+                <span className="text-xs text-stone-400 font-mono-data">Saskatoon &amp; Area</span>
               </div>
 
               <h3 className="font-heading font-black text-2xl sm:text-3xl text-ink leading-tight">

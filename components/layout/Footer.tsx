@@ -133,7 +133,7 @@ export default function Footer({ companyDetails }: FooterProps) {
             <div className="bg-[#143D5C] border border-[#1C4E75]/60 p-4 rounded-xl space-y-3">
               <div className="flex items-center gap-2 text-action-yellow font-bold text-sm">
                 <Shield className="w-5 h-5 shrink-0" />
-                <span>Ontario License #{company.licenseNumber || COMPANY_DETAILS.licenseNumber}</span>
+                <span>Saskatchewan License #{company.licenseNumber || COMPANY_DETAILS.licenseNumber}</span>
               </div>
               <p className="text-xs text-stone-400 leading-relaxed">
                 Licensed by the {company.provincialBody || COMPANY_DETAILS.provincialBody}. $5M liability insured & WCB certified.
@@ -151,7 +151,7 @@ export default function Footer({ companyDetails }: FooterProps) {
         {/* Bottom Legal */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
           <p>
-            © {new Date().getFullYear()} {company.name || COMPANY_DETAILS.name}. All rights reserved. Exterminator &amp; Pest Control Toronto &amp; GTA.
+            © {new Date().getFullYear()} {company.name || COMPANY_DETAILS.name}. All rights reserved. Exterminator &amp; Pest Control Saskatoon &amp; Area.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-stone-200 transition-colors">

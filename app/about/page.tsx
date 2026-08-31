@@ -11,16 +11,16 @@ import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us & Provincial Licensing | K2 Pest Control GTA",
+  title: "About Us & Provincial Licensing | K2 Pest Control Saskatoon",
   description:
-    "Learn about K2 Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
+    "Learn about K2 Pest Control's history in Saskatchewan, provincial pesticide license #SK-719402, $5M liability insurance, and eco-friendly IPM team.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Us & Provincial Licensing | K2 Pest Control GTA",
+    title: "About Us & Provincial Licensing | K2 Pest Control Saskatoon",
     description:
-      "Learn about K2 Pest Control's 15-year history in Ontario, provincial pesticide license #ON-849201-P, $5M liability insurance, and eco-friendly IPM team.",
+      "Learn about K2 Pest Control's history in Saskatchewan, provincial pesticide license #SK-719402, $5M liability insurance, and eco-friendly IPM team.",
     url: "https://www.k2pc.ca/about",
   },
 };
@@ -57,29 +57,14 @@ export default function AboutPage() {
       description: "No hidden inspection surcharges or unexpected upsells. Upfront written quotes provided before any work begins.",
     },
     {
-      title: "Ontario Regulatory Excellence",
+      title: "Saskatchewan Regulatory Excellence",
       icon: Award,
-      description: "All technicians maintain Ministry pesticide applicator licenses, continuous safety training, and WSIB compliance.",
+      description: "All technicians maintain Saskatchewan Ministry of Environment pesticide applicator licenses, continuous safety training, and WCB compliance.",
     },
     {
-      title: "100% Written Warranty",
+      title: "6-Month Written Warranty",
       icon: HeartHandshake,
-      description: "We stand behind our work with a 6-month written warranty on all residential and commercial exterminations.",
-    },
-  ];
-
-  const team = [
-    {
-      name: "Dr. Marcus Vance",
-      role: "Lead Entomologist & Field Operations Specialist",
-      bio: "18+ years of field experience in Southern Ontario insect ecology, specializing in carpenter ant nest tracking and non-repellent micro-baiting.",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    },
-    {
-      name: "Sarah Lin, P.Ag.",
-      role: "Senior Director of Technical Services",
-      bio: "Registered Professional Agrologist directing audit-ready Commercial IPM compliance for food processing facilities and multi-unit housing.",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      description: "We stand behind our work with a 6-month written warranty on all residential and commercial pest treatments.",
     },
   ];
 
@@ -94,13 +79,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <Shield className="w-4 h-4 text-action-yellow" />
-            Ontario License #{COMPANY_DETAILS.licenseNumber}
+            Saskatchewan License #{COMPANY_DETAILS.licenseNumber}
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
             About K2 Pest Control
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
-            Delivering science-backed, licensed extermination across Toronto & the Greater Toronto Area for over 15 years.
+            Delivering science-backed, licensed extermination across Saskatoon &amp; surrounding communities.
           </p>
         </div>
       </section>
@@ -126,7 +111,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-center font-mono-data shrink-0">
-                <span className="text-xs text-neutral-text block">Ontario Applicator License</span>
+                <span className="text-xs text-neutral-text block">Saskatchewan Applicator License</span>
                 <span className="text-xl font-bold text-brand-red">{COMPANY_DETAILS.licenseNumber}</span>
               </div>
             </div>
@@ -172,16 +157,16 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-6">
               <span className="text-xs font-mono-data font-bold text-brand-red uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">
-                Our Story
+                OUR STORY
               </span>
               <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
-                Protecting Canadian Sanctuaries Since 2011
+                Protecting Saskatoon Homes Since 2023
               </h2>
               <p className="text-base text-neutral-text leading-relaxed">
-                K2 Pest Control was founded in Toronto to address a glaring gap in the market: traditional exterminators relying on generic chemical sprays without addressing how pests entered in the first place.
+                K2 Pest Control was founded in Saskatoon to address a glaring gap in the market: traditional exterminators relying on generic chemical sprays without addressing how pests entered in the first place.
               </p>
               <p className="text-base text-neutral-text leading-relaxed">
-                Over the past 15 years, our team of licensed entomologists and technicians has pioneered exclusion-first IPM strategies. We treat every GTA property like our own home — inspecting thoroughly, eliminating nests at the root, and sealing entry holes permanently.
+                Over the past 3 years, our team of licensed technicians has built a reputation for exclusion-first IPM strategies. We treat every Saskatoon-area property like our own home — inspecting thoroughly, eliminating nests at the root, and sealing entry points permanently.
               </p>
             </div>
             <div className="lg:col-span-6 relative h-[400px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
@@ -189,6 +174,7 @@ export default function AboutPage() {
                 src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
                 alt="K2 Pest Control licensed extermination technician carrying out property inspection"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
@@ -197,14 +183,14 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-16 bg-surface-warm border-y border-stone-200">
+      <section className="py-20 bg-surface-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <h2 className="font-heading font-extrabold text-3xl text-ink">
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ink tracking-tight">
               Our Core Guiding Principles
             </h2>
-            <p className="text-sm text-neutral-text">
-              The promises we keep on every residential and commercial job.
+            <p className="text-base sm:text-lg text-neutral-text leading-relaxed">
+              The promises we keep on every residential and commercial job across Saskatoon &amp; area.
             </p>
           </div>
 
@@ -212,12 +198,15 @@ export default function AboutPage() {
             {values.map((v, i) => {
               const IconComp = v.icon;
               return (
-                <div key={i} className="bg-white p-6 rounded-xl border border-stone-200 space-y-3">
-                  <div className="w-10 h-10 rounded-lg bg-red-50 text-brand-red flex items-center justify-center">
+                <div
+                  key={i}
+                  className="bg-surface-warm p-6 rounded-2xl border border-stone-200/90 shadow-2xs hover:shadow-md hover:border-brand-red/30 transition-all duration-300 space-y-3.5"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-red-50 text-brand-red flex items-center justify-center border border-red-100/80 shadow-2xs">
                     <IconComp className="w-5 h-5" />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-ink">{v.title}</h3>
-                  <p className="text-xs text-neutral-text leading-relaxed">{v.description}</p>
+                  <p className="text-sm text-neutral-text leading-relaxed">{v.description}</p>
                 </div>
               );
             })}
@@ -225,44 +214,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Bios */}
-      <section className="py-16 bg-surface-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <h2 className="font-heading font-extrabold text-3xl text-ink">
-              Meet Our Leadership & Entomology Team
-            </h2>
-            <p className="text-sm text-neutral-text">
-              Experienced professionals guiding our field protocols across the GTA.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {team.map((member, i) => (
-              <div key={i} className="bg-surface-warm p-6 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-center gap-6">
-                <div className="w-24 h-24 rounded-full overflow-hidden relative shrink-0 border-2 border-brand-red">
-                  <Image src={member.avatar} alt={member.name} fill className="object-cover" />
-                </div>
-                <div className="space-y-2 text-center sm:text-left">
-                  <h3 className="font-heading font-bold text-xl text-ink">{member.name}</h3>
-                  <span className="text-xs font-mono-data text-brand-red font-semibold block">{member.role}</span>
-                  <p className="text-xs text-neutral-text leading-relaxed">{member.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Saskatoon Service Locations Section */}
+      <ServiceArea />
+      <LocationMapWidget />
 
       {/* Google Reviews Section */}
       <Testimonials />
-
-      {/* GTA Service Locations Section */}
-      <ServiceArea />
-
-
-      {/* Interactive Google Map Section */}
-      <LocationMapWidget />
 
       <CTABand />
     </>

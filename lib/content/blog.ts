@@ -3,25 +3,25 @@ import { BlogPost } from "../types";
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: "post-1",
-    title: "Ontario Fall Rodent Migration: Why Mice Move Indoors in October & How to Stop Them",
-    slug: "fall-rodent-migration-ontario",
-    excerpt: "As temperatures drop across the GTA, field mice search for warmth inside foundations. Learn the 5 subtle signs of rodent intrusion and key exclusion tips.",
+    title: "Saskatchewan Fall Rodent Migration: Why Mice Move Indoors in October & How to Stop Them",
+    slug: "fall-rodent-migration-saskatchewan",
+    excerpt: "As Prairie temperatures drop across Saskatoon and area, field mice search for warmth inside foundations. Learn the 5 subtle signs of rodent intrusion and key exclusion tips.",
     category: "Seasonal Advice",
     author: {
-      name: "Dr. Marcus Vance",
-      role: "Lead Entomologist & IPM Specialist",
+      name: "K2 Technical Team",
+      role: "Licensed Extermination Specialists",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
     },
     publishedAt: "October 14, 2025",
     readTime: "5 min read",
     image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1000&q=70",
-    relatedSlugs: ["eco-friendly-ipm-toronto", "bed-bug-tenant-rights-ontario"],
+    relatedSlugs: ["eco-friendly-ipm-saskatoon", "bed-bug-tenant-rights-saskatchewan"],
     content: `
-## The Seasonal Shift: Why Southern Ontario Homes See Mice in Autumn
+## The Seasonal Shift: Why Saskatchewan Homes See Mice in Autumn
 
-Every year as nighttime temperatures across Toronto, Mississauga, and the Greater Toronto Area dip below 10°C, house mice (*Mus musculus*) and deer mice experience a natural instinct to find warm, sheltered nesting sites with ready food access. 
+Every year as nighttime temperatures across Saskatoon, Warman, and surrounding Saskatchewan communities dip below freezing, house mice (*Mus musculus*) and deer mice experience a natural instinct to find warm, sheltered nesting sites with ready food access. 
 
-Your home’s heated basement, wall cavities, and attic represent an ideal winter sanctuary. Understanding how rodents navigate residential structures is the first step toward effective exclusion.
+Your home’s heated basement, garage, and attic represent an ideal winter sanctuary. Understanding how prairie rodents navigate residential structures is the first step toward effective exclusion.
 
 ### 5 Early Warning Signs of Mouse Intrusion
 
@@ -37,65 +37,65 @@ Your home’s heated basement, wall cavities, and attic represent an ideal winte
 - **Manage Outdoor Food Sources:** Keep bird seed stored in airtight metal bins, elevate firewood piles at least 18 inches off the ground, and clear fallen apples or garden waste.
 - **Maintain Clean Kitchen Counters:** Store grains, pet food, and flour in sealed glass or heavy plastic containers.
 
-If you suspect an active rodent infestation, contact **K2 Pest Control** for a 360° inspection and guaranteed exclusion sealing.
+If you suspect an active rodent infestation, contact **K2 Pest Control** at **(306) 407-0007** for a 360° inspection and guaranteed exclusion sealing.
 `,
   },
   {
     id: "post-2",
-    title: "Bed Bugs in GTA Rental Apartments: Tenant Rights, Landlord Responsibilities & Treatment Steps",
-    slug: "bed-bug-tenant-rights-ontario",
-    excerpt: "Dealing with bed bugs in an Ontario rental property? Here is a clear guide on tenant rights under the Residential Tenancies Act and fast eradication protocols.",
+    title: "Bed Bugs in Saskatoon Rental Properties: Tenant Rights & Treatment Steps",
+    slug: "bed-bug-tenant-rights-saskatchewan",
+    excerpt: "Dealing with bed bugs in a Saskatoon rental property? Here is a clear guide on tenant rights in Saskatchewan and fast eradication protocols.",
     category: "Tenant Guides",
     author: {
-      name: "Sarah Lin, P.Ag.",
-      role: "Senior Operations Director",
+      name: "K2 Operations Team",
+      role: "Field Operations Directors",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80",
     },
     publishedAt: "November 2, 2025",
     readTime: "7 min read",
     image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=70",
-    relatedSlugs: ["fall-rodent-migration-ontario", "spring-ant-prevention-gta"],
+    relatedSlugs: ["fall-rodent-migration-saskatchewan", "spring-ant-prevention-saskatoon"],
     content: `
 ## Navigating Bed Bug Infestations in Multi-Unit Housing
 
-Bed bugs (*Cimex lectularius*) spread easily between adjacent apartment units through shared electrical conduits, hallway carpets, and ventilation shafts. For tenants and property managers in Ontario, clear action and fast communication are essential.
+Bed bugs (*Cimex lectularius*) spread easily between adjacent apartment units through shared electrical conduits, hallway carpets, and ventilation shafts. For tenants and property managers in Saskatchewan, clear action and fast communication are essential.
 
-### Landlord Obligations Under the Ontario Residential Tenancies Act (RTA)
+### Responsibilities Under Saskatchewan Tenancy Guidelines
 
-Under Ontario law, landlords are legally responsible for maintaining rental units in a good state of repair and fit for habitation. This includes:
-- Paying for professional, licensed pest control services.
-- Arranging prompt inspections upon written notification.
+Under Saskatchewan residential tenancy guidelines, landlords and property managers must ensure properties are fit for habitation and free from active pest infestations:
+- Prompt professional, licensed pest control dispatch.
+- Arranging inspections upon tenant notification.
 - Coordinating multi-unit inspections if adjoining walls are affected.
 
 ### Tenant Responsibilities & Preparation Steps
 
-While landlords pay for treatment, tenants play a critical role in successful preparation:
+While professional treatment is essential, tenants play a critical role in successful preparation:
 - **Launder Textiles:** Wash all bed linens, clothing, and curtains in hot water (minimum 60°C) and dry on high heat for 30 minutes.
 - **De-clutter Rooms:** Move furniture 12 inches away from perimeter walls to give exterminators access to baseboards.
 - **Vacuum Thoroughly:** Vacuum mattresses, box springs, and floor edges, immediately sealing and discarding the vacuum bag outdoors.
 
-For discrete, certified bed bug heat and chemical treatments in apartment complexes across Toronto, call K2 Pest Control at (416) 555-0199.
+For discrete, certified bed bug heat and chemical treatments in properties across Saskatoon & area, call K2 Pest Control at (306) 407-0007.
 `,
   },
   {
     id: "post-3",
-    title: "Spring Carpenter Ant Outbreaks: How to Identify Swarmers vs. Termites in Southern Ontario",
-    slug: "spring-ant-prevention-gta",
-    excerpt: "Spring brings carpenter ant swarmers hunting for damp wood in GTA homes. Discover how to tell carpenter ants apart from subterranean termites.",
+    title: "Spring Carpenter Ant Outbreaks: How to Identify Swarmers vs. Termites in Saskatchewan",
+    slug: "spring-ant-prevention-saskatoon",
+    excerpt: "Spring brings carpenter ant swarmers hunting for damp wood in Saskatoon homes. Discover how to tell carpenter ants apart from subterranean termites.",
     category: "Prevention Tips",
     author: {
-      name: "Dr. Marcus Vance",
-      role: "Lead Entomologist & IPM Specialist",
+      name: "K2 Technical Team",
+      role: "Licensed Extermination Specialists",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
     },
     publishedAt: "March 18, 2026",
     readTime: "6 min read",
     image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1000&q=70",
-    relatedSlugs: ["eco-friendly-ipm-toronto", "fall-rodent-migration-ontario"],
+    relatedSlugs: ["eco-friendly-ipm-saskatoon", "fall-rodent-migration-saskatchewan"],
     content: `
 ## The Spring Swarm: Carpenter Ants vs. Subterranean Termites
 
-When warm spring rains arrive in Southern Ontario, winged insects often emerge near window sills and basement foundations. Homeowners frequently panic, asking: *Are these carpenter ants or termites?*
+When warm spring rains arrive in Saskatchewan, winged insects often emerge near window sills and basement foundations. Homeowners frequently panic, asking: *Are these carpenter ants or termites?*
 
 ### Quick Identification Chart
 
@@ -106,9 +106,9 @@ When warm spring rains arrive in Southern Ontario, winged insects often emerge n
 | **Wing Size** | Front wings larger than hind wings | All 4 wings identical length |
 | **Wood Impact** | Excavates frass (sawdust) | Consumes wood, leaves mud tubes |
 
-### Why Carpenter Ants Target GTA Foundations
+### Why Carpenter Ants Target Saskatoon Foundations
 
-Carpenter ants do not eat wood for nutrition; instead, they hollow out damp, decayed lumber to expand their nesting galleries. Common risk factors include leaking gutters, rotting deck posts, or wood firewood stacked directly against house siding.
+Carpenter ants do not eat wood for nutrition; instead, they hollow out damp, decayed lumber to expand their nesting galleries. Common risk factors include leaking gutters, rotting deck posts, or firewood stacked directly against house siding.
 
 ### Professional IPM Solution
 
@@ -118,18 +118,18 @@ Our non-repellent baiting strategies allow worker ants to forage the bait matrix
   {
     id: "post-4",
     title: "What is Integrated Pest Management (IPM)? Eco-Conscious Protection for Families & Pets",
-    slug: "eco-friendly-ipm-toronto",
+    slug: "eco-friendly-ipm-saskatoon",
     excerpt: "Discover how modern IPM minimizes chemical usage by combining biological monitoring, physical exclusion, and green bio-pesticides.",
     category: "Eco-Friendly IPM",
     author: {
-      name: "Sarah Lin, P.Ag.",
-      role: "Senior Operations Director",
+      name: "K2 Operations Team",
+      role: "Field Operations Directors",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80",
     },
     publishedAt: "April 10, 2026",
     readTime: "4 min read",
     image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=70",
-    relatedSlugs: ["spring-ant-prevention-gta", "fall-rodent-migration-ontario"],
+    relatedSlugs: ["spring-ant-prevention-saskatoon", "fall-rodent-migration-saskatchewan"],
     content: `
 ## Redefining Pest Defense: Science Over Spraying
 
@@ -138,11 +138,11 @@ Traditional extermination relied heavily on broad-spectrum synthetic sprays appl
 ### The 4 Pillars of K2 Pest Control's Eco-Conscious IPM
 
 1. **Inspection & Threshold Identification:** We pinpoint exact pest species and determine whether chemical intervention is strictly necessary.
-2. **Physical & Structural Exclusion:** Closing entry holes, installing door sweeps, and fixing plumbing leaks eliminate the root cause of infestation.
-3. **Targeted Micro-Treatments:** Using gel baits, desiccant dusts (like amorphous silica), and Insect Growth Regulators (IGRs) that specifically disrupt target pest life cycles without emitting volatile organic compounds (VOCs).
-4. **Continuous Monitoring:** Utilizing non-toxic sticky pheromone monitors to verify long-term protection.
+2. **Physical Exclusion:** Sealing crawl space penetrations, utility conduits, and siding voids permanently using copper mesh and silicone sealants.
+3. **Targeted Micro-Treatments:** Applying localized gel baits and low-toxicity insect growth regulators (IGRs) directly into harbourage cracks rather than general broadcasting.
+4. **Ongoing Habitat Modification:** Educating homeowners on moisture management, exterior vegetation clearance, and sanitation to prevent recurring infestations.
 
-This science-backed approach protects pets, children, and beneficial garden pollinators while providing long-lasting control.
+By focusing on long-term prevention rather than short-term chemical knockdown, our eco-friendly IPM solutions provide permanent pest relief that is 100% safe for children, pets, and our Saskatoon environment.
 `,
   },
 ];

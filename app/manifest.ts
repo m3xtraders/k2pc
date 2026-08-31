@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "K2 Pest Control Toronto & GTA",
+    name: "K2 Pest Control Saskatoon & Area",
     short_name: "K2 Pest Control",
     description:
-      "Licensed, guaranteed exterminator and pest control services in Toronto & Greater Toronto Area. 2-hour emergency response.",
+      "Licensed, guaranteed exterminator and pest control services in Saskatoon & surrounding Saskatchewan communities.",
     start_url: "/",
     display: "standalone",
     background_color: "#FFFFFF",

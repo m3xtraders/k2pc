@@ -17,6 +17,11 @@ import {
   Building2,
   Sparkles,
   HelpCircle,
+  AlertTriangle,
+  ListOrdered,
+  DollarSign,
+  ShieldCheck,
+  Tag,
   Plus,
   Trash2,
   ArrowUp,
@@ -47,8 +52,31 @@ const COMMERCIAL_TEMPLATES = [
     title: "Commercial Restaurant & Kitchen Defense",
     slug: "commercial-restaurant-defense",
     icon: "building",
-    shortDescription: "Zero-tolerance pest defense for commercial kitchens, bars, and food preparation areas. Toronto Public Health DineSafe audit compliant.",
-    content: "<h3>Commercial Food Safety &amp; Kitchen Sanitation</h3><p>Ensure your food service establishment passes every municipal health audit. Our non-toxic micro-gel baiting and organic enzyme drain treatments target fruit flies, German cockroaches, and rodents without food contact contamination.</p><ul><li>Nightly Cockroach Matrix Baits</li><li>Organic Kitchen Drain Bio-Sanitation</li><li>Tamper-Proof Rodent Station Grids</li><li>Digital DineSafe Inspection Logbook</li></ul>",
+    shortDescription: "Zero-tolerance pest defense for commercial kitchens, bars, and food preparation areas. Saskatchewan Health Authority audit compliant.",
+    content: "<h3>Commercial Food Safety &amp; Kitchen Sanitation</h3><p>Ensure your food service establishment passes every municipal health audit. Our non-toxic micro-gel baiting and organic enzyme drain treatments target fruit flies, German cockroaches, and rodents without food contact contamination.</p><ul><li>Nightly Cockroach Matrix Baits</li><li>Organic Kitchen Drain Bio-Sanitation</li><li>Tamper-Proof Rodent Station Grids</li><li>Digital Health Inspection Logbook</li></ul>",
+    signs: [
+      "Drain flies or fruit flies hovering near bar beverage taps or dishwashing stations",
+      "German cockroach activity observed in warm refrigeration motor housings",
+      "Grease rub marks or rodent droppings along baseboards behind storage racks",
+      "Unpleasant sour or oily odors near garbage disposal areas",
+    ],
+    treatmentProcess: [
+      {
+        step: 1,
+        title: "Kitchen Sanitation & Drain Audit",
+        description: "Comprehensive inspection of floor drains, grease interceptors, and refrigeration motor bays to detect moisture and harborage zones.",
+      },
+      {
+        step: 2,
+        title: "Non-Toxic Gel Matrix & Bio-Enzyme Inoculation",
+        description: "Application of food-grade insect growth regulators and organic drain probiotics to consume organic waste and eliminate larvae.",
+      },
+      {
+        step: 3,
+        title: "Tamper-Proof Perimeter Grids & Digital Logbook",
+        description: "Installation of locked exterior monitoring stations and issuance of Saskatchewan Health Authority audit compliance sign-offs.",
+      },
+    ],
   },
   {
     name: "🏭 Warehouse & Logistics Facility",
@@ -57,6 +85,29 @@ const COMMERCIAL_TEMPLATES = [
     icon: "building",
     shortDescription: "Dock-to-rack perimeter pest barrier and high-bay exclusion sealing for distribution centers, manufacturing plants, and storage facilities.",
     content: "<h3>Industrial Warehouse Pest Defense</h3><p>Protect valuable inventory, raw materials, and packaging from rodent contamination and stored product beetles. Comprehensive exterior perimeter stations and loading dock door sweeps.</p><ul><li>Loading Dock Exclusion Seals</li><li>High-Bay Bird Deterrents</li><li>Barcode Tracked Bait Stations</li><li>HACCP &amp; BRC Audit Reports</li></ul>",
+    signs: [
+      "Chewed cardboard corners or packaging leaks on palletized inventory",
+      "Bird nesting or droppings in high-bay steel rafters and joists",
+      "Rodent gnaw marks on loading dock door bottom seals and weatherstripping",
+      "Small beetles or larvae found inside dry bulk storage zones",
+    ],
+    treatmentProcess: [
+      {
+        step: 1,
+        title: "Dock-to-Rack Perimeter Vulnerability Mapping",
+        description: "High-bay scanning, loading dock seal audits, and exterior perimeter assessment to identify structural ingress pathways.",
+      },
+      {
+        step: 2,
+        title: "Heavy-Duty Exclusion & Barcode Bait Station Array",
+        description: "Industrial weatherproofing of overhead doors and strategic placement of tamper-resistant barcode tracking stations.",
+      },
+      {
+        step: 3,
+        title: "Automated Trend Analysis & Audit Certification",
+        description: "Real-time portal updates with digital activity logs designed for third-party HACCP, BRC, and organic handling audits.",
+      },
+    ],
   },
   {
     name: "🏬 Multi-Unit & Property Management",
@@ -64,7 +115,30 @@ const COMMERCIAL_TEMPLATES = [
     slug: "commercial-property-management",
     icon: "building",
     shortDescription: "Proactive pest management programs for apartment buildings, condo towers, and rental portfolios with fast 24-hour turnaround.",
-    content: "<h3>Multi-Unit Residential &amp; Tenant Defense</h3><p>Protect your rental portfolio and building reputation. Discrete, unmarked vehicles and same-day response for tenant pest inquiries across Toronto and the GTA.</p><ul><li>Suite-by-Suite Bed Bug Thermal Audits</li><li>Trash Chute &amp; Compactor Bio-Treatments</li><li>Common Area Perimeter Baits</li><li>Landlord Compliance Sign-Off Certificates</li></ul>",
+    content: "<h3>Multi-Unit Residential &amp; Tenant Defense</h3><p>Protect your rental portfolio and building reputation. Discrete, unmarked vehicles and same-day response for tenant pest inquiries across Saskatoon and surrounding communities.</p><ul><li>Suite-by-Suite Bed Bug Targeted Audits</li><li>Trash Chute &amp; Compactor Bio-Treatments</li><li>Common Area Perimeter Baits</li><li>Landlord Compliance Sign-Off Certificates</li></ul>",
+    signs: [
+      "Tenant complaints of nocturnal bites or itchy skin welts",
+      "Dark fecal spotting or shed skins on mattress seams or baseboards",
+      "Pest movement through shared plumbing penetrations between suites",
+      "Persistent odor or fly issues around trash chutes and compactor rooms",
+    ],
+    treatmentProcess: [
+      {
+        step: 1,
+        title: "Multi-Suite Visual & Canine Detection",
+        description: "Coordinated inspections of reported suites and adjacent units to contain pest migration before cross-contamination occurs.",
+      },
+      {
+        step: 2,
+        title: "Targeted Thermal & Micro-Residual Eradication",
+        description: "Eco-friendly targeted insecticide application and perimeter wall cavity dusting with child- and pet-safe protocols.",
+      },
+      {
+        step: 3,
+        title: "Trash Chute Remediation & Tenant Guarantee",
+        description: "Biological foam cleaning of garbage chutes and delivery of tenant clearance certificates with full warranty.",
+      },
+    ],
   },
 ];
 
@@ -80,6 +154,8 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     isCommercialParam
   );
 
+  const staticFallback = SERVICES.find((s) => s.slug === initialData?.slug);
+
   const [formData, setFormData] = useState<ServiceInput>({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
@@ -91,7 +167,12 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     metaDescription: initialData?.metaDescription || "",
     displayOrder: initialData?.displayOrder || 0,
     status: initialData?.status || "DRAFT",
+    pricingStartsAt: initialData?.pricingStartsAt || staticFallback?.pricingStartsAt || (isCommercialParam ? "Custom Quote" : "$189"),
+    warranty: initialData?.warranty || staticFallback?.warranty || "6-Month Written Warranty",
+    pestCategory: initialData?.pestCategory || staticFallback?.pestCategory || (isCommercialParam ? "commercial" : "insects"),
     faqs: initialData?.faqs || [],
+    signsOfInfestation: initialData?.signsOfInfestation || [],
+    treatmentProcess: initialData?.treatmentProcess || [],
   });
 
   const fallbackFaqs = SERVICES.find((s) => s.slug === initialData?.slug)?.faqs || [];
@@ -104,6 +185,55 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     initialFaqs.map((f: any) => ({
       question: f.question || "",
       answer: f.answer || "",
+    }))
+  );
+
+  const fallbackSigns = SERVICES.find((s) => s.slug === initialData?.slug)?.signsOfInfestation || [
+    "Sawdust-like frass accumulated near baseboards or wooden structures.",
+    "Visible trails of pests along kitchen counters or foundation lines.",
+    "Winged swarmer insects appearing indoors during spring months.",
+    "Faint rustling noises within hollow walls or window frames.",
+  ];
+
+  const initialSigns =
+    Array.isArray(initialData?.signsOfInfestation) && initialData.signsOfInfestation.length > 0
+      ? initialData.signsOfInfestation
+      : fallbackSigns;
+
+  const [signsOfInfestation, setSignsOfInfestation] = useState<string[]>(
+    initialSigns.map((s: any) => (typeof s === "string" ? s : ""))
+  );
+
+  const fallbackProcess = SERVICES.find((s) => s.slug === initialData?.slug)?.treatmentProcess || [
+    {
+      step: 1,
+      title: "Comprehensive Inspection",
+      description:
+        "Our certified exterminator conducts a full interior and exterior perimeter evaluation to detect nesting spots and access points.",
+    },
+    {
+      step: 2,
+      title: "Targeted Eradication Treatment",
+      description:
+        "Application of Health Canada approved, pet and child safe IPM solutions specifically calibrated for long-lasting elimination.",
+    },
+    {
+      step: 3,
+      title: "Exclusion & Perimeter Sealing",
+      description:
+        "Sealing entry points and applying heavy-duty barrier protection to ensure pests cannot re-enter your property.",
+    },
+  ];
+
+  const initialProcess =
+    Array.isArray(initialData?.treatmentProcess) && initialData.treatmentProcess.length > 0
+      ? initialData.treatmentProcess
+      : fallbackProcess;
+
+  const [treatmentSteps, setTreatmentSteps] = useState<Array<{ title: string; description: string }>>(
+    initialProcess.map((item: any) => ({
+      title: item.title || "",
+      description: item.description || "",
     }))
   );
 
@@ -130,6 +260,62 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
           .trim()
           .replace(/\s+/g, "-");
       }
+      return updated;
+    });
+  };
+
+  const handleAddSign = () => {
+    setSignsOfInfestation((prev) => [...prev, ""]);
+  };
+
+  const handleRemoveSign = (index: number) => {
+    setSignsOfInfestation((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSignChange = (index: number, value: string) => {
+    setSignsOfInfestation((prev) =>
+      prev.map((sign, i) => (i === index ? value : sign))
+    );
+  };
+
+  const handleMoveSign = (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= signsOfInfestation.length) return;
+    setSignsOfInfestation((prev) => {
+      const updated = [...prev];
+      const temp = updated[index];
+      updated[index] = updated[targetIndex];
+      updated[targetIndex] = temp;
+      return updated;
+    });
+  };
+
+  const handleAddTreatmentStep = () => {
+    setTreatmentSteps((prev) => [...prev, { title: "", description: "" }]);
+  };
+
+  const handleRemoveTreatmentStep = (index: number) => {
+    setTreatmentSteps((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleTreatmentStepChange = (
+    index: number,
+    field: "title" | "description",
+    value: string
+  ) => {
+    setTreatmentSteps((prev) =>
+      prev.map((step, i) => (i === index ? { ...step, [field]: value } : step))
+    );
+  };
+
+  const handleMoveTreatmentStep = (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= treatmentSteps.length) return;
+    setTreatmentSteps((prev) => {
+      const updated = [...prev];
+      const temp = updated[index];
+      updated[index] = updated[targetIndex];
+      updated[targetIndex] = temp;
       return updated;
     });
   };
@@ -169,7 +355,21 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
       shortDescription: tpl.shortDescription,
       content: tpl.content,
       status: "PUBLISHED",
+      pricingStartsAt: "Custom Quote",
+      warranty: "Audit-Ready Guarantee",
+      pestCategory: "commercial",
     }));
+    if (tpl.signs && tpl.signs.length > 0) {
+      setSignsOfInfestation(tpl.signs);
+    }
+    if (tpl.treatmentProcess && tpl.treatmentProcess.length > 0) {
+      setTreatmentSteps(
+        tpl.treatmentProcess.map((t: any) => ({
+          title: t.title,
+          description: t.description,
+        }))
+      );
+    }
     setIsCommercial(true);
     setAutoSlug(false);
     toast.success(`Loaded template: ${tpl.name}`);
@@ -189,9 +389,23 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
       .map((f) => ({ question: f.question.trim(), answer: f.answer.trim() }))
       .filter((f) => f.question && f.answer);
 
+    const cleanSigns = signsOfInfestation
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+
+    const cleanTreatment = treatmentSteps
+      .map((step, idx) => ({
+        step: idx + 1,
+        title: step.title.trim(),
+        description: step.description.trim(),
+      }))
+      .filter((step) => step.title && step.description);
+
     const payload = {
       ...formData,
       faqs: cleanFaqs,
+      signsOfInfestation: cleanSigns,
+      treatmentProcess: cleanTreatment,
     };
 
     try {
@@ -372,6 +586,220 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
             />
           </FormField>
 
+          {/* Key Signs of Infestation / Symptoms Builder Card */}
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+              <div>
+                <h3 className="font-heading font-bold text-base text-stone-900 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-[#BE2320]" />
+                  <span>Key Signs &amp; Symptoms of Infestation ({signsOfInfestation.length})</span>
+                </h3>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Symptoms displayed in the &quot;Key Signs of {formData.title || "This Service"} Needed&quot; section on the public website.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddSign}
+                className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-[#BE2320] border border-red-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shrink-0 self-start sm:self-auto cursor-pointer shadow-2xs"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Add Sign / Symptom</span>
+              </button>
+            </div>
+
+            {signsOfInfestation.length === 0 ? (
+              <div className="p-6 text-center bg-stone-50 rounded-xl border border-dashed border-stone-200 space-y-2">
+                <p className="text-xs text-stone-500">
+                  No signs or symptoms added for this service yet. Add symptoms to help customers recognize if they have an active infestation.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddSign}
+                  className="text-xs font-bold text-[#BE2320] hover:underline cursor-pointer"
+                >
+                  + Add first symptom / sign
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {signsOfInfestation.map((sign, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3 p-3 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-stone-50 transition-colors group"
+                  >
+                    <span className="w-7 h-7 rounded-full bg-red-100 text-[#BE2320] font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                      {idx + 1}
+                    </span>
+                    <input
+                      type="text"
+                      value={sign}
+                      onChange={(e) => handleSignChange(idx, e.target.value)}
+                      placeholder={`e.g. ${
+                        idx === 0
+                          ? "Sawdust-like frass accumulated near baseboards or wooden structures."
+                          : idx === 1
+                          ? "Visible trails of pests along kitchen counters or foundation lines."
+                          : idx === 2
+                          ? "Winged swarmer insects appearing indoors during spring months."
+                          : "Faint rustling noises within hollow walls or window frames."
+                      }`}
+                      className="flex-1 px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
+                    />
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => handleMoveSign(idx, "up")}
+                        className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                        title="Move Up"
+                      >
+                        <ArrowUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === signsOfInfestation.length - 1}
+                        onClick={() => handleMoveSign(idx, "down")}
+                        className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                        title="Move Down"
+                      >
+                        <ArrowDown className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSign(idx)}
+                        className="p-1 text-red-500 hover:text-red-700 rounded cursor-pointer ml-0.5"
+                        title="Remove Symptom"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Our Extermination & Treatment Protocol Builder Card */}
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+              <div>
+                <h3 className="font-heading font-bold text-base text-stone-900 flex items-center gap-2">
+                  <ListOrdered className="w-5 h-5 text-[#BE2320]" />
+                  <span>Our Extermination &amp; Treatment Protocol ({treatmentSteps.length} Steps)</span>
+                </h3>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Step-by-step treatment methodology displayed in the &quot;Our Extermination &amp; Treatment Protocol&quot; section on the public service page.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddTreatmentStep}
+                className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-[#BE2320] border border-red-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shrink-0 self-start sm:self-auto cursor-pointer shadow-2xs"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Add Protocol Step</span>
+              </button>
+            </div>
+
+            {treatmentSteps.length === 0 ? (
+              <div className="p-6 text-center bg-stone-50 rounded-xl border border-dashed border-stone-200 space-y-2">
+                <p className="text-xs text-stone-500">
+                  No custom treatment steps added for this service yet. Add steps to explain your inspection, eradication, and exclusion protocols.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddTreatmentStep}
+                  className="text-xs font-bold text-[#BE2320] hover:underline cursor-pointer"
+                >
+                  + Add first treatment step
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {treatmentSteps.map((step, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-stone-50 transition-colors space-y-3 relative group"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-full bg-[#BE2320] text-white font-mono-data font-bold text-xs flex items-center justify-center shadow-2xs">
+                          0{idx + 1}
+                        </span>
+                        <span className="text-xs font-mono-data font-bold text-stone-700">
+                          Step #{idx + 1}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          disabled={idx === 0}
+                          onClick={() => handleMoveTreatmentStep(idx, "up")}
+                          className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                          title="Move Up"
+                        >
+                          <ArrowUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          disabled={idx === treatmentSteps.length - 1}
+                          onClick={() => handleMoveTreatmentStep(idx, "down")}
+                          className="p-1 text-stone-400 hover:text-stone-700 disabled:opacity-20 cursor-pointer"
+                          title="Move Down"
+                        >
+                          <ArrowDown className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTreatmentStep(idx)}
+                          className="p-1 text-red-500 hover:text-red-700 rounded cursor-pointer ml-1"
+                          title="Remove Step"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-stone-600 uppercase tracking-wider block">
+                        Step Title
+                      </label>
+                      <input
+                        type="text"
+                        value={step.title}
+                        onChange={(e) => handleTreatmentStepChange(idx, "title", e.target.value)}
+                        placeholder={`e.g. ${
+                          idx === 0
+                            ? "Comprehensive Inspection"
+                            : idx === 1
+                            ? "Targeted Eradication Treatment"
+                            : "Exclusion & Perimeter Sealing"
+                        }`}
+                        className="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-stone-600 uppercase tracking-wider block">
+                        Step Description
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={step.description}
+                        onChange={(e) => handleTreatmentStepChange(idx, "description", e.target.value)}
+                        placeholder="Explain the specific tools, IPM methods, and safety procedures used in this step..."
+                        className="w-full px-3.5 py-2 bg-white border border-stone-300 rounded-lg text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320] leading-relaxed"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Service-Specific FAQs Builder Card */}
           <div className="bg-white p-5 sm:p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
@@ -483,6 +911,59 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
 
         {/* Right Col: Metadata, Status, Image */}
         <div className="space-y-6">
+          {/* Pricing, Category & Warranty Card */}
+          <div className="bg-white p-5 rounded-xl border border-stone-200 shadow-2xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
+              <DollarSign className="w-4 h-4 text-[#BE2320]" />
+              <h3 className="text-sm font-bold text-stone-900">
+                Pricing &amp; Guarantee Badges
+              </h3>
+            </div>
+
+            <FormField
+              label="Starting Price Tag"
+              hint="Shown on public cards as 'From $XXX'"
+            >
+              <input
+                type="text"
+                value={formData.pricingStartsAt || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, pricingStartsAt: e.target.value }))}
+                placeholder="e.g. $189 or Custom Quote"
+                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm font-mono-data font-bold text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+            </FormField>
+
+            <FormField
+              label="Warranty / Guarantee Tag"
+              hint="Shown on public card & detail page header"
+            >
+              <input
+                type="text"
+                value={formData.warranty || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, warranty: e.target.value }))}
+                placeholder="e.g. 6-Month Written Warranty"
+                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+            </FormField>
+
+            <FormField
+              label="Pest Category Pill"
+              hint="Pill tag shown on image banner"
+            >
+              <select
+                value={formData.pestCategory || (isCommercial ? "commercial" : "insects")}
+                onChange={(e) => setFormData((p) => ({ ...p, pestCategory: e.target.value }))}
+                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              >
+                <option value="insects">Insects (Ants, Wasps, Spiders, Roaches)</option>
+                <option value="rodents">Rodents (Mice, Rats, Field Pests)</option>
+                <option value="wildlife">Wildlife (Birds, Bats, Raccoons)</option>
+                <option value="commercial">Commercial (Facilities, Kitchens, Warehouses)</option>
+                <option value="seasonal">Seasonal (Fall Ingress, Spring Prevention)</option>
+              </select>
+            </FormField>
+          </div>
+
           {/* Status & Display Order Card */}
           <div className="bg-white p-5 rounded-xl border border-stone-200 space-y-4">
             <h3 className="text-sm font-semibold text-stone-900 border-b border-stone-100 pb-2">

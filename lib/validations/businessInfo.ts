@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const serviceAreaItemSchema = z.object({
   name: z.string().min(1, "Area / City name is required"),
-  region: z.string().default("Greater Toronto Area"),
+  region: z.string().default("Saskatoon & Area"),
   badge: z.string().optional().nullable(),
 });
 

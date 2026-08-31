@@ -292,12 +292,12 @@ export default function ContactForm({
       {/* Field 5: Address/City */}
       <div className="space-y-1.5 text-left">
         <label htmlFor="addressOrCity" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-          Facility Address or GTA City <span className="text-brand-red">*</span>
+          Property Address or Saskatoon Area City <span className="text-brand-red">*</span>
         </label>
         <input
           id="addressOrCity"
           type="text"
-          placeholder="e.g. 500 King St W, Toronto or Mississauga"
+          placeholder="e.g. 1200 Central Ave, Saskatoon or Warman"
           {...register("addressOrCity")}
           className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
             errors.addressOrCity

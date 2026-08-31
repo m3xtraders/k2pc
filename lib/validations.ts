@@ -12,7 +12,7 @@ export const contactFormSchema = z.object({
     .optional()
     .or(z.literal("")),
   serviceNeeded: z.string().min(1, "Please select the service or pest issue you are experiencing."),
-  addressOrCity: z.string().min(2, "Please provide your street address or GTA city."),
+  addressOrCity: z.string().min(2, "Please provide your street address or Saskatoon area city."),
   message: z.string().max(1000, "Message must be under 1,000 characters.").optional().or(z.literal("")),
 });
 

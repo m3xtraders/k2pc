@@ -55,10 +55,10 @@ export default async function Testimonials({ companyDetails }: TestimonialsProps
               </span>
             </div>
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ink tracking-tight">
-              Real Reviews from GTA Homeowners
+              Real Reviews from Saskatoon &amp; Area Homeowners
             </h2>
             <p className="text-base sm:text-lg text-neutral-text leading-relaxed">
-              Read authentic feedback from local homeowners and property managers across Toronto, Mississauga, Brampton, and York Region.
+              Read authentic feedback from local homeowners and property managers across Saskatoon, Warman, Martensville, and surrounding communities.
             </p>
           </div>
 

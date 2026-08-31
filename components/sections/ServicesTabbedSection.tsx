@@ -32,7 +32,7 @@ const COMMERCIAL_PROGRAMS = [
     title: "Commercial Integrated Pest Management (IPM)",
     slug: "commercial-pest-control",
     shortDescription:
-      "Comprehensive, audit-compliant pest prevention and eradication tailored for GTA facilities, warehouses, and commercial properties.",
+      "Comprehensive, audit-compliant pest prevention and eradication tailored for Saskatoon facilities, warehouses, and commercial properties.",
     icon: Building2,
     badge: "Audit-Ready & Certified",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80",
@@ -49,9 +49,9 @@ const COMMERCIAL_PROGRAMS = [
     title: "Restaurants, Commercial Kitchens & Bars",
     slug: "commercial-pest-control",
     shortDescription:
-      "Zero-tolerance pest defense for commercial food service. Guaranteed DineSafe Toronto health inspection compliance.",
+      "Zero-tolerance pest defense for commercial food service. Guaranteed Saskatchewan Health Authority inspection compliance.",
     icon: Utensils,
-    badge: "DineSafe Toronto Ready",
+    badge: "Health Inspection Ready",
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=700&q=80",
     pricing: "Custom Facility Quote",
     warranty: "Pass Health Inspection Guarantee",
@@ -210,7 +210,7 @@ export function ServicesTabbedSection({ services }: ServicesTabbedSectionProps) 
 
           <p className="text-xs sm:text-sm text-neutral-text text-center">
             {activeTab === "domestic"
-              ? "Showing licensed residential extermination and pest-proofing for GTA homes & apartments."
+              ? "Showing licensed residential extermination and pest-proofing for Saskatoon & surrounding area homes."
               : "Showing certified commercial IPM programs and audit-compliant solutions for businesses & facilities."}
           </p>
         </div>
