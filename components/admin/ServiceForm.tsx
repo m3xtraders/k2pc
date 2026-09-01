@@ -175,11 +175,23 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     treatmentProcess: initialData?.treatmentProcess || [],
   });
 
+  const parseInitialArray = <T,>(data: any): T[] => {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (typeof data === "string") {
+      try {
+        const parsed = JSON.parse(data);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  };
+
+  const parsedDbFaqs = parseInitialArray<any>(initialData?.faqs);
   const fallbackFaqs = SERVICES.find((s) => s.slug === initialData?.slug)?.faqs || [];
-  const initialFaqs =
-    Array.isArray(initialData?.faqs) && initialData.faqs.length > 0
-      ? initialData.faqs
-      : fallbackFaqs;
+  const initialFaqs = parsedDbFaqs.length > 0 ? parsedDbFaqs : fallbackFaqs;
 
   const [serviceFaqs, setServiceFaqs] = useState<Array<{ question: string; answer: string }>>(
     initialFaqs.map((f: any) => ({
@@ -188,6 +200,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     }))
   );
 
+  const parsedDbSigns = parseInitialArray<string>(initialData?.signsOfInfestation);
   const fallbackSigns = SERVICES.find((s) => s.slug === initialData?.slug)?.signsOfInfestation || [
     "Sawdust-like frass accumulated near baseboards or wooden structures.",
     "Visible trails of pests along kitchen counters or foundation lines.",
@@ -195,15 +208,13 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     "Faint rustling noises within hollow walls or window frames.",
   ];
 
-  const initialSigns =
-    Array.isArray(initialData?.signsOfInfestation) && initialData.signsOfInfestation.length > 0
-      ? initialData.signsOfInfestation
-      : fallbackSigns;
+  const initialSigns = parsedDbSigns.length > 0 ? parsedDbSigns : fallbackSigns;
 
   const [signsOfInfestation, setSignsOfInfestation] = useState<string[]>(
     initialSigns.map((s: any) => (typeof s === "string" ? s : ""))
   );
 
+  const parsedDbProcess = parseInitialArray<any>(initialData?.treatmentProcess);
   const fallbackProcess = SERVICES.find((s) => s.slug === initialData?.slug)?.treatmentProcess || [
     {
       step: 1,
@@ -225,10 +236,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     },
   ];
 
-  const initialProcess =
-    Array.isArray(initialData?.treatmentProcess) && initialData.treatmentProcess.length > 0
-      ? initialData.treatmentProcess
-      : fallbackProcess;
+  const initialProcess = parsedDbProcess.length > 0 ? parsedDbProcess : fallbackProcess;
 
   const [treatmentSteps, setTreatmentSteps] = useState<Array<{ title: string; description: string }>>(
     initialProcess.map((item: any) => ({

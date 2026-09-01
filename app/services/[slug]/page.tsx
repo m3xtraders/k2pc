@@ -15,6 +15,8 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 0;
+
 export async function generateStaticParams() {
   const services = await getPublishedServices();
   return services.map((service) => ({
@@ -60,7 +62,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const pageUrl = `https://www.k2pc.ca/services/${service.slug}`;
-  const effectiveFaqs = service.faqs && service.faqs.length > 0 ? service.faqs : (allFaqs || []);
+  const hasCustomFaqs = Array.isArray(service.faqs) && service.faqs.length > 0;
+  const effectiveFaqs = hasCustomFaqs ? service.faqs : (allFaqs || []);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -357,8 +360,16 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       {/* Service FAQs */}
       {effectiveFaqs && effectiveFaqs.length > 0 && (
         <FAQAccordion
-          title={`${service.title} FAQs & Treatment Info`}
-          subtitle="Frequently asked questions about our pest elimination methods, safety protocols, and warranty coverage."
+          title={
+            hasCustomFaqs
+              ? `${service.title} FAQs & Treatment Info`
+              : `${service.title} & Pest Control FAQs`
+          }
+          subtitle={
+            hasCustomFaqs
+              ? `Frequently asked questions about our ${service.title.toLowerCase()} methods, safety protocols, and warranty coverage.`
+              : "Frequently asked questions about our Saskatoon pest control treatments, safety protocols, and guaranteed extermination."
+          }
           items={effectiveFaqs.map((f: any, i: number) => ({
             id: f.id || `service-faq-${i}`,
             question: f.question,

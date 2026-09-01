@@ -36,10 +36,19 @@ export default function FAQAccordion({
   subtitle = "Clear answers about extermination safety, Saskatchewan pricing, and written guarantees.",
 }: FAQAccordionProps) {
   const [faqs, setFaqs] = useState<FAQItem[]>(initialItems || []);
-  const [loading, setLoading] = useState<boolean>(!initialItems || initialItems.length === 0);
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(initialItems === undefined);
+  const [openId, setOpenId] = useState<string | null>(initialItems && initialItems.length > 0 ? initialItems[0].id : null);
 
   useEffect(() => {
+    if (initialItems !== undefined) {
+      setFaqs(initialItems);
+      setLoading(false);
+      if (initialItems.length > 0) {
+        setOpenId((prev) => (prev ? prev : initialItems[0].id));
+      }
+      return;
+    }
+
     let isMounted = true;
 
     const fetchFaqs = async () => {
@@ -70,7 +79,7 @@ export default function FAQAccordion({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [initialItems]);
 
   const toggleItem = (id: string) => {
     setOpenId(openId === id ? null : id);

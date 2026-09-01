@@ -149,6 +149,20 @@ export async function getPublishedLocations(): Promise<LocationCity[]> {
   }
 }
 
+function parseArrayField<T>(field: any): T[] {
+  if (!field) return [];
+  if (Array.isArray(field)) return field;
+  if (typeof field === "string") {
+    try {
+      const parsed = JSON.parse(field);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
 export async function getPublishedServices(): Promise<Service[]> {
   try {
     const dbServices = await prisma.service.findMany({
@@ -160,6 +174,11 @@ export async function getPublishedServices(): Promise<Service[]> {
 
     return dbServices.map((s: any) => {
       const staticService = SERVICES.find((item) => item.slug === s.slug);
+      const dbSigns = parseArrayField<string>(s.signsOfInfestation);
+      const dbTreatment = parseArrayField<any>(s.treatmentProcess);
+      const dbFaqs = parseArrayField<any>(s.faqs).filter(
+        (f) => f && typeof f === "object" && f.question && f.answer
+      );
 
       return {
         id: s.id,
@@ -170,16 +189,16 @@ export async function getPublishedServices(): Promise<Service[]> {
         icon: (s.icon as any) || staticService?.icon || "bug",
         pestCategory: s.pestCategory || staticService?.pestCategory || "insects",
         targetPests: staticService?.targetPests || [],
-        signsOfInfestation: Array.isArray(s.signsOfInfestation) && s.signsOfInfestation.length > 0
-          ? s.signsOfInfestation
+        signsOfInfestation: dbSigns.length > 0
+          ? dbSigns
           : (staticService?.signsOfInfestation || [
               "Unusual noises inside walls or subflooring during evening hours",
               "Visible droppings, shed skins, or pest entry trails along baseboards",
               "Damaged food packaging, chewed electrical wires, or wood shavings",
               "Persistent unexplainable odors in dark or damp areas",
             ]),
-        treatmentProcess: Array.isArray(s.treatmentProcess) && s.treatmentProcess.length > 0
-          ? s.treatmentProcess
+        treatmentProcess: dbTreatment.length > 0
+          ? dbTreatment
           : (staticService?.treatmentProcess || [
               {
                 step: 1,
@@ -202,7 +221,7 @@ export async function getPublishedServices(): Promise<Service[]> {
             ]),
         pricingStartsAt: s.pricingStartsAt || staticService?.pricingStartsAt || "$189",
         warranty: s.warranty || staticService?.warranty || "Guaranteed Eradication",
-        faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
+        faqs: dbFaqs.length > 0 ? dbFaqs : (staticService?.faqs || []),
         featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
       };
     });
@@ -223,6 +242,11 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
     }
 
     const staticService = SERVICES.find((item) => item.slug === s.slug);
+    const dbSigns = parseArrayField<string>(s.signsOfInfestation);
+    const dbTreatment = parseArrayField<any>(s.treatmentProcess);
+    const dbFaqs = parseArrayField<any>(s.faqs).filter(
+      (f) => f && typeof f === "object" && f.question && f.answer
+    );
 
     return {
       id: s.id,
@@ -233,8 +257,8 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
       icon: (s.icon as any) || staticService?.icon || "bug",
       pestCategory: s.pestCategory || staticService?.pestCategory || "insects",
       targetPests: staticService?.targetPests || [],
-      signsOfInfestation: Array.isArray(s.signsOfInfestation) && s.signsOfInfestation.length > 0
-        ? s.signsOfInfestation
+      signsOfInfestation: dbSigns.length > 0
+        ? dbSigns
         : (staticService?.signsOfInfestation && staticService.signsOfInfestation.length > 0
             ? staticService.signsOfInfestation
             : [
@@ -243,8 +267,8 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
                 "Damaged food packaging, chewed electrical wires, or wood shavings",
                 "Persistent unexplainable odors in dark or damp areas",
               ]),
-      treatmentProcess: Array.isArray(s.treatmentProcess) && s.treatmentProcess.length > 0
-        ? s.treatmentProcess
+      treatmentProcess: dbTreatment.length > 0
+        ? dbTreatment
         : (staticService?.treatmentProcess && staticService.treatmentProcess.length > 0
             ? staticService.treatmentProcess
             : [
@@ -269,7 +293,7 @@ export async function getPublishedServiceBySlug(slug: string): Promise<Service |
               ]),
       pricingStartsAt: s.pricingStartsAt || staticService?.pricingStartsAt || "$189",
       warranty: s.warranty || staticService?.warranty || "Guaranteed Eradication",
-      faqs: Array.isArray(s.faqs) && s.faqs.length > 0 ? s.faqs : (staticService?.faqs || []),
+      faqs: dbFaqs.length > 0 ? dbFaqs : (staticService?.faqs || []),
       featuredImage: s.featuredImage || staticService?.featuredImage || getServiceCoverImage(s),
     };
   } catch (_error) {
