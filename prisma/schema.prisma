@@ -110,6 +110,18 @@ model Faq {
   updatedAt    DateTime @updatedAt
 }
 
+model LegalPage {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  subtitle        String?  @db.Text
+  content         String   @db.LongText
+  metaTitle       String?
+  metaDescription String?  @db.Text
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+}
+
 enum Status {
   DRAFT
   PUBLISHED

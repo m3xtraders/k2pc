@@ -3,7 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { StatCard } from "@/components/admin/StatCard";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock, HelpCircle } from "lucide-react";
+import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock, HelpCircle, Scale } from "lucide-react";
 
 export const revalidate = 0;
 
@@ -35,7 +35,13 @@ export default async function AdminDashboardPage() {
             Welcome back! Here is a summary of your website content and customer leads.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/admin/legal"
+            className="px-4 py-2 bg-white border border-stone-300 hover:bg-stone-50 text-stone-800 text-sm font-medium rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
+          >
+            <Scale className="w-4 h-4 text-[#BE2320]" /> Legal Pages
+          </Link>
           <Link
             href="/admin/faqs"
             className="px-4 py-2 bg-white border border-stone-300 hover:bg-stone-50 text-stone-800 text-sm font-medium rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"

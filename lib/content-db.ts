@@ -4,6 +4,11 @@ import { LOCATIONS } from "@/lib/content/locations";
 import { SERVICES, getServiceCoverImage } from "@/lib/content/services";
 import { BLOG_POSTS } from "@/lib/content/blog";
 import { GLOBAL_FAQS } from "@/lib/content/faqs";
+import {
+  LegalPageData,
+  DEFAULT_PRIVACY_POLICY,
+  DEFAULT_TERMS_OF_SERVICE,
+} from "@/lib/content/legal";
 import { Service, BlogPost, LocationCity, FAQItem } from "@/lib/types";
 
 export async function getCompanyDetails() {
@@ -430,5 +435,53 @@ export async function seedDefaultFaqsIfEmpty() {
     console.error("Error seeding default FAQs:", err);
   }
 }
+
+export async function getLegalPageBySlug(slug: string): Promise<LegalPageData> {
+  const normalizedSlug = slug.toLowerCase().includes("priv") ? "privacy" : "terms";
+  const defaultDoc = normalizedSlug === "privacy" ? DEFAULT_PRIVACY_POLICY : DEFAULT_TERMS_OF_SERVICE;
+
+  try {
+    const page = await (prisma as any).legalPage?.findFirst({
+      where: {
+        slug: {
+          in: [normalizedSlug, `${normalizedSlug}-policy`, `${normalizedSlug}-of-service`],
+        },
+      },
+    });
+
+    if (!page) {
+      return defaultDoc;
+    }
+
+    const formattedDate = page.updatedAt
+      ? new Date(page.updatedAt).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })
+      : defaultDoc.lastUpdated;
+
+    return {
+      slug: normalizedSlug,
+      title: page.title || defaultDoc.title,
+      subtitle: page.subtitle || defaultDoc.subtitle,
+      content: page.content || defaultDoc.content,
+      metaTitle: page.metaTitle || defaultDoc.metaTitle,
+      metaDescription: page.metaDescription || defaultDoc.metaDescription,
+      lastUpdated: formattedDate,
+    };
+  } catch (_error) {
+    return defaultDoc;
+  }
+}
+
+export async function getAllLegalPages(): Promise<LegalPageData[]> {
+  const [privacy, terms] = await Promise.all([
+    getLegalPageBySlug("privacy"),
+    getLegalPageBySlug("terms"),
+  ]);
+  return [privacy, terms];
+}
+
 
 

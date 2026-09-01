@@ -369,12 +369,66 @@ export async function seedFaqsAction() {
   const { seedDefaultFaqsIfEmpty } = await import("@/lib/content-db");
   await seedDefaultFaqsIfEmpty();
 
-  revalidatePath("/");
-  revalidatePath("/services");
-  revalidatePath("/contact");
-  revalidatePath("/admin/faqs");
+  try {
+    revalidatePath("/");
+    revalidatePath("/services");
+    revalidatePath("/contact");
+    revalidatePath("/admin/faqs");
+  } catch (_e) {}
   return { success: true };
 }
+
+export async function updateLegalPageAction(slug: string, data: {
+  title: string;
+  subtitle?: string;
+  content: string;
+  metaTitle?: string;
+  metaDescription?: string;
+}) {
+  const normalizedSlug = slug.toLowerCase().includes("priv") ? "privacy" : "terms";
+  const cleanContent = sanitizeHtml(data.content);
+
+  const existing = await (prisma as any).legalPage.findUnique({
+    where: { slug: normalizedSlug },
+  });
+
+  if (existing) {
+    await (prisma as any).legalPage.update({
+      where: { slug: normalizedSlug },
+      data: {
+        title: data.title,
+        subtitle: data.subtitle,
+        content: cleanContent,
+        metaTitle: data.metaTitle,
+        metaDescription: data.metaDescription,
+      },
+    });
+  } else {
+    await (prisma as any).legalPage.create({
+      data: {
+        slug: normalizedSlug,
+        title: data.title,
+        subtitle: data.subtitle,
+        content: cleanContent,
+        metaTitle: data.metaTitle,
+        metaDescription: data.metaDescription,
+      },
+    });
+  }
+
+  try {
+    revalidatePath("/privacy");
+    revalidatePath("/privacy-policy");
+    revalidatePath("/terms");
+    revalidatePath("/terms-of-service");
+    revalidatePath("/admin/legal");
+  } catch (_e) {
+    // ignore in non-request environments
+  }
+
+  return { success: true };
+}
+
 
 
 
