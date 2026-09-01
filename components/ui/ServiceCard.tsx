@@ -15,7 +15,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   const coverImage = getServiceCoverImage(service);
 
   const renderCategoryIcon = () => {
-    if (["ant", "rodent", "cockroach", "bed-bug", "wasp", "spider"].includes(service.icon)) {
+    if (["ant", "rodent", "cockroach", "bed-bug", "wasp", "spider", "mosquito"].includes(service.icon)) {
       return <PestIcon name={service.icon} size={22} />;
     }
     switch (service.icon) {

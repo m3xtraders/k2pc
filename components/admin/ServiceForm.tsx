@@ -39,6 +39,7 @@ const ICON_OPTIONS = [
   { value: "cockroach", label: "🪳 Cockroach Icon" },
   { value: "bed-bug", label: "🛏️ Bed Bug Icon" },
   { value: "wasp", label: "🐝 Wasp Icon" },
+  { value: "mosquito", label: "🦟 Mosquito Icon" },
   { value: "spider", label: "🕷️ Spider Icon" },
   { value: "shield", label: "🛡️ Shield Icon" },
   { value: "home", label: "🏡 Home / Residential Icon" },

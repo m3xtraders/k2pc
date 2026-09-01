@@ -1,6 +1,6 @@
 import React from "react";
 
-export type PestIconName = "ant" | "rodent" | "cockroach" | "bed-bug" | "wasp" | "spider";
+export type PestIconName = "ant" | "rodent" | "cockroach" | "bed-bug" | "wasp" | "spider" | "mosquito";
 
 interface PestIconProps extends React.SVGProps<SVGSVGElement> {
   name: PestIconName | string;
@@ -102,6 +102,28 @@ export const PestIcon: React.FC<PestIconProps> = ({
             {/* Pointed Wings */}
             <path d="M10 9C6 5 2 6 4 11C6.5 11.5 9.5 10 10 9Z" />
             <path d="M14 9C18 5 22 6 20 11C17.5 11.5 14.5 10 14 9Z" />
+          </g>
+        );
+
+      case "mosquito":
+        return (
+          <g fill="none" stroke={strokeColor} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+            {/* Long needle-like proboscis */}
+            <path d="M7 8L2 5" strokeWidth={1.75} />
+            {/* Head & Antennae */}
+            <circle cx="8.5" cy="9" r="1.75" />
+            <path d="M8 7.5L6 4M9.5 7.5L9 3.5" strokeWidth={1.5} />
+            {/* Thorax */}
+            <ellipse cx="12" cy="12" rx="2" ry="2.2" />
+            {/* Long Slender Abdomen */}
+            <path d="M13.5 13.5C16 16 19 18 22 19" strokeWidth={2.5} />
+            {/* Extended Translucent Wings */}
+            <path d="M11.5 10C10 5 13 2 15.5 4.5C16.5 6.5 14.5 9 12 10.5Z" />
+            <path d="M13 9.5C13.5 5 17 3 19 5.5C19.5 7.5 17 9.5 13.5 10.5Z" />
+            {/* Long Angular Insect Legs */}
+            <path d="M10 12L6 15L4 20" />
+            <path d="M12 13L11 17L10 22" />
+            <path d="M14 13L16 17L19 21" />
           </g>
         );
 

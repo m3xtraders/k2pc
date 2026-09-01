@@ -82,6 +82,7 @@ export function getServiceCoverImage(service?: {
     "bed-bug": "/images/pests/bed-bug.jpg",
     wasp: "/images/pests/wasp.jpg",
     spider: "/images/pests/spider.jpg",
+    mosquito: "/images/pests/wasp.jpg",
     home: "/images/services/residential.jpg",
     building: "/images/services/commercial.jpg",
   };
@@ -96,6 +97,7 @@ export function getServiceCoverImage(service?: {
   if (slug.includes("cockroach") || slug.includes("roach")) return "/images/pests/cockroach.jpg";
   if (slug.includes("bed-bug")) return "/images/pests/bed-bug.jpg";
   if (slug.includes("wasp") || slug.includes("hornet")) return "/images/pests/wasp.jpg";
+  if (slug.includes("mosquito")) return "/images/pests/wasp.jpg";
   if (slug.includes("spider")) return "/images/pests/spider.jpg";
   if (slug.includes("commercial")) return "/images/services/commercial.jpg";
   if (slug.includes("residential") || slug.includes("home")) return "/images/services/residential.jpg";

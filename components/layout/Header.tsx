@@ -41,6 +41,7 @@ function getServiceIcon(slug?: string, iconName?: string) {
   if (s.includes("cockroach") || s.includes("roach") || i.includes("cockroach")) return Flame;
   if (s.includes("bed-bug") || i.includes("bed-bug")) return Flame;
   if (s.includes("wasp") || s.includes("hornet") || i.includes("wasp")) return Zap;
+  if (s.includes("mosquito") || i.includes("mosquito")) return Zap;
   if (s.includes("spider") || i.includes("spider")) return Sparkles;
   if (s.includes("residential") || s.includes("home") || i.includes("home")) return Home;
   if (s.includes("commercial") || s.includes("building") || i.includes("building")) return Building2;

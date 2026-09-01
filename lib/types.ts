@@ -5,7 +5,7 @@ export interface PestType {
   slug: string;
   description: string;
   severity: 'High' | 'Medium' | 'Low';
-  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider';
+  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider' | 'mosquito';
   image?: string;
 }
 
@@ -15,7 +15,7 @@ export interface Service {
   slug: string;
   shortDescription: string;
   fullDescription: string;
-  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider' | 'shield' | 'building' | 'home' | 'calendar' | 'bug';
+  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider' | 'mosquito' | 'shield' | 'building' | 'home' | 'calendar' | 'bug';
   pestCategory: 'insects' | 'rodents' | 'wildlife' | 'commercial' | 'prevention';
   targetPests: string[];
   signsOfInfestation: string[];
