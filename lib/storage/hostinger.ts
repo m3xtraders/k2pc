@@ -26,7 +26,7 @@ export async function uploadToHostinger({
   const password = process.env.HOSTINGER_FTP_PASSWORD;
   const port = parseInt(process.env.HOSTINGER_FTP_PORT || "21", 10);
   const secure = process.env.HOSTINGER_FTP_SECURE === "true" || process.env.HOSTINGER_FTP_SECURE === "explicit";
-  const rootDir = process.env.HOSTINGER_FTP_ROOT_DIR || "public_html";
+  const rootDir = (process.env.HOSTINGER_FTP_ROOT_DIR ?? "").trim();
   const baseUrl = (process.env.NEXT_PUBLIC_STORAGE_BASE_URL || "https://www.k2pc.ca").replace(/\/$/, "");
 
   if (!user || !password) {
@@ -45,7 +45,7 @@ export async function uploadToHostinger({
     .slice(0, 50);
 
   const uniqueFileName = `${baseName}-${Date.now()}${cleanExt}`;
-  const targetDir = folder ? `${rootDir}/${folder}` : rootDir;
+  const targetDir = [rootDir, folder].filter(Boolean).join("/");
 
   const client = new ftp.Client();
   client.ftp.verbose = process.env.NODE_ENV === "development";
