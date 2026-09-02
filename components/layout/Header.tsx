@@ -169,47 +169,11 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                       />
                     </Link>
 
-                    {/* Services Mega Dropdown Panel */}
+                    {/* Services Simple Dropdown Panel */}
                     {servicesDropdownOpen && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[720px] lg:w-[820px] z-50 animate-in fade-in zoom-in-95 duration-150">
-                        <div className="bg-white rounded-2xl shadow-2xl border border-stone-200/90 p-6 space-y-5 backdrop-blur-md">
-                          
-                          {/* Dropdown Header */}
-                          <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-                            <div>
-                              <h3 className="font-heading font-extrabold text-base text-ink flex items-center gap-2">
-                                <span>Licensed Extermination Services</span>
-                                <span className="text-[10px] font-mono-data font-bold px-2 py-0.5 rounded-full bg-red-50 text-brand-red border border-red-100">
-                                  {publishedServices.length} Treatments Available
-                                </span>
-                              </h3>
-                              <p className="text-xs text-neutral-text mt-0.5">
-                                Health Canada approved IPM solutions for residential & commercial properties.
-                              </p>
-                            </div>
-
-                            <div className="flex items-center gap-3 shrink-0">
-                              <Link
-                                href="/services?tab=commercial"
-                                onClick={() => setServicesDropdownOpen(false)}
-                                className="text-xs font-mono-data font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100 transition-colors flex items-center gap-1.5"
-                              >
-                                <Building2 className="w-3.5 h-3.5 text-amber-600" />
-                                <span>Commercial IPM</span>
-                              </Link>
-                              <Link
-                                href="/services"
-                                onClick={() => setServicesDropdownOpen(false)}
-                                className="text-xs font-bold font-heading text-brand-red hover:underline flex items-center gap-1"
-                              >
-                                <span>View All Services</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </Link>
-                            </div>
-                          </div>
-
-                          {/* Services Multi-Column Grid */}
-                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-[380px] overflow-y-auto pr-1">
+                      <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in zoom-in-95 duration-150">
+                        <div className="bg-white rounded-xl shadow-xl border border-stone-200/90 py-2 divide-y divide-stone-100 overflow-hidden">
+                          <div className="py-1">
                             {publishedServices.map((service: any) => {
                               const IconComponent = getServiceIcon(service.slug, service.icon);
                               return (
@@ -217,57 +181,29 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                                   key={service.slug}
                                   href={`/services/${service.slug}`}
                                   onClick={() => setServicesDropdownOpen(false)}
-                                  className="p-3 rounded-xl hover:bg-red-50/70 border border-transparent hover:border-red-100 transition-all flex items-start gap-3 group/item text-left"
+                                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-red-50 text-ink hover:text-brand-red transition-colors group"
                                 >
-                                  <div className="w-9 h-9 rounded-lg bg-stone-100 text-stone-700 group-hover/item:bg-brand-red group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors shadow-2xs">
-                                    <IconComponent className="w-4 h-4" />
+                                  <div className="w-7 h-7 rounded-lg bg-stone-100 text-stone-600 group-hover:bg-brand-red group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                                    <IconComponent className="w-3.5 h-3.5" />
                                   </div>
-                                  <div className="min-w-0 flex-1">
-                                    <span className="font-heading font-bold text-xs sm:text-sm text-ink group-hover/item:text-brand-red block truncate transition-colors leading-tight">
-                                      {service.title}
-                                    </span>
-                                    <p className="text-[11px] text-stone-500 line-clamp-1 mt-0.5 leading-snug">
-                                      {service.shortDescription || "Targeted eradication & warranty"}
-                                    </p>
-                                    <span className="text-[10px] font-mono-data font-bold text-emerald-700 mt-1 inline-block">
-                                      {service.pricingStartsAt ? `From ${service.pricingStartsAt}` : "Custom Quote"}
-                                    </span>
-                                  </div>
+                                  <span className="font-heading font-medium text-sm text-ink group-hover:text-brand-red transition-colors">
+                                    {service.title}
+                                  </span>
                                 </Link>
                               );
                             })}
                           </div>
 
-                          {/* Bottom Emergency Banner inside Mega Dropdown */}
-                          <div className="bg-stone-900 text-white rounded-xl p-3.5 flex items-center justify-between gap-4 shadow-xs">
-                            <div className="flex items-center gap-2.5">
-                              <div className="w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center shrink-0">
-                                <Zap className="w-4 h-4 text-action-yellow" />
-                              </div>
-                              <div>
-                                <span className="font-heading font-bold text-xs text-white block">
-                                  Need 2-Hour Emergency Pest Dispatch?
-                                </span>
-                                <span className="text-[11px] text-stone-300">
-                                  On-call exterminators standing by 24/7 across Saskatoon &amp; Area.
-                                </span>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center gap-2 shrink-0">
-                              <a
-                                href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
-                                className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-action-yellow font-mono-data text-xs font-bold rounded-lg transition-colors flex items-center gap-1"
-                              >
-                                <Phone className="w-3.5 h-3.5" />
-                                <span>{company.phone || COMPANY_DETAILS.phone}</span>
-                              </a>
-                              <Button href="/contact" variant="primary" size="sm">
-                                Book Now
-                              </Button>
-                            </div>
+                          <div className="p-2 bg-stone-50">
+                            <Link
+                              href="/services"
+                              onClick={() => setServicesDropdownOpen(false)}
+                              className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-red-50 text-xs font-heading font-bold text-brand-red transition-colors"
+                            >
+                              <span>View All Services</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
                           </div>
-
                         </div>
                       </div>
                     )}

@@ -260,9 +260,26 @@ export const LeadCard: React.FC<LeadCardProps> = ({
 
       {/* Message Snippet */}
       {cleanMessage && (
-        <p className="text-xs text-stone-600 line-clamp-2 bg-stone-50/70 p-2 rounded-lg border border-stone-100/90 leading-relaxed mb-3">
+        <p className="text-xs text-stone-600 line-clamp-2 bg-stone-50/70 p-2 rounded-lg border border-stone-100/90 leading-relaxed mb-2.5">
           {cleanMessage}
         </p>
+      )}
+
+      {/* Completed Job Warranty Callout */}
+      {lead.status === "CLOSED" && (
+        <div className="mb-2.5 p-2 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between text-[11px] text-emerald-900">
+          <span className="font-semibold flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            6-Month Warranty Active
+          </span>
+          <a
+            href="/admin/warranties"
+            onClick={(e) => e.stopPropagation()}
+            className="text-emerald-700 hover:text-emerald-900 font-bold underline text-[10px]"
+          >
+            View Record &rarr;
+          </a>
+        </div>
       )}
 
       {/* Footer Quick Action Buttons */}

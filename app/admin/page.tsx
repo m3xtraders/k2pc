@@ -3,17 +3,19 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { StatCard } from "@/components/admin/StatCard";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock, HelpCircle, Scale } from "lucide-react";
+import { Bug, FileText, MessageSquare, Plus, ArrowUpRight, Clock, HelpCircle, Scale, ShieldCheck, CalendarCheck } from "lucide-react";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const [servicesCount, publishedPosts, draftPosts, leadsCount, faqsCount, recentLeads, recentServices] =
+  const [servicesCount, publishedPosts, draftPosts, leadsCount, completedCount, faqsCount, recentLeads, recentServices] =
     await Promise.all([
       prisma.service.count(),
       prisma.blogPost.count({ where: { status: "PUBLISHED" } }),
       prisma.blogPost.count({ where: { status: "DRAFT" } }),
       prisma.contactSubmission.count({ where: { status: "NEW" } }),
+      prisma.contactSubmission.count({ where: { status: "CLOSED" } }),
       prisma.faq.count(),
       prisma.contactSubmission.findMany({
         take: 5,
@@ -32,39 +34,40 @@ export default async function AdminDashboardPage() {
         <div>
           <h2 className="text-2xl font-bold text-stone-900 tracking-tight">Dashboard Overview</h2>
           <p className="text-sm text-stone-500 mt-1">
-            Welcome back! Here is a summary of your website content and customer leads.
+            Welcome back! Here is a summary of your website bookings, warranties, and content.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href="/admin/legal"
-            className="px-4 py-2 bg-white border border-stone-300 hover:bg-stone-50 text-stone-800 text-sm font-medium rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
+            href="/admin/warranties"
+            className="px-4 py-2 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 text-emerald-900 text-sm font-semibold rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
           >
-            <Scale className="w-4 h-4 text-[#BE2320]" /> Legal Pages
+            <ShieldCheck className="w-4 h-4 text-emerald-600" /> Warranty Records
           </Link>
           <Link
-            href="/admin/faqs"
-            className="px-4 py-2 bg-white border border-stone-300 hover:bg-stone-50 text-stone-800 text-sm font-medium rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
+            href="/admin/bookings"
+            className="px-4 py-2 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-sm font-semibold rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
           >
-            <HelpCircle className="w-4 h-4 text-[#BE2320]" /> Manage FAQs
-          </Link>
-          <Link
-            href="/admin/services/new"
-            className="px-4 py-2 bg-[#BE2320] hover:bg-[#8E1A18] text-white text-sm font-medium rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
-          >
-            <Plus className="w-4 h-4" /> Add Service
-          </Link>
-          <Link
-            href="/admin/blog/new"
-            className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-sm font-medium rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
-          >
-            <Plus className="w-4 h-4" /> Write Post
+            <CalendarCheck className="w-4 h-4" /> Bookings &amp; Pipeline
           </Link>
         </div>
       </div>
 
       {/* Metric Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard
+          title="New Quotes (Action Req.)"
+          value={leadsCount}
+          description="Inquiries requiring response"
+          icon={CalendarCheck}
+          trend={leadsCount > 0 ? "Action required" : "All caught up"}
+        />
+        <StatCard
+          title="Completed & Warranty"
+          value={completedCount}
+          description="6-month guarantee records"
+          icon={ShieldCheck}
+        />
         <StatCard
           title="Active Services"
           value={servicesCount}
@@ -77,19 +80,6 @@ export default async function AdminDashboardPage() {
           description={`${draftPosts} saved drafts`}
           icon={FileText}
         />
-        <StatCard
-          title="FAQs"
-          value={faqsCount}
-          description="Live customer Q&As"
-          icon={HelpCircle}
-        />
-        <StatCard
-          title="New Leads (Action Req.)"
-          value={leadsCount}
-          description="Inquiries requiring initial response"
-          icon={MessageSquare}
-          trend={leadsCount > 0 ? "Action required" : "All caught up"}
-        />
       </div>
 
       {/* Grid of Recent Activity & Leads */}
@@ -98,14 +88,14 @@ export default async function AdminDashboardPage() {
         <div className="bg-white rounded-xl border border-stone-200 p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-[#BE2320]" />
-              Recent Pipeline Leads
+              <CalendarCheck className="w-5 h-5 text-[#BE2320]" />
+              Recent Bookings &amp; Quotes
             </h3>
             <Link
-              href="/admin/messages"
+              href="/admin/bookings"
               className="text-xs font-semibold text-[#BE2320] hover:underline"
             >
-              Open Kanban Pipeline &rarr;
+              Open Bookings Pipeline &rarr;
             </Link>
           </div>
 

@@ -195,6 +195,8 @@ export async function updateLeadStatusAction(
     data: { status: status as any },
   });
 
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/warranties");
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
   return { success: true };
@@ -205,6 +207,8 @@ export async function deleteLeadAction(id: string) {
     where: { id },
   });
 
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/warranties");
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
   return { success: true };
@@ -243,6 +247,8 @@ export async function sendLeadReplyAction(params: {
     console.warn("Could not auto-advance lead status:", err);
   }
 
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/warranties");
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
   return { success: true };
@@ -261,7 +267,7 @@ export async function createManualLeadAction(data: {
   const sourcePrefix = data.source ? `[Source: ${data.source}]` : "[Source: Manual]";
   const messageBody = data.notes?.trim()
     ? `${sourcePrefix} ${data.notes.trim()}`
-    : `${sourcePrefix} Manual lead created by admin`;
+    : `${sourcePrefix} Manual booking created by admin`;
 
   const created = await prisma.contactSubmission.create({
     data: {
@@ -275,9 +281,24 @@ export async function createManualLeadAction(data: {
     },
   });
 
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/warranties");
   revalidatePath("/admin/messages");
   revalidatePath("/admin");
   return { success: true, lead: created };
+}
+
+export async function updateLeadNotesAction(id: string, notes: string) {
+  const updated = await prisma.contactSubmission.update({
+    where: { id },
+    data: { message: notes },
+  });
+
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/warranties");
+  revalidatePath("/admin/messages");
+  revalidatePath("/admin");
+  return { success: true, lead: updated };
 }
 
 // FAQ ACTIONS

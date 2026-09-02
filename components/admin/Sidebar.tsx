@@ -13,6 +13,8 @@ import {
   HelpCircle,
   Menu,
   X,
+  ShieldCheck,
+  CalendarCheck,
   ShieldAlert,
   Scale,
 } from "lucide-react";
@@ -24,10 +26,11 @@ interface SidebarProps {
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Bookings & Quotes", href: "/admin/bookings", icon: CalendarCheck },
+  { label: "Warranty Records", href: "/admin/warranties", icon: ShieldCheck },
   { label: "Services", href: "/admin/services", icon: Bug },
   { label: "Blog Posts", href: "/admin/blog", icon: FileText },
   { label: "FAQs", href: "/admin/faqs", icon: HelpCircle },
-  { label: "Form Messages & Leads", href: "/admin/messages", icon: MessageSquare },
   { label: "Legal Pages", href: "/admin/legal", icon: Scale },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
@@ -38,6 +41,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, setMobileOpen }) =
   const isActive = (href: string) => {
     if (href === "/admin") {
       return pathname === "/admin";
+    }
+    if (href === "/admin/bookings") {
+      return pathname.startsWith("/admin/bookings") || pathname.startsWith("/admin/messages");
     }
     return pathname.startsWith(href);
   };

@@ -45,14 +45,14 @@ export default function MoneyBackGuaranteeSection({
   ];
 
   return (
-    <section className={`py-16 lg:py-20 bg-surface-warm relative overflow-hidden border-y border-stone-200/90 ${className}`}>
+    <section className={`py-16 lg:py-20 bg-surface-white relative overflow-hidden border-t border-stone-200/80 ${className}`}>
       {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-red-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-100/40 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-red-100/40 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Main Guarantee Highlight Card */}
-        <div className="bg-white rounded-3xl border-2 border-brand-red/20 shadow-xl overflow-hidden p-8 sm:p-10 lg:p-12 relative">
+        <div className="bg-surface-warm rounded-3xl border border-stone-200/90 shadow-md overflow-hidden p-8 sm:p-10 lg:p-12 relative">
           {/* Subtle Top Red Accent Gradient */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-red via-action-yellow to-brand-red" />
 
@@ -116,21 +116,21 @@ export default function MoneyBackGuaranteeSection({
 
               {/* Quick Highlight Checklist */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-warm border border-stone-200/80">
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                   <span className="text-xs font-heading font-bold text-ink leading-snug">
                     Free Re-treatment
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-warm border border-stone-200/80">
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                   <span className="text-xs font-heading font-bold text-ink leading-snug">
                     Full Money Refund
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-warm border border-stone-200/80">
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                   <span className="text-xs font-heading font-bold text-ink leading-snug">
                     Ministry Licensed
@@ -167,7 +167,7 @@ export default function MoneyBackGuaranteeSection({
             return (
               <div
                 key={i}
-                className="group relative bg-white rounded-2xl p-7 border border-stone-200/90 shadow-2xs hover:shadow-xl hover:border-brand-red/40 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between space-y-4 overflow-hidden"
+                className="group relative bg-surface-warm rounded-2xl p-7 border border-stone-200/90 shadow-2xs hover:shadow-xl hover:border-brand-red/40 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between space-y-4 overflow-hidden"
               >
                 <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
