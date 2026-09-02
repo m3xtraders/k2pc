@@ -50,6 +50,12 @@ export default function ContactForm({
   useEffect(() => {
     if (defaultService) {
       setValue("serviceNeeded", defaultService);
+    } else if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const serviceParam = params.get("service") || params.get("pest");
+      if (serviceParam) {
+        setValue("serviceNeeded", serviceParam);
+      }
     }
   }, [defaultService, setValue]);
 
@@ -260,6 +266,19 @@ export default function ContactForm({
             }`}
           >
             <option value="">-- Select Pest or Facility Type --</option>
+            {defaultService &&
+              !SERVICES.some((s) => s.title.toLowerCase() === defaultService.toLowerCase()) &&
+              ![
+                "Commercial Pest Control & Food Safety",
+                "Commercial Restaurant & Kitchen Defense",
+                "Commercial Warehouse & Logistics IPM",
+                "Commercial Property Management & Multi-Unit",
+                "Other / Emergency Inspection",
+              ].some((opt) => opt.toLowerCase() === defaultService.toLowerCase()) && (
+                <option value={defaultService}>
+                  🎯 {defaultService}
+                </option>
+              )}
             <option value="Commercial Pest Control & Food Safety">
               🏢 Commercial Pest Control &amp; Food Safety
             </option>

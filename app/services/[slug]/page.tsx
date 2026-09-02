@@ -351,7 +351,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             {/* Right Sticky Form Column */}
             <div className="lg:col-span-5">
               <div className="sticky top-24">
-                <ContactForm />
+                <ContactForm defaultService={service.title} />
               </div>
             </div>
           </div>
