@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     url: "https://www.k2pc.ca",
     title: "K2 Pest Control | Licensed Exterminators Saskatoon & Area",
     description:
-      "Fast, guaranteed pest control for residential & commercial properties across Saskatoon and area. Saskatchewan Licensed Applicator #SK-719402.",
+      "Fast, guaranteed pest control for residential & commercial properties across Saskatoon and area. Licensed & insured applicator.",
     siteName: "K2 Pest Control",
     images: [
       {

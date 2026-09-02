@@ -158,7 +158,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/15 text-action-yellow border border-amber-400/30 text-xs font-mono-data uppercase font-bold tracking-wider">
             <ShieldCheck className="w-4 h-4 text-action-yellow" />
-            <span>Saskatchewan Licensed #SK-719402 &bull; Commercial IPM Division</span>
+            <span>License No: {companyDetails?.licenseNumber || "A-003789"} &bull; Commercial IPM Division</span>
           </div>
 
           <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">

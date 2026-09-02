@@ -157,7 +157,7 @@ export default async function ContactPage() {
 
                 <div className="pt-2 border-t border-stone-200 text-xs font-mono-data text-emerald-700 flex items-center gap-1.5 font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Saskatchewan License #{licenseNumber}</span>
+                  <span>License No: {licenseNumber}</span>
                 </div>
               </div>
             </div>

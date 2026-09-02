@@ -97,7 +97,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-action-yellow font-semibold">
               <Shield className="w-3.5 h-3.5" />
-              Saskatchewan Licensed: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}
+              License No: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}
             </span>
             <span className="text-stone-400">|</span>
             <span className="flex items-center gap-1 text-stone-300">

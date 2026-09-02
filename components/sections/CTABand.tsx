@@ -52,7 +52,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
         <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-stone-200 font-mono-data">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-action-yellow" />
-            License #{licenseNumber}
+            License No: {licenseNumber}
           </span>
           <span>•</span>
           <span>6-Month Written Warranty</span>

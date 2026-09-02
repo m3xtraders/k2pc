@@ -77,7 +77,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
     country: initialData?.country || "Canada",
     latitude: initialData?.latitude || 52.1332,
     longitude: initialData?.longitude || -79.336,
-    licenseNumber: initialData?.licenseNumber || "ON-849201-P",
+    licenseNumber: initialData?.licenseNumber || "A-003789",
     hoursJson: defaultHours,
     serviceAreas: initialServiceAreas,
     facebookUrl: initialData?.facebookUrl || "",
@@ -158,7 +158,7 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               type="text"
               value={formData.licenseNumber || ""}
               onChange={(e) => setFormData((p) => ({ ...p, licenseNumber: e.target.value }))}
-              placeholder="e.g. ON-849201-P"
+              placeholder="e.g. A-003789"
               className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
             />
           </FormField>

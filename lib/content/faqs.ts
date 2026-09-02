@@ -16,7 +16,7 @@ export const GLOBAL_FAQS: FAQItem[] = [
   {
     id: "faq-3",
     question: "What licenses and insurance do K2 Pest Control exterminators hold?",
-    answer: "All K2 Pest Control technicians carry an active Saskatchewan Provincial Pesticide Applicator License issued by the Saskatchewan Ministry of Environment (License #SK-719402). We hold $5,000,000 in commercial general liability insurance and full WCB coverage.",
+    answer: "All K2 Pest Control technicians carry an active Provincial Pesticide Applicator License issued by the Ministry of Environment. We hold $5,000,000 in commercial general liability insurance and full WCB coverage.",
     category: "General",
   },
   {

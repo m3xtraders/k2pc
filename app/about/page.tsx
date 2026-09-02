@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { COMPANY_DETAILS } from "@/lib/content/company";
+import { getCompanyDetails } from "@/lib/content-db";
 import StatsCounter from "@/components/sections/StatsCounter";
 import AboutSection from "@/components/sections/AboutSection";
 import CTABand from "@/components/sections/CTABand";
@@ -13,19 +14,22 @@ import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } f
 export const metadata: Metadata = {
   title: "About Us & Provincial Licensing | K2 Pest Control Saskatoon",
   description:
-    "Learn about K2 Pest Control's history in Saskatchewan, provincial pesticide license #SK-719402, $5M liability insurance, and eco-friendly IPM team.",
+    "Learn about K2 Pest Control's history, provincial pesticide licensing, $5M liability insurance, and eco-friendly IPM team.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us & Provincial Licensing | K2 Pest Control Saskatoon",
     description:
-      "Learn about K2 Pest Control's history in Saskatchewan, provincial pesticide license #SK-719402, $5M liability insurance, and eco-friendly IPM team.",
+      "Learn about K2 Pest Control's history, provincial pesticide licensing, $5M liability insurance, and eco-friendly IPM team.",
     url: "https://www.k2pc.ca/about",
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const company = await getCompanyDetails();
+  const licenseNumber = company.licenseNumber || COMPANY_DETAILS.licenseNumber;
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -79,7 +83,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <Shield className="w-4 h-4 text-action-yellow" />
-            Saskatchewan License #{COMPANY_DETAILS.licenseNumber}
+            License No: {licenseNumber}
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
             About K2 Pest Control
@@ -111,8 +115,8 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-center font-mono-data shrink-0">
-                <span className="text-xs text-neutral-text block">Saskatchewan Applicator License</span>
-                <span className="text-xl font-bold text-brand-red">{COMPANY_DETAILS.licenseNumber}</span>
+                <span className="text-xs text-neutral-text block">License No</span>
+                <span className="text-xl font-bold text-brand-red">{licenseNumber}</span>
               </div>
             </div>
 
