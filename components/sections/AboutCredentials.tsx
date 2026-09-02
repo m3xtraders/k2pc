@@ -61,13 +61,13 @@ export default function AboutCredentials({ licenseNumber }: AboutCredentialsProp
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="text-center max-w-4xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 text-brand-red text-xs font-mono-data font-bold uppercase tracking-widest border border-red-200/80 shadow-2xs">
             <Award className="w-3.5 h-3.5 text-brand-red" />
             <span>Credentials</span>
           </div>
 
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-ink tracking-tight leading-[1.15]">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-ink tracking-tight leading-tight md:whitespace-nowrap">
             Licensed, Insured, and Quiet About It
           </h2>
 
