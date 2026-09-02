@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ServicesTabbedSection } from "@/components/sections/ServicesTabbedSection";
+import MoneyBackGuaranteeSection from "@/components/sections/MoneyBackGuaranteeSection";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
 import { ShieldCheck, Phone } from "lucide-react";
@@ -79,6 +80,9 @@ export default async function ServicesPage() {
 
       {/* Interactive Domestic vs Commercial Tabbed Section */}
       <ServicesTabbedSection services={services || []} />
+
+      {/* 100% Money-Back Guarantee Section */}
+      <MoneyBackGuaranteeSection phone={phone} phoneRaw={phoneRaw} />
 
       <ProcessSteps />
 

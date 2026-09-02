@@ -6,7 +6,6 @@ import {
   CreditCard,
   EyeOff,
   Car,
-  Clock,
   CheckCircle2,
   Lock,
 } from "lucide-react";
@@ -30,10 +29,10 @@ export default function AboutCredentials({ licenseNumber }: AboutCredentialsProp
     },
     {
       icon: ShieldCheck,
-      title: "Fully insured · 10 years in",
-      badge: "10 Years Experience",
+      title: "Fully insured",
+      badge: "Liability Protected",
       description:
-        "A decade of pest control experience with liability coverage on every job, residential and commercial. You’re protected, not chasing us.",
+        "Comprehensive pest control experience with liability coverage on every job, residential and commercial. You’re protected, not chasing us.",
       highlight: "$5M General Liability",
     },
     {
@@ -71,12 +70,8 @@ export default function AboutCredentials({ licenseNumber }: AboutCredentialsProp
             Licensed, Insured, and Quiet About It
           </h2>
 
-          <div className="flex items-center justify-center gap-3 pt-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ink text-white font-mono-data text-xs font-bold uppercase tracking-wide">
-              <Clock className="w-3.5 h-3.5 text-action-yellow" />
-              10 Years in
-            </span>
-            <span className="text-sm font-medium text-neutral-text">
+          <div className="flex items-center justify-center gap-2 pt-1">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-xs font-medium text-neutral-text">
               Provincial License:{" "}
               <strong className="text-brand-red font-mono-data font-bold">{activeLicense}</strong>
             </span>

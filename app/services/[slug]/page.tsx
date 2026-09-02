@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { getPublishedServices, getPublishedServiceBySlug, getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
 import { getServiceCoverImage } from "@/lib/content/services";
 import FAQAccordion from "@/components/sections/FAQAccordion";
+import MoneyBackGuaranteeSection from "@/components/sections/MoneyBackGuaranteeSection";
 import CTABand from "@/components/sections/CTABand";
 import ContactForm from "@/components/sections/ContactForm";
 import { Badge } from "@/components/ui/Badge";
@@ -356,6 +357,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           </div>
         </div>
       </section>
+
+      {/* 100% Money Back Guarantee Section */}
+      <MoneyBackGuaranteeSection phone={company?.phone} phoneRaw={company?.phoneRaw} />
 
       {/* Service FAQs */}
       {effectiveFaqs && effectiveFaqs.length > 0 && (
