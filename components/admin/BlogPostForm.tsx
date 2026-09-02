@@ -65,7 +65,7 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
   const handleSubmit = async (e: React.FormEvent, viewLive = false) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.slug || !formData.content || !formData.excerpt) {
+    if (!formData.title || !formData.slug || !formData.content) {
       toast.error("Please fill in all required fields");
       return;
     }
@@ -156,17 +156,6 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
               }}
               placeholder="e.g. fall-rodent-migration-saskatchewan"
               className="w-full px-4 py-2.5 bg-white border border-stone-300 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320] font-mono"
-            />
-          </FormField>
-
-          <FormField label="Article Excerpt" required hint="Short preview summary displayed on article cards">
-            <textarea
-              rows={3}
-              required
-              value={formData.excerpt}
-              onChange={(e) => setFormData((p) => ({ ...p, excerpt: e.target.value }))}
-              placeholder="Provide a compelling summary of the article..."
-              className="w-full px-4 py-2.5 bg-white border border-stone-300 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
             />
           </FormField>
 
