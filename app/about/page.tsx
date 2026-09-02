@@ -5,11 +5,13 @@ import { COMPANY_DETAILS } from "@/lib/content/company";
 import { getCompanyDetails } from "@/lib/content-db";
 import StatsCounter from "@/components/sections/StatsCounter";
 import AboutSection from "@/components/sections/AboutSection";
+import AboutCredentials from "@/components/sections/AboutCredentials";
+import AboutProcess from "@/components/sections/AboutProcess";
 import CTABand from "@/components/sections/CTABand";
 import Testimonials from "@/components/sections/Testimonials";
 import ServiceArea from "@/components/sections/ServiceArea";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
-import { ShieldCheck, Award, FileCheck, CheckCircle2, HeartHandshake, Shield } from "lucide-react";
+import { ShieldCheck, Award, FileCheck, HeartHandshake, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us & Provincial Licensing | K2 Pest Control Saskatoon",
@@ -98,62 +100,11 @@ export default async function AboutPage() {
 
       <AboutSection />
 
-      {/* Licensing & Credentials Section - PROMINENT TRUST LEVER */}
-      <section className="py-16 bg-surface-warm border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl border-2 border-brand-red p-8 sm:p-12 shadow-md space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-stone-200">
-              <div className="space-y-2">
-                <span className="text-xs font-mono-data font-bold text-brand-red uppercase tracking-wider bg-red-50 px-3 py-1 rounded-full border border-red-100">
-                  Regulatory Verification
-                </span>
-                <h2 className="font-heading font-extrabold text-3xl text-ink">
-                  Provincial Licensing & Insurance Credentials
-                </h2>
-                <p className="text-sm text-neutral-text">
-                  In a regulated industry where chemical safety is paramount, K2 Pest Control operates with 100% compliance.
-                </p>
-              </div>
-              <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-center font-mono-data shrink-0">
-                <span className="text-xs text-neutral-text block">License No</span>
-                <span className="text-xl font-bold text-brand-red">{licenseNumber}</span>
-              </div>
-            </div>
+      {/* Credentials & Discreet Service Section */}
+      <AboutCredentials licenseNumber={licenseNumber} />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-surface-warm p-6 rounded-xl border border-stone-200 space-y-2">
-                <div className="flex items-center gap-2 text-brand-red font-bold text-base">
-                  <ShieldCheck className="w-5 h-5" />
-                  <span>Ministry Certified</span>
-                </div>
-                <p className="text-xs text-neutral-text leading-relaxed">
-                  Licensed by the {COMPANY_DETAILS.provincialBody} for Structural Pest Control & Fumigation.
-                </p>
-              </div>
-
-              <div className="bg-surface-warm p-6 rounded-xl border border-stone-200 space-y-2">
-                <div className="flex items-center gap-2 text-brand-red font-bold text-base">
-                  <FileCheck className="w-5 h-5" />
-                  <span>$5M Commercial Liability</span>
-                </div>
-                <p className="text-xs text-neutral-text leading-relaxed">
-                  Fully insured with $5,000,000 general liability coverage for total homeowner and commercial peace of mind.
-                </p>
-              </div>
-
-              <div className="bg-surface-warm p-6 rounded-xl border border-stone-200 space-y-2">
-                <div className="flex items-center gap-2 text-emerald-700 font-bold text-base">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>WSIB & Eco-IPM Compliant</span>
-                </div>
-                <p className="text-xs text-neutral-text leading-relaxed">
-                  Good standing with Workplace Safety and Insurance Board (WSIB) and eco-friendly Integrated Pest Management standards.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 3-Step Process Section */}
+      <AboutProcess />
 
       {/* Story / Mission */}
       <section className="py-16 bg-surface-white">
