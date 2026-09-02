@@ -30,16 +30,22 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   const canonicalUrl = `https://www.k2pc.ca/blog/${post.slug}`;
+  const description =
+    post.content
+      ?.replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 160) || post.title;
 
   return {
     title: `${post.title} | K2PC Pest Control Blog`,
-    description: post.excerpt,
+    description,
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
       type: "article",
       url: canonicalUrl,
       publishedTime: post.publishedAt,
@@ -98,7 +104,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       "@id": pageUrl,
     },
     headline: post.title,
-    description: post.excerpt,
+    description:
+      post.content
+        ?.replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 160) || post.title,
     image: post.image,
     datePublished: post.publishedAt,
     author: {

@@ -319,7 +319,6 @@ export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
       id: p.id,
       title: p.title,
       slug: p.slug,
-      excerpt: p.excerpt,
       content: p.content,
       category: (p.category as any) || "Seasonal Advice",
       author: {
@@ -357,7 +356,6 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
       id: p.id,
       title: p.title,
       slug: p.slug,
-      excerpt: p.excerpt,
       content: p.content,
       category: (p.category as any) || "Seasonal Advice",
       author: {

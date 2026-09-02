@@ -44,7 +44,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           </h3>
 
           <p className="text-sm text-neutral-text line-clamp-3 leading-relaxed">
-            {post.excerpt}
+            {post.content ? post.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() : ""}
           </p>
         </div>
       </div>

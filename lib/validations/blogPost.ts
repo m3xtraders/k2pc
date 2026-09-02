@@ -3,7 +3,6 @@ import { z } from "zod";
 export const blogPostSchema = z.object({
   title: z.string().min(1, "Title is required"),
   slug: z.string().min(1, "Slug is required").regex(/^[a-z0-9-]+$/, "Slug must contain only lowercase letters, numbers, and hyphens"),
-  excerpt: z.string().optional().nullable().default(""),
   content: z.string().min(1, "Content is required"),
   featuredImage: z.string().optional().nullable(),
   category: z.string().optional().nullable(),

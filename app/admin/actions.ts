@@ -90,14 +90,10 @@ export async function reorderServicesAction(items: { id: string; displayOrder: n
 export async function createBlogPostAction(data: any) {
   const validated = blogPostSchema.parse(data);
   const cleanContent = sanitizeHtml(validated.content);
-  const excerpt =
-    validated.excerpt?.trim() ||
-    cleanContent.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
 
   const post = await prisma.blogPost.create({
     data: {
       ...validated,
-      excerpt,
       content: cleanContent,
       publishedAt: validated.publishedAt ? new Date(validated.publishedAt) : null,
     },
@@ -112,15 +108,11 @@ export async function createBlogPostAction(data: any) {
 export async function updateBlogPostAction(id: string, data: any) {
   const validated = blogPostSchema.parse(data);
   const cleanContent = sanitizeHtml(validated.content);
-  const excerpt =
-    validated.excerpt?.trim() ||
-    cleanContent.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
 
   const post = await prisma.blogPost.update({
     where: { id },
     data: {
       ...validated,
-      excerpt,
       content: cleanContent,
       publishedAt: validated.publishedAt ? new Date(validated.publishedAt) : null,
     },

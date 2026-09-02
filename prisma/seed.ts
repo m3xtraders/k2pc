@@ -107,14 +107,13 @@ async function main() {
       create: {
         title: post.title,
         slug: post.slug,
-        excerpt: post.excerpt,
         content: post.content,
         featuredImage: post.image,
         category: post.category,
         authorName: post.author?.name || "K2 Specialist",
         status: "PUBLISHED",
         metaTitle: `${post.title} | K2 Pest Control Blog`,
-        metaDescription: post.excerpt,
+        metaDescription: post.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160),
       },
     });
   }

@@ -31,7 +31,6 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({ initialData }) => {
   const [formData, setFormData] = useState<BlogPostInput>({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
-    excerpt: initialData?.excerpt || "",
     content: initialData?.content || "",
     featuredImage: initialData?.featuredImage || null,
     category: initialData?.category || "Seasonal Advice",

@@ -5,7 +5,6 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "post-1",
     title: "Saskatchewan Fall Rodent Migration: Why Mice Move Indoors in October & How to Stop Them",
     slug: "fall-rodent-migration-saskatchewan",
-    excerpt: "As Prairie temperatures drop across Saskatoon and area, field mice search for warmth inside foundations. Learn the 5 subtle signs of rodent intrusion and key exclusion tips.",
     category: "Seasonal Advice",
     author: {
       name: "K2 Technical Team",
@@ -44,7 +43,6 @@ If you suspect an active rodent infestation, contact **K2 Pest Control** at **(3
     id: "post-2",
     title: "Bed Bugs in Saskatoon Rental Properties: Tenant Rights & Treatment Steps",
     slug: "bed-bug-tenant-rights-saskatchewan",
-    excerpt: "Dealing with bed bugs in a Saskatoon rental property? Here is a clear guide on tenant rights in Saskatchewan and fast eradication protocols.",
     category: "Tenant Guides",
     author: {
       name: "K2 Operations Team",
@@ -81,7 +79,6 @@ For discrete, certified bed bug heat and chemical treatments in properties acros
     id: "post-3",
     title: "Spring Carpenter Ant Outbreaks: How to Identify Swarmers vs. Termites in Saskatchewan",
     slug: "spring-ant-prevention-saskatoon",
-    excerpt: "Spring brings carpenter ant swarmers hunting for damp wood in Saskatoon homes. Discover how to tell carpenter ants apart from subterranean termites.",
     category: "Prevention Tips",
     author: {
       name: "K2 Technical Team",
@@ -119,7 +116,6 @@ Our non-repellent baiting strategies allow worker ants to forage the bait matrix
     id: "post-4",
     title: "What is Integrated Pest Management (IPM)? Eco-Conscious Protection for Families & Pets",
     slug: "eco-friendly-ipm-saskatoon",
-    excerpt: "Discover how modern IPM minimizes chemical usage by combining biological monitoring, physical exclusion, and green bio-pesticides.",
     category: "Eco-Friendly IPM",
     author: {
       name: "K2 Operations Team",

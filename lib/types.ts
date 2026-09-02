@@ -37,7 +37,6 @@ export interface BlogPost {
   id: string;
   title: string;
   slug: string;
-  excerpt: string;
   content: string;
   category: 'Seasonal Advice' | 'Prevention Tips' | 'Tenant Guides' | 'Eco-Friendly IPM' | 'Commercial Safety';
   author: {
