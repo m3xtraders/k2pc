@@ -169,7 +169,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     displayOrder: initialData?.displayOrder || 0,
     status: initialData?.status || "DRAFT",
     pricingStartsAt: initialData?.pricingStartsAt || staticFallback?.pricingStartsAt || (isCommercialParam ? "Custom Quote" : "$189"),
-    warranty: initialData?.warranty || staticFallback?.warranty || "6-Month Written Warranty",
+    warranty: initialData?.warranty || staticFallback?.warranty || "6-Month Warranty",
     pestCategory: initialData?.pestCategory || staticFallback?.pestCategory || (isCommercialParam ? "commercial" : "insects"),
     faqs: initialData?.faqs || [],
     signsOfInfestation: initialData?.signsOfInfestation || [],
@@ -950,7 +950,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
                 type="text"
                 value={formData.warranty || ""}
                 onChange={(e) => setFormData((p) => ({ ...p, warranty: e.target.value }))}
-                placeholder="e.g. 6-Month Written Warranty"
+                placeholder="e.g. 6-Month Warranty"
                 className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
               />
             </FormField>

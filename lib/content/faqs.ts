@@ -22,7 +22,7 @@ export const GLOBAL_FAQS: FAQItem[] = [
   {
     id: "faq-4",
     question: "What is your satisfaction & re-treatment guarantee?",
-    answer: "Every service comes with a written warranty (ranging from 90 days to 1 year, depending on the pest). If target pests return inside your warranty window, our licensed technicians return to re-treat your property free of charge.",
+    answer: "Every service comes with a warranty (ranging from 90 days to 1 year, depending on the pest). If target pests return inside your warranty window, our licensed technicians return to re-treat your property free of charge.",
     category: "Pricing & Guarantees",
   },
   {

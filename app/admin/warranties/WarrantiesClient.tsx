@@ -224,7 +224,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
             Warranty &amp; Completed Service Records
           </h2>
           <p className="text-sm text-stone-500 mt-1">
-            Track 6-month written warranty windows, free re-treatment claims, official certificates, and 100% money-back guarantee records for completed jobs.
+            Track 6-month warranty windows, free re-treatment claims, official certificates, and 100% money-back guarantee records for completed jobs.
           </p>
         </div>
 
@@ -514,7 +514,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
                     Service Details &amp; Warranty Log
                   </span>
                   <p className="text-stone-800 leading-relaxed whitespace-pre-wrap line-clamp-3">
-                    {item.message || "Standard treatment completed. Backed by 6-month written warranty."}
+                    {item.message || "Standard treatment completed. Backed by 6-month warranty."}
                   </p>
                 </div>
               </div>

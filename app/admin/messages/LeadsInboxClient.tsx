@@ -645,7 +645,7 @@ export const LeadsInboxClient: React.FC<LeadsInboxClientProps> = ({
                         onClick={() => {
                           setReplySubject(`Pest Control Quote - ${selectedLead.service || "K2 Pest Control"}`);
                           setReplyMessage(
-                            `Hi ${selectedLead.name},\n\nThank you for requesting a quote for ${selectedLead.service || "pest removal"}.\n\nOur standard treatment includes complete eradication, eco-safe application, and a 6-month written warranty. Please call us at (306) 407-0007 so we can finalize the booking.\n\nBest regards,\nK2 Pest Control Team`
+                            `Hi ${selectedLead.name},\n\nThank you for requesting a quote for ${selectedLead.service || "pest removal"}.\n\nOur standard treatment includes complete eradication, eco-safe application, and a 6-month warranty. Please call us at (306) 407-0007 so we can finalize the booking.\n\nBest regards,\nK2 Pest Control Team`
                           );
                         }}
                         className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] rounded-md font-medium cursor-pointer"

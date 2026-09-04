@@ -73,7 +73,7 @@ export default async function ServicesPage() {
             Our Pest Control & Extermination Services
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed">
-            Targeted pest elimination for Saskatoon &amp; Saskatchewan homes and businesses. Backed by science, eco-friendly IPM methods, and a 6-month written warranty.
+            Targeted pest elimination for Saskatoon &amp; Saskatchewan homes and businesses. Backed by science, eco-friendly IPM methods, and a 6-month warranty.
           </p>
         </div>
       </section>

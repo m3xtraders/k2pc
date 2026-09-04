@@ -55,7 +55,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
             License No: {licenseNumber}
           </span>
           <span>•</span>
-          <span>6-Month Written Warranty</span>
+          <span>6-Month Warranty</span>
           <span>•</span>
           <span>Zero Lock-In Contracts</span>
         </div>

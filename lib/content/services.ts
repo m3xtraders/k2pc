@@ -145,7 +145,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$189",
-    warranty: "6-Month Written Warranty",
+    warranty: "6-Month Warranty",
     faqs: [
       {
         question: "Are carpenter ants dangerous to my house?",

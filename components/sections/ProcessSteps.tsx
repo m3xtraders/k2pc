@@ -34,7 +34,7 @@ const steps = [
     title: "Follow-Up & Warranty",
     tagline: "Satisfaction Focused",
     icon: RefreshCw,
-    description: "We check back and provide free re-treatments throughout your 6-month written warranty window.",
+    description: "We check back and provide free re-treatments throughout your 6-month warranty window.",
   },
 ];
 

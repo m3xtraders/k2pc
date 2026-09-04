@@ -32,7 +32,7 @@ export default function WhyUs() {
       icon: Award,
       title: "99.9% Satisfaction & 6-Month Warranty",
       description:
-        "If pests return inside your written warranty window, we re-treat your property free of charge until the problem is solved.",
+        "If pests return inside your warranty window, we re-treat your property free of charge until the problem is solved.",
       badge: "Guaranteed",
     },
   ];

@@ -76,7 +76,7 @@ export default function EcoFriendlyCTA() {
           <div className="grid grid-cols-2 gap-4 sm:gap-5">
             {[
               { value: "100%", label: "Non-Toxic Treatments", variant: "red" },
-              { value: "6-Mo", label: "Written Warranty", variant: "yellow" },
+              { value: "6-Mo", label: "Warranty", variant: "yellow" },
               { value: "Safe", label: "For Kids & Pets", variant: "red" },
               { value: "IPM", label: "Science-Based Method", variant: "yellow" },
             ].map((stat, i) => (

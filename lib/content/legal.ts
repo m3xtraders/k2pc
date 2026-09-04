@@ -72,7 +72,7 @@ export const DEFAULT_TERMS_OF_SERVICE: LegalPageData = {
   title: "Terms of Service & Warranty Policy",
   subtitle: "These terms govern all pest inspection, extermination, wildlife management, and integrated pest management services provided by K2 Pest Control.",
   metaTitle: "Terms of Service & Warranty Policy | K2 Pest Control Saskatoon",
-  metaDescription: "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 6-month written warranty, customer prep requirements, and payment policies.",
+  metaDescription: "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 6-month warranty, customer prep requirements, and payment policies.",
   lastUpdated: "February 24, 2025",
   content: `<h2>1. Acceptance of Terms</h2>
 <p>By booking an inspection, confirming a service quote, scheduling an extermination appointment, or utilizing our website, you (&ldquo;Client&rdquo;, &ldquo;Customer&rdquo;, &ldquo;you&rdquo;) agree to be legally bound by these Terms of Service. If you are entering into this agreement on behalf of a business, corporation, or property management entity, you represent that you have the authority to bind that entity.</p>
@@ -85,7 +85,7 @@ export const DEFAULT_TERMS_OF_SERVICE: LegalPageData = {
 </ul>
 
 <h2>3. 6-Month Re-Treatment Guarantee &amp; Warranty Policy</h2>
-<p>K2 Pest Control provides a <strong>6-month written warranty</strong> for qualifying residential treatments (including bed bugs, cockroaches, carpenter ants, and mice/rats), subject to the following criteria:</p>
+<p>K2 Pest Control provides a <strong>6-month warranty</strong> for qualifying residential treatments (including bed bugs, cockroaches, carpenter ants, and mice/rats), subject to the following criteria:</p>
 <ul>
   <li><strong>Full Scope Completion:</strong> The warranty requires completion of all recommended initial and follow-up treatment rounds as specified in your service agreement.</li>
   <li><strong>Preparation Adherence:</strong> The client must execute all required pre-treatment preparation checklists provided prior to technician arrival.</li>

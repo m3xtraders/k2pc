@@ -37,7 +37,7 @@ const COMMERCIAL_PROGRAMS = [
     badge: "Audit-Ready & Certified",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80",
     pricing: "Custom Facility Quote",
-    warranty: "Written Service Warranty",
+    warranty: "Service Warranty",
     features: [
       "Digital logbooks & SDS documentation",
       "Non-disruptive after-hours servicing",
