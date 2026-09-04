@@ -1,6 +1,5 @@
 import React from "react";
 import Hero from "@/components/sections/Hero";
-import PestStrip from "@/components/sections/PestStrip";
 import AboutSection from "@/components/sections/AboutSection";
 import ServiceGrid from "@/components/sections/ServiceGrid";
 import WhyUs from "@/components/sections/WhyUs";
@@ -25,7 +24,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <PestStrip />
       <AboutSection />
       <ServiceGrid limit={6} />
       <WhyUs />
