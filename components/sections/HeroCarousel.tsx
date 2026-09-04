@@ -75,7 +75,7 @@ const HERO_SLIDES: HeroSlide[] = [
     headlineHighlight: "Pest Control Experts",
     headlineSuffix: "",
     subtext:
-      "Serving Saskatoon, Warman, Martensville, Dalmeny, Osler, Langham, Dundurn, Clavet, Corman Park & surrounding communities. Same-day inspections available.",
+      "Serving Saskatoon, Warman, Martensville, Dalmeny, Osler, Langham, Vanscoy, Delisle, Pike Lake, Whitecap, Dundurn, Clavet, Corman Park & surrounding communities. Same-day inspections available.",
     ctaText: "Book Free Inspection →",
     ctaLink: "/contact",
     imageSrc: "/images/hero/slide-4.jpg",

@@ -208,4 +208,43 @@ export const LOCATIONS: LocationCity[] = [
     landmarks: ["Highway 11 South Commercial Hub"],
     postalCodes: ["S7T 1A1"],
   },
+  {
+    name: "Pike Lake",
+    region: "Saskatoon South-West Corridor",
+    slug: "pike-lake",
+    population: "Resort Community",
+    badge: "~25-30 min dispatch",
+    description:
+      "Cabin, cottage, and acreage pest control for Pike Lake resort communities and Provincial Park area. Seasonal spider barriers, rodent winterization, and ant treatments.",
+    neighborhoods: ["Pike Lake Cottage Area", "Parkview Estates", "Highway 766 Corridor"],
+    commonPests: ["Spiders", "Carpenter Ants", "Mice & Voles", "Wasps", "Mosquitoes"],
+    landmarks: ["Pike Lake Provincial Park", "Pike Lake Recreation Centre"],
+    postalCodes: ["S0K 2L0"],
+  },
+  {
+    name: "Whitecap",
+    region: "Saskatoon South Corridor",
+    slug: "whitecap",
+    population: "First Nation & Resort",
+    badge: "~25 min dispatch",
+    description:
+      "Comprehensive residential and commercial pest management for Whitecap Dakota First Nation, resort complexes, and surrounding Highway 219 properties.",
+    neighborhoods: ["Whitecap Community", "Dakota Dunes Area"],
+    commonPests: ["Ground Beetles", "Field Mice", "Spiders", "Ants", "Wasps"],
+    landmarks: ["Dakota Dunes Resort", "Whitecap Health Centre"],
+    postalCodes: ["S7K 2L2"],
+  },
+  {
+    name: "Delisle",
+    region: "Saskatoon South-West Corridor",
+    slug: "delisle",
+    population: "1,100+",
+    badge: "~30-35 min dispatch",
+    description:
+      "Licensed pest eradication for Delisle homes, businesses, and surrounding farms along Highway 7 South-West.",
+    neighborhoods: ["Delisle Central", "Highway 7 Commercial Strip"],
+    commonPests: ["Mice & Rodents", "Cockroaches", "Bed Bugs", "Wasps", "Spiders"],
+    landmarks: ["Delisle Curling Rink", "Delisle Composite School"],
+    postalCodes: ["S0L 0P0"],
+  },
 ];

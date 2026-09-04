@@ -107,6 +107,24 @@ const LOCATIONS: LocationItem[] = [
     distance: "8 km East",
   },
   {
+    name: "Pike Lake",
+    coords: [51.9069, -106.8194],
+    desc: "~25-30 min dispatch",
+    distance: "30 km South-West",
+  },
+  {
+    name: "Whitecap",
+    coords: [51.9210, -106.7050],
+    desc: "~25 min dispatch",
+    distance: "26 km South",
+  },
+  {
+    name: "Delisle",
+    coords: [51.9178, -107.1350],
+    desc: "~30-35 min dispatch",
+    distance: "40 km South-West",
+  },
+  {
     name: "Corman Park",
     coords: [52.1900, -106.4600],
     desc: "~15-30 min dispatch",
@@ -122,8 +140,9 @@ const SERVICE_POLYGON: [number, number][] = [
   [52.2200, -106.3200], // East
   [51.9800, -106.2800], // East of Clavet
   [51.7600, -106.4600], // South of Dundurn
-  [51.9600, -106.7800], // South-West of Riverside
-  [51.9700, -107.1200], // West of Vanscoy
+  [51.8400, -106.7500], // South of Whitecap & Pike Lake
+  [51.8600, -107.2000], // South-West of Delisle
+  [52.0500, -107.2200], // West of Delisle & Vanscoy
   [52.2800, -107.0800], // West of Dalmeny
   [52.4200, -106.9800], // Close polygon
 ];
@@ -312,7 +331,7 @@ export const ServiceAreaClient: React.FC<any> = ({ companyDetails }) => {
 
             {/* Body Paragraph with Communities List */}
             <p className="text-base sm:text-lg text-neutral-text leading-relaxed">
-              <strong className="text-ink font-semibold">Saskatoon</strong>, Warman, Martensville, Dalmeny, Osler, Langham, Vanscoy, Corman Park, Dundurn, Clavet, Greenbryre, The Willows, Riverside Estates, Grasswood — and surrounding areas.
+              <strong className="text-ink font-semibold">Saskatoon</strong>, Warman, Martensville, Dalmeny, Osler, Langham, Vanscoy, Delisle, Pike Lake, Whitecap, Corman Park, Dundurn, Clavet, Greenbryre, The Willows, Riverside Estates, Grasswood — and surrounding areas.
             </p>
 
             {/* Subtext Note */}
@@ -346,7 +365,7 @@ export const ServiceAreaClient: React.FC<any> = ({ companyDetails }) => {
                   Click Location to Focus on Map:
                 </span>
                 <span className="text-[11px] font-mono-data text-brand-red font-semibold">
-                  14 Active Service Hubs
+                  {LOCATIONS.length} Active Service Hubs
                 </span>
               </div>
               <div className="flex flex-wrap gap-1.5">

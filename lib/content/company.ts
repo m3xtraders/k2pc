@@ -48,6 +48,9 @@ export const COMPANY_DETAILS = {
     "The Willows",
     "Riverside Estates",
     "Grasswood",
+    "Pike Lake",
+    "Whitecap",
+    "Delisle",
   ],
   serviceLocations: [
     { name: "Saskatoon (Central & Suburbs)", region: "City of Saskatoon", badge: "Central Dispatch HQ" },
@@ -64,5 +67,8 @@ export const COMPANY_DETAILS = {
     { name: "The Willows", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
     { name: "Riverside Estates", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
     { name: "Grasswood", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
+    { name: "Pike Lake", region: "Saskatoon South-West Corridor", badge: "~25-30 min dispatch" },
+    { name: "Whitecap", region: "Saskatoon South Corridor", badge: "~25 min dispatch" },
+    { name: "Delisle", region: "Saskatoon South-West Corridor", badge: "~30-35 min dispatch" },
   ],
 };

@@ -24,6 +24,9 @@ const DEFAULT_SASKATOON_AREAS: ServiceAreaItem[] = [
   { name: "The Willows", region: "Saskatoon South Corridor", badge: "~10-15 min dispatch" },
   { name: "Riverside Estates", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
   { name: "Grasswood", region: "Saskatoon South Corridor", badge: "~15 min dispatch" },
+  { name: "Pike Lake", region: "Saskatoon South-West Corridor", badge: "~25-30 min dispatch" },
+  { name: "Whitecap", region: "Saskatoon South Corridor", badge: "~25 min dispatch" },
+  { name: "Delisle", region: "Saskatoon South-West Corridor", badge: "~30-35 min dispatch" },
 ];
 
 export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, onChange }) => {
