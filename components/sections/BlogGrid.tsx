@@ -1,15 +1,22 @@
 import React from "react";
-import { BLOG_POSTS } from "@/lib/content/blog";
+import { BlogPost } from "@/lib/types";
+import { getPublishedBlogPosts } from "@/lib/content-db";
 import { BlogCard } from "@/components/ui/BlogCard";
 import { Button } from "@/components/ui/Button";
 
 interface BlogGridProps {
+  posts?: BlogPost[];
   limit?: number;
   showHeading?: boolean;
 }
 
-export default function BlogGrid({ limit, showHeading = true }: BlogGridProps) {
-  const posts = limit ? BLOG_POSTS.slice(0, limit) : BLOG_POSTS;
+export default async function BlogGrid({ posts: passedPosts, limit, showHeading = true }: BlogGridProps) {
+  const allPosts = passedPosts || (await getPublishedBlogPosts());
+  const posts = limit ? allPosts.slice(0, limit) : allPosts;
+
+  if (!posts || posts.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-16 bg-surface-warm border-t border-stone-200">
@@ -34,7 +41,7 @@ export default function BlogGrid({ limit, showHeading = true }: BlogGridProps) {
           ))}
         </div>
 
-        {limit && BLOG_POSTS.length > limit && (
+        {limit && allPosts.length > limit && (
           <div className="text-center mt-12">
             <Button href="/blog" variant="outline" size="lg">
               Explore All Articles & Guides

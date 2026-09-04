@@ -36,7 +36,7 @@ const HERO_SLIDES: HeroSlide[] = [
       "Saskatchewan-certified technicians protecting homes and businesses across Saskatoon, Warman, Martensville, and beyond. Trusted, licensed, and built for results.",
     ctaText: "Free Inspection →",
     ctaLink: "/contact",
-    imageSrc: "/images/hero/slide-1.jpg",
+    imageSrc: "/images/hero/slide-1.png",
     imageAlt: "Certified pest control services in Saskatoon and surrounding areas",
   },
   {

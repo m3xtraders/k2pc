@@ -313,7 +313,7 @@ export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
       orderBy: { publishedAt: "desc" },
     });
 
-    if (!posts || posts.length === 0) return BLOG_POSTS;
+    if (!posts || posts.length === 0) return [];
 
     return posts.map((p: any) => ({
       id: p.id,
@@ -322,7 +322,7 @@ export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
       content: p.content,
       category: (p.category as any) || "Seasonal Advice",
       author: {
-        name: p.authorName || "K2PC Specialist",
+        name: p.authorName || "K2 Pest Control Team",
         role: "Extermination Expert",
         avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
       },
@@ -338,7 +338,7 @@ export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
       relatedSlugs: [],
     }));
   } catch (_error) {
-    return BLOG_POSTS;
+    return [];
   }
 }
 
@@ -349,7 +349,7 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
     });
 
     if (!p) {
-      return BLOG_POSTS.find((b) => b.slug === slug) || null;
+      return null;
     }
 
     return {
@@ -359,7 +359,7 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
       content: p.content,
       category: (p.category as any) || "Seasonal Advice",
       author: {
-        name: p.authorName || "K2PC Specialist",
+        name: p.authorName || "K2 Pest Control Team",
         role: "Extermination Expert",
         avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
       },
@@ -375,7 +375,7 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
       relatedSlugs: [],
     };
   } catch (_error) {
-    return BLOG_POSTS.find((b) => b.slug === slug) || null;
+    return null;
   }
 }
 
