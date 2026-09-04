@@ -23,13 +23,13 @@ export default function MoneyBackGuaranteeSection({
       title: "Free Re-Treatment",
       subtitle: "Within Guarantee Window",
       description:
-        "If pests return within your written guarantee period, our team comes back and re-treats your property completely free of charge.",
+        "If pests return within your guarantee period, our team comes back and re-treats your property completely free of charge.",
       badge: "Zero Extra Cost",
     },
     {
       icon: CircleDollarSign,
       title: "Not Satisfied? Full Refund",
-      subtitle: "100% Money-Back in Writing",
+      subtitle: "100% Money-Back Guarantee",
       description:
         "We stand by our results. If pests persist and we cannot resolve the issue, you receive a full 100% refund — no hassles or arguments.",
       badge: "Risk-Free Guarantee",
@@ -90,18 +90,13 @@ export default function MoneyBackGuaranteeSection({
                   </div>
                 </div>
               </div>
-
-              <span className="inline-flex items-center gap-1.5 mt-4 text-xs font-mono-data font-bold text-ink uppercase tracking-wide bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
-                Written In Every Agreement
-              </span>
             </div>
 
             {/* Right: Guarantee Statement & Details */}
             <div className="lg:col-span-8 space-y-6">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 text-brand-red text-xs font-mono-data font-bold uppercase tracking-widest border border-red-200/80">
-                  <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-red-50 text-brand-red text-xs sm:text-sm font-mono-data font-bold uppercase tracking-wider border border-red-200/80">
+                  <ShieldCheck className="w-4 h-4 text-brand-red" />
                   <span>Saskatoon’s Strongest Pest Promise</span>
                 </div>
 
@@ -133,7 +128,7 @@ export default function MoneyBackGuaranteeSection({
                 <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-stone-200/80 shadow-2xs">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                   <span className="text-xs font-heading font-bold text-ink leading-snug">
-                    Ministry Licensed
+                    Fully Insured
                   </span>
                 </div>
               </div>
