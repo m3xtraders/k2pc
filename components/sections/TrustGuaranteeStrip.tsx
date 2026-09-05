@@ -62,15 +62,24 @@ const TRUST_ITEMS: TrustItem[] = [
     title: "CANADIAN OWNED & OPERATED",
     subtitle: "Proudly Saskatchewan-founded in Saskatoon",
     renderIcon: () => (
-      /* Bold Vibrant Canadian Maple Leaf */
+      /* Official National Flag of Canada */
       <svg
-        className="w-14 h-14 sm:w-16 sm:h-16 text-[#E00613] transition-transform duration-300 group-hover:scale-110 drop-shadow-xs"
-        viewBox="0 0 512 512"
-        fill="currentColor"
+        className="w-14 h-10 sm:w-16 sm:h-11 lg:w-20 lg:h-14 transition-transform duration-300 group-hover:scale-110 drop-shadow-md rounded-lg overflow-hidden border border-stone-200/90 shrink-0"
+        viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <path d="M256 16l19 65 39-16 11 43 51-17 10 39 44-7 4 39 42 16-11 36 29 18-35 34 26 23-44 19 6 38-51 4-6 40-70-13 9 32-35-6-16 38-31-41-3 104-16 0-3-104-31 41-16-38-35 6 9-32-70 13-6-40-51-4 6-38-44-19 26-23-35-34 29-18-11-36 42-16 4-39 44 7 10-39 51 17 11-43 39 16z" />
+        {/* Left Red Band */}
+        <rect width="250" height="500" fill="#E00613" />
+        {/* Central White Square */}
+        <rect x="250" width="500" height="500" fill="#FFFFFF" />
+        {/* Right Red Band */}
+        <rect x="750" width="250" height="500" fill="#E00613" />
+        {/* Official Stylized 11-Point Canadian Maple Leaf */}
+        <path
+          d="M500,430 L488,430 L485,348 L418,375 L432,328 L370,332 L398,284 L335,268 L348,242 L262,228 L308,188 L278,168 L368,145 L360,118 L432,142 L455,80 L488,110 L500,60 L512,110 L545,80 L568,142 L640,118 L632,145 L722,168 L692,188 L738,228 L652,242 L665,268 L602,284 L630,332 L568,328 L582,375 L515,348 L512,430 Z"
+          fill="#E00613"
+        />
       </svg>
     ),
   },
