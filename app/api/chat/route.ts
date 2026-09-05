@@ -138,6 +138,10 @@ export async function POST(req: NextRequest) {
       ? companyDetails.hours.map((h: any) => `${h.days}: ${h.times}`).join(", ")
       : "Monday-Sunday 24/7 Emergency Dispatch";
 
+    const discountInfoText = companyDetails.popupDiscountTitle
+      ? `\n- **Active Promotional Offer**: ${companyDetails.popupDiscountTitle} on ${companyDetails.popupDiscountSubtitle || "Pest Inspection & Treatment"} using promo code "${companyDetails.popupDiscountCode || "SAVE50"}". Mention this discount when customers ask about deals, discounts, specials, or pricing!`
+      : "";
+
     const customAdminPrompt = businessInfo?.chatbotSystemPrompt?.trim()
       ? `\n\nADMIN SPECIFIC INSTRUCTIONS:\n${businessInfo.chatbotSystemPrompt}`
       : "";
@@ -159,12 +163,12 @@ You assist homeowners, landlords, restaurant owners, and property managers acros
 ---
 ### 🏢 COMPANY PROFILE & CREDENTIALS:
 - **Company Name**: ${companyDetails.name || "K2 Pest Control"}
-- **Saskatchewan Ministry License**: ${companyDetails.licenseNumber || "SK-719402"} (Saskatchewan Ministry of Environment Licensed & Insured)
+- **Saskatchewan Ministry License**: ${companyDetails.licenseNumber || "A-003789"} (Saskatchewan Ministry of Environment Licensed & Insured)
 - **Primary Phone (Call / SMS)**: ${companyDetails.phone || "(306) 407-0007"}
 - **Emergency Service**: Rapid Emergency Response Available 24/7
 - **Operating Hours**: ${hoursText}
 - **Service Regions**: ${serviceAreasText}
-- **Eco & Safety Guarantee**: 100% Health Canada approved IPM solutions, safe for children and household pets. 100% money-back / re-treatment guarantee.
+- **Eco & Safety Guarantee**: 100% Health Canada approved IPM solutions, safe for children and household pets. 100% money-back / re-treatment guarantee.${discountInfoText}
 
 ---
 ### 🐜 LIVE SERVICES & PRICING:
@@ -246,9 +250,10 @@ ${customAdminPrompt}
 
     // Call Gemini Model with fallback across high-availability Flash versions
     const candidateModels = [
-      "gemini-2.5-flash",
-      "gemini-2.0-flash",
-      "gemini-1.5-flash",
+      "gemini-3.6-flash",
+      "gemini-3.5-flash",
+      "gemini-3.7-flash",
+      "gemini-flash-latest",
     ];
 
     let response: any = null;
