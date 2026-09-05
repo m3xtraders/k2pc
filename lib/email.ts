@@ -23,7 +23,7 @@ function getSmtpConfig(): SmtpConfig | null {
   const port = parseInt(process.env.SMTP_PORT || "587", 10);
   const secure = process.env.SMTP_SECURE === "true" || port === 465;
   const from = process.env.SMTP_FROM || `"K2 Pest Control" <${user}>`;
-  const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "k2pcsas@gmail.com, info@k2pc.ca";
+  const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "k2pcsas@gmail.com";
 
   return {
     host,
