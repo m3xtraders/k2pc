@@ -224,8 +224,6 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <script
           type="application/ld+json"
@@ -240,12 +238,12 @@ export default async function RootLayout({
         className="min-h-full flex flex-col bg-surface-white text-ink font-sans pb-16 md:pb-0"
         suppressHydrationWarning
       >
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - loaded on idle to avoid forced reflow and blocking LCP */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-8EHS2WM33H"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

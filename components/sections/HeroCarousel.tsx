@@ -36,7 +36,7 @@ const HERO_SLIDES: HeroSlide[] = [
       "Saskatchewan-certified technicians protecting homes and businesses across Saskatoon, Warman, Martensville, and beyond. Trusted, licensed, and built for results.",
     ctaText: "Free Inspection →",
     ctaLink: "/contact",
-    imageSrc: "/images/hero/slide-1.png",
+    imageSrc: "/images/hero/slide-1.webp",
     imageAlt: "Certified pest control services in Saskatoon and surrounding areas",
   },
   {
@@ -50,7 +50,7 @@ const HERO_SLIDES: HeroSlide[] = [
       "From bed bugs and rodents to wasps, mosquitoes, and cockroaches — K2 Pest Control handles it all with Saskatchewan-certified treatments safe for your family and pets.",
     ctaText: "View All Services →",
     ctaLink: "/services",
-    imageSrc: "/images/hero/slide-2.jpg",
+    imageSrc: "/images/hero/slide-2.webp",
     imageAlt: "Over 30 pests eliminated with certified pest control solutions in Saskatoon",
   },
   {
@@ -64,7 +64,7 @@ const HERO_SLIDES: HeroSlide[] = [
       "Our technicians are certified structural pesticide applicators registered with the Saskatchewan Ministry of the Environment. You're protected by real credentials, not empty promises.",
     ctaText: "About Us →",
     ctaLink: "/about",
-    imageSrc: "/images/hero/slide-3.jpg",
+    imageSrc: "/images/hero/slide-3.webp",
     imageAlt: "Licensed and insured pest control technicians registered in Saskatchewan",
   },
   {
@@ -78,7 +78,7 @@ const HERO_SLIDES: HeroSlide[] = [
       "Serving Saskatoon, Warman, Martensville, Dalmeny, Osler, Langham, Vanscoy, Delisle, Pike Lake, Whitecap, Dundurn, Clavet, Corman Park & surrounding communities. Same-day inspections available.",
     ctaText: "Book Free Inspection →",
     ctaLink: "/contact",
-    imageSrc: "/images/hero/slide-4.jpg",
+    imageSrc: "/images/hero/slide-4.webp",
     imageAlt: "Saskatoon's trusted pest control experts serving local Saskatchewan communities",
   },
 ];
@@ -186,7 +186,8 @@ export default function HeroCarousel({
                 alt={slide.imageAlt}
                 fill
                 priority={index === 0}
-                quality={90}
+                loading={index === 0 ? "eager" : "lazy"}
+                quality={index === 0 ? 80 : 75}
                 className={`object-cover object-center transition-transform duration-7000 ease-out ${
                   isActive ? "scale-100" : "scale-105"
                 }`}
