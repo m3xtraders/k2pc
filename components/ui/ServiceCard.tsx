@@ -73,7 +73,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         <div className="space-y-3">
           {/* Title */}
           <h3 className="font-heading font-bold text-xl text-ink group-hover:text-brand-red transition-colors line-clamp-1 leading-snug">
-            <Link href={`/services/${service.slug}`} className="hover:underline">
+            <Link
+              href={`/services/${service.slug}`}
+              className="hover:underline"
+              aria-label={`${service.title} extermination and pest control in Saskatoon`}
+            >
               {service.title}
             </Link>
           </h3>
@@ -98,8 +102,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           <Link
             href={`/services/${service.slug}`}
             className="text-sm font-bold text-brand-red hover:text-brand-red-dark flex items-center gap-1.5 group-hover:translate-x-1 transition-transform"
+            aria-label={`Learn more about ${service.title} extermination in Saskatoon`}
           >
-            <span>Learn More</span>
+            <span>Learn More<span className="sr-only"> about {service.title}</span></span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

@@ -160,6 +160,7 @@ export const ServiceAreaClient: React.FC<any> = ({ companyDetails }) => {
 
   useEffect(() => {
     let isMounted = true;
+    let observer: IntersectionObserver | null = null;
 
     const initMap = async () => {
       if (typeof window === "undefined" || !mapContainerRef.current) return;
@@ -283,10 +284,26 @@ export const ServiceAreaClient: React.FC<any> = ({ companyDetails }) => {
       setIsMapReady(true);
     };
 
-    initMap();
+    if (typeof window !== "undefined" && "IntersectionObserver" in window && mapContainerRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            initMap();
+            if (observer && mapContainerRef.current) {
+              observer.unobserve(mapContainerRef.current);
+            }
+          }
+        },
+        { rootMargin: "300px" }
+      );
+      observer.observe(mapContainerRef.current);
+    } else {
+      initMap();
+    }
 
     return () => {
       isMounted = false;
+      if (observer) observer.disconnect();
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;

@@ -188,7 +188,7 @@ export default function HeroCarousel({
                 priority={index === 0}
                 loading={index === 0 ? "eager" : "lazy"}
                 fetchPriority={index === 0 ? "high" : undefined}
-                quality={index === 0 ? 80 : 75}
+                quality={75}
                 className={`object-cover object-center transition-transform duration-7000 ease-out ${
                   isActive ? "scale-100" : "scale-105"
                 }`}

@@ -276,8 +276,9 @@ export function ServicesTabbedSection({ services }: ServicesTabbedSectionProps) 
                           <Link
                             href={`/services/${service.slug}`}
                             className="w-full py-2 text-center text-xs font-mono-data font-bold text-stone-600 hover:text-brand-red flex items-center justify-center gap-1 transition-colors"
+                            aria-label={`View details and pricing for ${service.title}`}
                           >
-                            <span>View Service Details</span>
+                            <span>View Service Details<span className="sr-only"> for {service.title}</span></span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                         </div>

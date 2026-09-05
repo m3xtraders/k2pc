@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Leaf, SearchCheck, ShieldCheck, Snowflake } from "lucide-react";
 
 const features = [
@@ -36,10 +37,14 @@ export default function AboutSection() {
           {/* Left: Image */}
           <div className="relative order-2 lg:order-1 flex flex-col">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl flex-1 min-h-[450px] lg:min-h-full">
-              <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80"
+              <Image
+                src="/images/about/about-inspection.webp"
                 alt="Pest control technician performing professional inspection in Saskatoon"
-                className="w-full h-full min-h-[450px] lg:min-h-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={80}
+                className="w-full h-full object-cover"
+                loading="lazy"
               />
               {/* Overlay badge */}
               <div className="absolute bottom-6 left-6 bg-brand-red text-white px-5 py-3 rounded-xl shadow-lg">

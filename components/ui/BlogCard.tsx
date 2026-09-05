@@ -55,8 +55,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <Link
           href={`/blog/${post.slug}`}
           className="text-sm font-bold text-brand-red hover:text-brand-red-dark flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+          aria-label={`Read article: ${post.title}`}
         >
-          <span>Read Article</span>
+          <span>Read Article<span className="sr-only">: {post.title}</span></span>
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
