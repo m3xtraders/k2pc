@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ServicesTabbedSection } from "@/components/sections/ServicesTabbedSection";
+import TrustGuaranteeStrip from "@/components/sections/TrustGuaranteeStrip";
 import MoneyBackGuaranteeSection from "@/components/sections/MoneyBackGuaranteeSection";
 import CTABand from "@/components/sections/CTABand";
 import ProcessSteps from "@/components/sections/ProcessSteps";
@@ -77,6 +78,9 @@ export default async function ServicesPage() {
           </p>
         </div>
       </section>
+
+      {/* Trust & Guarantee Strip */}
+      <TrustGuaranteeStrip />
 
       {/* Interactive Domestic vs Commercial Tabbed Section */}
       <ServicesTabbedSection services={services || []} />

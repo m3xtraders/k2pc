@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "@/components/sections/Hero";
+import TrustGuaranteeStrip from "@/components/sections/TrustGuaranteeStrip";
 import AboutSection from "@/components/sections/AboutSection";
 import ServiceGrid from "@/components/sections/ServiceGrid";
 import WhyUs from "@/components/sections/WhyUs";
@@ -24,6 +25,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <TrustGuaranteeStrip />
       <AboutSection />
       <ServiceGrid limit={6} />
       <WhyUs />

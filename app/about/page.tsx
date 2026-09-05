@@ -4,6 +4,7 @@ import Image from "next/image";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { getCompanyDetails } from "@/lib/content-db";
 import StatsCounter from "@/components/sections/StatsCounter";
+import TrustGuaranteeStrip from "@/components/sections/TrustGuaranteeStrip";
 import AboutSection from "@/components/sections/AboutSection";
 import AboutCredentials from "@/components/sections/AboutCredentials";
 import AboutProcess from "@/components/sections/AboutProcess";
@@ -95,6 +96,9 @@ export default async function AboutPage() {
           </p>
         </div>
       </section>
+
+      {/* Trust & Guarantees Strip */}
+      <TrustGuaranteeStrip />
 
       <StatsCounter className="border-t-0 pt-6 pb-16" />
 
