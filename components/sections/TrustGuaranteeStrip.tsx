@@ -116,27 +116,27 @@ export default function TrustGuaranteeStrip({ className = "" }: TrustGuaranteeSt
   return (
     <section
       aria-label="K2 Pest Control Customer Guarantees"
-      className={`bg-white border-y border-stone-200/90 py-10 sm:py-12 ${className}`}
+      className={`bg-white border-y border-stone-200/90 py-8 sm:py-10 lg:py-12 ${className}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 sm:divide-y-0 sm:divide-x divide-stone-200/80">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-3 sm:gap-x-6 lg:gap-0 lg:divide-x lg:divide-stone-200/80">
           {TRUST_ITEMS.map((item, index) => (
             <div
               key={index}
-              className="group flex flex-col items-center text-center px-4 sm:px-6 lg:px-7 transition-transform duration-200 hover:-translate-y-0.5 cursor-default"
+              className="group flex flex-col items-center text-center px-2 sm:px-4 lg:px-7 transition-transform duration-200 hover:-translate-y-0.5 cursor-default"
             >
               {/* Large Iconic Graphic */}
-              <div className="h-16 sm:h-20 flex items-center justify-center mb-4">
+              <div className="h-14 sm:h-16 lg:h-20 flex items-center justify-center mb-3 sm:mb-4">
                 {item.renderIcon()}
               </div>
 
-              {/* Bold Uppercase Headline matching reference */}
-              <h3 className="font-heading font-extrabold text-sm sm:text-base text-ink tracking-tight uppercase leading-snug group-hover:text-brand-red transition-colors">
+              {/* Bold Uppercase Headline */}
+              <h3 className="font-heading font-extrabold text-xs sm:text-sm lg:text-base text-ink tracking-tight uppercase leading-tight sm:leading-snug group-hover:text-brand-red transition-colors">
                 {item.title}
               </h3>
 
               {/* Clean Supporting Reassurance */}
-              <p className="text-xs text-neutral-text font-normal leading-relaxed mt-1.5 max-w-[220px]">
+              <p className="text-[11px] sm:text-xs text-neutral-text font-normal leading-relaxed mt-1 sm:mt-1.5 max-w-[190px] sm:max-w-[220px]">
                 {item.subtitle}
               </p>
             </div>
