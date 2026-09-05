@@ -14,7 +14,6 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import Link from "next/link";
-import "leaflet/dist/leaflet.css";
 
 interface LocationItem {
   name: string;
@@ -165,7 +164,10 @@ export const ServiceAreaClient: React.FC<any> = ({ companyDetails }) => {
     const initMap = async () => {
       if (typeof window === "undefined" || !mapContainerRef.current) return;
 
-      const L = (await import("leaflet")).default;
+      const [L] = await Promise.all([
+        import("leaflet").then((m) => m.default),
+        import("leaflet/dist/leaflet.css"),
+      ]);
 
       if (!isMounted || !mapContainerRef.current) return;
 
