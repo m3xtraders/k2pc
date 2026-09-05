@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileCallBar from "@/components/layout/MobileCallBar";
 import { ChatWidget } from "@/components/ui/ChatWidget";
+import { DiscountInspectionModal } from "@/components/ui/DiscountInspectionModal";
 
 interface PublicLayoutWrapperProps {
   children: React.ReactNode;
@@ -30,6 +31,7 @@ export function PublicLayoutWrapper({ children, companyDetails, services }: Publ
       <Footer companyDetails={companyDetails} />
       <MobileCallBar companyDetails={companyDetails} />
       <ChatWidget companyDetails={companyDetails} />
+      <DiscountInspectionModal companyDetails={companyDetails} services={services} />
     </>
   );
 }

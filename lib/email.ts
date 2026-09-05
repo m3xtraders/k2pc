@@ -23,7 +23,7 @@ function getSmtpConfig(): SmtpConfig | null {
   const port = parseInt(process.env.SMTP_PORT || "587", 10);
   const secure = process.env.SMTP_SECURE === "true" || port === 465;
   const from = process.env.SMTP_FROM || `"K2 Pest Control" <${user}>`;
-  const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL || user;
+  const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "k2pcsas@gmail.com, info@k2pc.ca";
 
   return {
     host,
@@ -230,3 +230,124 @@ export async function sendLeadReplyEmail(params: {
 
   return { success: true };
 }
+
+/**
+ * Send an automated, branded booking confirmation email directly to the customer who requested service.
+ */
+export async function sendCustomerBookingConfirmationEmail(lead: {
+  name: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  service?: string | null;
+  message?: string | null;
+}) {
+  if (!lead.email || !lead.email.includes("@")) {
+    return { success: false, reason: "No customer email provided" };
+  }
+
+  const config = getSmtpConfig();
+  if (!config) {
+    return { success: false, reason: "SMTP not configured" };
+  }
+
+  const company = await getCompanyDetails().catch(() => ({
+    name: "K2 Pest Control",
+    phone: "(306) 407-0007",
+    email: "info@k2pc.ca",
+    licenseNumber: "A-003789",
+  }));
+
+  const transporter = createTransporter(config);
+
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
+      <div style="background-color: #0E2F48; padding: 24px 28px; text-align: left; border-bottom: 3px solid #BE2320;">
+        <h2 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: bold;">
+          ${company.name || "K2 Pest Control"}
+        </h2>
+        <p style="color: #F2B705; margin: 6px 0 0 0; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+          ✓ Inspection &amp; Service Request Received
+        </p>
+      </div>
+
+      <div style="padding: 28px;">
+        <p style="font-size: 16px; color: #1c1917; margin-top: 0; line-height: 1.5;">
+          Hello <strong>${lead.name}</strong>,
+        </p>
+        <p style="font-size: 14px; color: #44403c; line-height: 1.6;">
+          Thank you for choosing K2 Pest Control. We have received your request for <strong>${lead.service || "Pest Inspection & Treatment"}</strong> and our Saskatchewan-certified dispatch team is reviewing your details.
+        </p>
+
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin: 20px 0;">
+          <h3 style="margin: 0 0 12px 0; font-size: 14px; color: #0E2F48; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;">
+            📋 Your Request Summary:
+          </h3>
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <tr style="border-bottom: 1px solid #edf2f7;">
+              <td style="padding: 6px 0; color: #64748b; width: 140px; font-weight: bold;">Name:</td>
+              <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">${lead.name}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+              <td style="padding: 6px 0; color: #64748b; font-weight: bold;">Contact Phone:</td>
+              <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">${lead.phone}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+              <td style="padding: 6px 0; color: #64748b; font-weight: bold;">Service Requested:</td>
+              <td style="padding: 6px 0; color: #BE2320; font-weight: 700;">${lead.service || "General Pest Inspection"}</td>
+            </tr>
+            ${lead.city ? `
+            <tr style="border-bottom: 1px solid #edf2f7;">
+              <td style="padding: 6px 0; color: #64748b; font-weight: bold;">Location / City:</td>
+              <td style="padding: 6px 0; color: #0f172a;">${lead.city}</td>
+            </tr>
+            ` : ""}
+            ${lead.message ? `
+            <tr>
+              <td style="padding: 6px 0; color: #64748b; font-weight: bold; vertical-align: top;">Notes:</td>
+              <td style="padding: 6px 0; color: #334155; line-height: 1.4;">${lead.message}</td>
+            </tr>
+            ` : ""}
+          </table>
+        </div>
+
+        <div style="background-color: #fef2f2; border-left: 4px solid #BE2320; padding: 14px 16px; margin: 20px 0; border-radius: 4px;">
+          <h4 style="margin: 0 0 4px 0; color: #991b1b; font-size: 14px; font-weight: bold;">
+            ⏱️ What Happens Next?
+          </h4>
+          <p style="margin: 0; font-size: 13px; color: #7f1d1d; line-height: 1.5;">
+            A licensed exterminator will contact you shortly by phone or email to confirm your exact inspection time window and provide upfront pricing.
+          </p>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #f1f5f9; text-align: center;">
+          <p style="font-size: 13px; color: #64748b; margin: 0 0 8px 0;">
+            Need immediate emergency service in Saskatoon or surrounding areas?
+          </p>
+          <a href="tel:${(company.phone || "3064070007").replace(/[^0-9]/g, "")}" style="display: inline-block; background-color: #BE2320; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 15px;">
+            📞 Call Direct: ${company.phone || "(306) 407-0007"}
+          </a>
+        </div>
+      </div>
+
+      <div style="background-color: #0E2F48; padding: 18px 24px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #1e40af;">
+        &copy; ${new Date().getFullYear()} ${company.name || "K2 Pest Control"} &bull; Saskatoon, Saskatchewan<br>
+        Saskatchewan Ministry of Environment Licensed (No. ${company.licenseNumber || "A-003789"}) &bull; $5M Insured
+      </div>
+    </div>
+  `;
+
+  try {
+    await transporter.sendMail({
+      from: config.from,
+      to: lead.email,
+      subject: `✅ Booking Request Received: ${lead.service || "Pest Inspection"} - K2 Pest Control`,
+      html: htmlContent,
+    });
+    return { success: true };
+  } catch (error: any) {
+    console.error("Failed to send customer confirmation email:", error);
+    return { success: false, error: error.message };
+  }
+}
+

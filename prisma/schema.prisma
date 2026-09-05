@@ -44,6 +44,13 @@ model BusinessInfo {
   chatbotSystemPrompt String? @db.Text
   chatbotApiKey      String?  @db.Text
   chatbotQuickPrompts Json?
+  popupEnabled        Boolean  @default(true)
+  popupDelaySeconds   Int      @default(15)
+  popupDiscountTitle  String?  @default("$50 OFF")
+  popupDiscountSubtitle String? @default("First-Time Pest Inspection & Treatment")
+  popupDiscountCode   String?  @default("SAVE50")
+  popupHeading        String?  @default("Claim Your Limited-Time Inspection Discount!")
+  popupDescription    String?  @db.Text
   updatedAt          DateTime @updatedAt
 }
 

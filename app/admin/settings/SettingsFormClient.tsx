@@ -8,7 +8,7 @@ import { TagInput } from "@/components/admin/TagInput";
 import { ServiceAreasEditor } from "@/components/admin/ServiceAreasEditor";
 import { updateBusinessInfoAction } from "@/app/admin/actions";
 import { BusinessInfoInput, ServiceAreaItem } from "@/lib/validations/businessInfo";
-import { Save, Loader2, Phone, MapPin, Clock, Share2, Bot, Sparkles, Key, MessageSquareText, Globe2 } from "lucide-react";
+import { Save, Loader2, Phone, MapPin, Clock, Share2, Bot, Sparkles, Key, MessageSquareText, Globe2, Gift, Tag, Percent } from "lucide-react";
 
 interface SettingsFormClientProps {
   initialData?: any;
@@ -99,6 +99,13 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
       "You are the friendly, professional AI assistant for K2 Pest Control in Saskatoon & area. Guide users through pest identification, explain safe preparation protocols, highlight our licensed technicians, and encourage them to book an inspection or call our emergency hotline.",
     chatbotApiKey: initialData?.chatbotApiKey || "",
     chatbotQuickPrompts: defaultQuickPrompts,
+    popupEnabled: initialData?.popupEnabled ?? true,
+    popupDelaySeconds: initialData?.popupDelaySeconds ?? 15,
+    popupDiscountTitle: initialData?.popupDiscountTitle || "$50 OFF",
+    popupDiscountSubtitle: initialData?.popupDiscountSubtitle || "First-Time Pest Inspection & Treatment",
+    popupDiscountCode: initialData?.popupDiscountCode || "SAVE50",
+    popupHeading: initialData?.popupHeading || "Claim Your Limited-Time Inspection Discount!",
+    popupDescription: initialData?.popupDescription || "Fill out this quick form to claim your discount voucher and book a priority Saskatchewan-certified pest inspection.",
   });
 
   const handleHoursChange = (dayKey: string, timeVal: string) => {
@@ -480,6 +487,115 @@ export const SettingsFormClient: React.FC<SettingsFormClientProps> = ({ initialD
               <p className="text-xs text-stone-500 mt-1">
                 These clickable chips appear when visitors open the chat for quick 1-tap inquiries.
               </p>
+            </FormField>
+          </div>
+        </div>
+      </div>
+
+      {/* 6. Special Offer & Discount Inspection Popup */}
+      <div className="bg-white p-6 rounded-xl border border-stone-200 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-200/60 flex items-center justify-center text-[#BE2320]">
+              <Gift className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
+                15-Second Discount &amp; Free Inspection Popup
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                  Lead Generator
+                </span>
+              </h3>
+              <p className="text-xs text-stone-500">
+                Configure the automatic timer popup, discount voucher values, promo code, and inspection booking form.
+              </p>
+            </div>
+          </div>
+
+          <label className="relative inline-flex items-center cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={formData.popupEnabled}
+              onChange={(e) => setFormData((p) => ({ ...p, popupEnabled: e.target.checked }))}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#BE2320]"></div>
+            <span className="ml-3 text-sm font-medium text-stone-800">
+              {formData.popupEnabled ? "Popup Active" : "Popup Disabled"}
+            </span>
+          </label>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <FormField label="Timer Delay (Seconds)">
+            <input
+              type="number"
+              min="1"
+              max="300"
+              value={formData.popupDelaySeconds}
+              onChange={(e) => setFormData((p) => ({ ...p, popupDelaySeconds: parseInt(e.target.value) || 15 }))}
+              placeholder="15"
+              className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+            />
+            <p className="text-xs text-stone-400 mt-1">Default is 15 seconds after page load.</p>
+          </FormField>
+
+          <FormField label="Discount Badge / Value" required>
+            <input
+              type="text"
+              required
+              value={formData.popupDiscountTitle || "$50 OFF"}
+              onChange={(e) => setFormData((p) => ({ ...p, popupDiscountTitle: e.target.value }))}
+              placeholder="e.g. $50 OFF or 20% OFF"
+              className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+            />
+            <p className="text-xs text-stone-400 mt-1">Shown in the discount badge banner.</p>
+          </FormField>
+
+          <FormField label="Promo Code">
+            <input
+              type="text"
+              value={formData.popupDiscountCode || "SAVE50"}
+              onChange={(e) => setFormData((p) => ({ ...p, popupDiscountCode: e.target.value.toUpperCase() }))}
+              placeholder="e.g. SAVE50 or SPECIAL2026"
+              className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 font-mono font-bold focus:outline-none focus:border-[#BE2320]"
+            />
+            <p className="text-xs text-stone-400 mt-1">Visitors can 1-click copy this code.</p>
+          </FormField>
+
+          <div className="sm:col-span-2">
+            <FormField label="Discount Subtitle / Offer Details">
+              <input
+                type="text"
+                value={formData.popupDiscountSubtitle || "First-Time Pest Inspection & Treatment"}
+                onChange={(e) => setFormData((p) => ({ ...p, popupDiscountSubtitle: e.target.value }))}
+                placeholder="e.g. First-Time Pest Inspection & Treatment"
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+            </FormField>
+          </div>
+
+          <div className="sm:col-span-1">
+            <FormField label="Form Header Title">
+              <input
+                type="text"
+                value={formData.popupHeading || "Claim Your Limited-Time Inspection Discount!"}
+                onChange={(e) => setFormData((p) => ({ ...p, popupHeading: e.target.value }))}
+                placeholder="e.g. Claim Your Limited-Time Discount!"
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
+            </FormField>
+          </div>
+
+          <div className="sm:col-span-3">
+            <FormField label="Popup Description / Instructions">
+              <textarea
+                rows={2}
+                value={formData.popupDescription || ""}
+                onChange={(e) => setFormData((p) => ({ ...p, popupDescription: e.target.value }))}
+                placeholder="Fill out this quick form to claim your discount voucher and book a priority Saskatchewan-certified pest inspection."
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
+              />
             </FormField>
           </div>
         </div>

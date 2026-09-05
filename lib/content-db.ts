@@ -107,9 +107,25 @@ export async function getCompanyDetails() {
         "🐜 How do I prepare for ant treatment?",
         "📅 Can I book a pest inspection?",
       ],
+      popupEnabled: (info as any).popupEnabled ?? true,
+      popupDelaySeconds: (info as any).popupDelaySeconds ?? 15,
+      popupDiscountTitle: (info as any).popupDiscountTitle || "$50 OFF",
+      popupDiscountSubtitle: (info as any).popupDiscountSubtitle || "First-Time Pest Inspection & Treatment",
+      popupDiscountCode: (info as any).popupDiscountCode || "SAVE50",
+      popupHeading: (info as any).popupHeading || "Claim Your Limited-Time Inspection Discount!",
+      popupDescription: (info as any).popupDescription || "Fill out this quick form to claim your discount voucher and book a priority Saskatchewan-certified pest inspection.",
     };
   } catch (_error) {
-    return COMPANY_DETAILS;
+    return {
+      ...COMPANY_DETAILS,
+      popupEnabled: true,
+      popupDelaySeconds: 15,
+      popupDiscountTitle: "$50 OFF",
+      popupDiscountSubtitle: "First-Time Pest Inspection & Treatment",
+      popupDiscountCode: "SAVE50",
+      popupHeading: "Claim Your Limited-Time Inspection Discount!",
+      popupDescription: "Fill out this quick form to claim your discount voucher and book a priority Saskatchewan-certified pest inspection.",
+    };
   }
 }
 

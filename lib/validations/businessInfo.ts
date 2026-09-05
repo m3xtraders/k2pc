@@ -36,6 +36,13 @@ export const businessInfoSchema = z.object({
   chatbotSystemPrompt: z.string().optional().nullable(),
   chatbotApiKey: z.string().optional().nullable(),
   chatbotQuickPrompts: z.array(z.string()).optional().nullable(),
+  popupEnabled: z.boolean().default(true),
+  popupDelaySeconds: z.coerce.number().min(1).max(300).default(15),
+  popupDiscountTitle: z.string().default("$50 OFF"),
+  popupDiscountSubtitle: z.string().default("First-Time Pest Inspection & Treatment"),
+  popupDiscountCode: z.string().default("SAVE50"),
+  popupHeading: z.string().default("Claim Your Limited-Time Inspection Discount!"),
+  popupDescription: z.string().optional().nullable(),
 });
 
 export type BusinessInfoInput = z.infer<typeof businessInfoSchema>;

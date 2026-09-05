@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI, Type } from "@google/genai";
 import { prisma } from "@/lib/prisma";
 import { getCompanyDetails, getPublishedServices } from "@/lib/content-db";
-import { sendLeadNotificationEmail } from "@/lib/email";
+import { sendLeadNotificationEmail, sendCustomerBookingConfirmationEmail } from "@/lib/email";
 import { checkRateLimit } from "@/lib/rate-limit";
 
 export const maxDuration = 30; // 30s timeout
@@ -340,6 +340,17 @@ ${customAdminPrompt}
                 message: savedLead.message,
                 source: "AI Chatbot",
               }).catch((err) => console.error("Async chatbot email error:", err));
+
+              if (savedLead.email) {
+                sendCustomerBookingConfirmationEmail({
+                  name: savedLead.name,
+                  phone: savedLead.phone,
+                  email: savedLead.email,
+                  city: savedLead.city,
+                  service: savedLead.service,
+                  message: savedLead.message,
+                }).catch((err) => console.error("Async chatbot customer confirmation error:", err));
+              }
 
               if (!finalAssistantText) {
                 finalAssistantText = `Thank you, **${args.name}**! 🎉 Your request for **${args.service || "pest inspection"}** has been sent to our on-duty dispatcher. One of our licensed exterminators will contact you at **${args.phone}** shortly.\n\nNeed urgent 24/7 dispatch? Feel free to call us directly at **${companyDetails.phone || "(306) 407-0007"}**.`;

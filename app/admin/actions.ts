@@ -166,6 +166,13 @@ export async function updateBusinessInfoAction(data: any) {
     chatbotSystemPrompt: validated.chatbotSystemPrompt || null,
     chatbotApiKey: validated.chatbotApiKey || null,
     chatbotQuickPrompts: validated.chatbotQuickPrompts || null,
+    popupEnabled: validated.popupEnabled ?? true,
+    popupDelaySeconds: validated.popupDelaySeconds ?? 15,
+    popupDiscountTitle: validated.popupDiscountTitle || "$50 OFF",
+    popupDiscountSubtitle: validated.popupDiscountSubtitle || "First-Time Pest Inspection & Treatment",
+    popupDiscountCode: validated.popupDiscountCode || "SAVE50",
+    popupHeading: validated.popupHeading || "Claim Your Limited-Time Inspection Discount!",
+    popupDescription: validated.popupDescription || null,
   };
 
   const existing = await prisma.businessInfo.findFirst();

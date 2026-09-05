@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { contactFormSchema } from "@/lib/validations";
-import { sendLeadNotificationEmail } from "@/lib/email";
+import { sendLeadNotificationEmail, sendCustomerBookingConfirmationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -20,8 +20,7 @@ export async function POST(request: Request) {
       } as any,
     });
 
-    // Send email notification to dispatch/admin team via SMTP
-    sendLeadNotificationEmail({
+    const leadPayload = {
       id: submission.id,
       name: validated.name,
       phone: validated.phone,
@@ -30,7 +29,19 @@ export async function POST(request: Request) {
       city: validated.addressOrCity,
       message: validated.message,
       source: "Web Form",
-    }).catch((err) => console.error("Async email error:", err));
+    };
+
+    // 1. Send full details email to admin/dispatch team (k2pcsas@gmail.com)
+    sendLeadNotificationEmail(leadPayload).catch((err) =>
+      console.error("Admin notification email error:", err)
+    );
+
+    // 2. Send booking confirmation email to customer (if email provided)
+    if (leadPayload.email) {
+      sendCustomerBookingConfirmationEmail(leadPayload).catch((err) =>
+        console.error("Customer confirmation email error:", err)
+      );
+    }
 
     return NextResponse.json(
       { success: true, id: submission.id },
