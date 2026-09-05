@@ -65,9 +65,87 @@ export default function Footer({ companyDetails }: FooterProps) {
                 </a>
               </div>
             </div>
+          </div>
 
-            {/* Social Media Links from Database */}
-            <div className="pt-3 border-t border-[#1C4E75]/40">
+          {/* Column 2: Quick Links */}
+          <div>
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
+              Navigation
+            </h3>
+            <ul className="space-y-2 text-sm text-stone-300">
+              <li>
+                <Link href="/" className="hover:text-action-yellow transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-action-yellow transition-colors">
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/commercial" className="hover:text-action-yellow transition-colors">
+                  Commercial Solutions
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-action-yellow transition-colors">
+                  About K2 Pest Control
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-action-yellow transition-colors">
+                  Pest Identification Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-action-yellow transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Core Pest Services */}
+          <div>
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
+              Pest Extermination
+            </h3>
+            <ul className="space-y-2 text-sm text-stone-300">
+              {SERVICES.slice(0, 6).map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="hover:text-action-yellow transition-colors flex items-center gap-1.5"
+                  >
+                    <span className="text-brand-red">›</span> {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Licensing & Trust Badges */}
+          <div className="space-y-4">
+            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
+              Licensing & Trust
+            </h3>
+            <div className="bg-[#143D5C] border border-[#1C4E75]/60 p-4 rounded-xl space-y-3">
+              <div className="flex items-center gap-2 text-action-yellow font-bold text-sm">
+                <Shield className="w-5 h-5 shrink-0" />
+                <span>License No: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}</span>
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed">
+                Licensed by the {company.provincialBody || COMPANY_DETAILS.provincialBody}. $5M liability insured & WCB certified.
+              </p>
+              <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold pt-1">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>6-Month Re-treatment Guarantee</span>
+              </div>
+            </div>
+
+            {/* Social Media Links from Database beneath License Box */}
+            <div className="pt-2">
               <span className="text-xs uppercase font-bold tracking-wider text-action-yellow block mb-2.5">
                 Follow &amp; Review Us:
               </span>
@@ -151,84 +229,6 @@ export default function Footer({ companyDetails }: FooterProps) {
                     </svg>
                   </a>
                 )}
-              </div>
-            </div>
-          </div>
-
-          {/* Column 2: Quick Links */}
-          <div>
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
-              Navigation
-            </h3>
-            <ul className="space-y-2 text-sm text-stone-300">
-              <li>
-                <Link href="/" className="hover:text-action-yellow transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-action-yellow transition-colors">
-                  All Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/commercial" className="hover:text-action-yellow transition-colors">
-                  Commercial Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-action-yellow transition-colors">
-                  About K2 Pest Control
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-action-yellow transition-colors">
-                  Pest Identification Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-action-yellow transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Core Pest Services */}
-          <div>
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
-              Pest Extermination
-            </h3>
-            <ul className="space-y-2 text-sm text-stone-300">
-              {SERVICES.slice(0, 6).map((service) => (
-                <li key={service.id}>
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="hover:text-action-yellow transition-colors flex items-center gap-1.5"
-                  >
-                    <span className="text-brand-red">›</span> {service.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Licensing & Trust Badges */}
-          <div className="space-y-4">
-            <h3 className="font-heading font-bold text-lg text-white mb-4 border-b border-[#1C4E75]/50 pb-2">
-              Licensing & Trust
-            </h3>
-            <div className="bg-[#143D5C] border border-[#1C4E75]/60 p-4 rounded-xl space-y-3">
-              <div className="flex items-center gap-2 text-action-yellow font-bold text-sm">
-                <Shield className="w-5 h-5 shrink-0" />
-                <span>License No: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}</span>
-              </div>
-              <p className="text-xs text-stone-400 leading-relaxed">
-                Licensed by the {company.provincialBody || COMPANY_DETAILS.provincialBody}. $5M liability insured & WCB certified.
-              </p>
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold pt-1">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>6-Month Re-treatment Guarantee</span>
               </div>
             </div>
           </div>
