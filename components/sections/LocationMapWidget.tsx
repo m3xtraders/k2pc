@@ -5,13 +5,15 @@ import { MapPin, Phone, Clock, ExternalLink, MessageSquare } from "lucide-react"
 interface LocationMapWidgetProps {
   heading?: string;
   subtitle?: string;
+  company?: any;
 }
 
 export default async function LocationMapWidget({
   heading,
   subtitle,
+  company: propCompany,
 }: LocationMapWidgetProps) {
-  const company = await getCompanyDetails();
+  const company = propCompany || (await getCompanyDetails());
 
   const fullAddress = `${company.address.street}, ${company.address.city}, ${company.address.province} ${company.address.postalCode}`;
   

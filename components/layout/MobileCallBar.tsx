@@ -25,6 +25,7 @@ export default function MobileCallBar({ companyDetails }: MobileCallBarProps = {
         {/* Get Quote Button */}
         <Link
           href="/contact"
+          prefetch={true}
           className="flex items-center justify-center gap-2 bg-action-yellow text-ink font-bold py-3 px-3 rounded-lg text-sm shadow-md active:bg-amber-500 min-h-[44px] transition-colors"
         >
           <Calendar className="w-4 h-4 shrink-0" />

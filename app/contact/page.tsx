@@ -23,8 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function ContactPage() {
   const [company, faqs] = await Promise.all([
@@ -163,7 +162,7 @@ export default async function ContactPage() {
             </div>
 
             {/* Right Contact Form Column */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7" id="quote-form">
               <ContactForm />
             </div>
           </div>
@@ -171,7 +170,7 @@ export default async function ContactPage() {
       </section>
 
       {/* Interactive Location Map Widget */}
-      <LocationMapWidget />
+      <LocationMapWidget company={company} />
 
       <FAQAccordion items={faqs} />
       <CTABand />

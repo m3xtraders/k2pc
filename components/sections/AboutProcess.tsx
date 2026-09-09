@@ -131,6 +131,7 @@ export default function AboutProcess() {
             </a>
             <Link
               href="/contact"
+              prefetch={true}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-heading font-bold text-sm shadow-md transition-all hover:scale-105"
             >
               <span>Get Free Quote</span>

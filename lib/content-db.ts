@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { COMPANY_DETAILS } from "@/lib/content/company";
 import { LOCATIONS } from "@/lib/content/locations";
@@ -11,7 +12,7 @@ import {
 } from "@/lib/content/legal";
 import { Service, BlogPost, LocationCity, FAQItem } from "@/lib/types";
 
-export async function getCompanyDetails() {
+export const getCompanyDetails = cache(async function getCompanyDetails() {
   try {
     const info = await prisma.businessInfo.findFirst();
     if (!info) {
@@ -127,7 +128,7 @@ export async function getCompanyDetails() {
       popupDescription: "Fill out this quick form to claim your discount voucher and book a priority Saskatchewan-certified pest inspection.",
     };
   }
-}
+});
 
 export async function getPublishedLocations(): Promise<LocationCity[]> {
   try {
@@ -184,7 +185,7 @@ function parseArrayField<T>(field: any): T[] {
   return [];
 }
 
-export async function getPublishedServices(): Promise<Service[]> {
+export const getPublishedServices = cache(async function getPublishedServices(): Promise<Service[]> {
   try {
     const dbServices = await prisma.service.findMany({
       where: { status: "PUBLISHED" },
@@ -249,7 +250,7 @@ export async function getPublishedServices(): Promise<Service[]> {
   } catch (_error) {
     return SERVICES;
   }
-}
+});
 
 export async function getPublishedServiceBySlug(slug: string): Promise<Service | null> {
   try {
@@ -396,7 +397,7 @@ export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost
 }
 
 
-export async function getPublishedFaqs(): Promise<FAQItem[]> {
+export const getPublishedFaqs = cache(async function getPublishedFaqs(): Promise<FAQItem[]> {
   try {
     const faqs = await prisma.faq.findMany({
       where: { status: "PUBLISHED" },
@@ -416,7 +417,7 @@ export async function getPublishedFaqs(): Promise<FAQItem[]> {
   } catch (_error) {
     return [];
   }
-}
+});
 
 export async function getAllFaqs() {
   try {

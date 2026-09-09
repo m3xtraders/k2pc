@@ -5,6 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
   href?: string;
+  prefetch?: boolean;
   children: React.ReactNode;
   className?: string;
 }
@@ -16,6 +17,8 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   className = "",
   disabled,
+  prefetch = true,
+  onClick,
   ...props
 }) => {
   const baseStyles =
@@ -46,14 +49,20 @@ export const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses}>
+      <Link
+        href={href}
+        prefetch={prefetch}
+        className={combinedClasses}
+        onClick={onClick as any}
+        {...(props as any)}
+      >
         {children}
       </Link>
     );
   }
 
   return (
-    <button disabled={disabled} className={combinedClasses} {...props}>
+    <button disabled={disabled} className={combinedClasses} onClick={onClick} {...props}>
       {children}
     </button>
   );
