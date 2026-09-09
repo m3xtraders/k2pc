@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, ContactFormValues } from "@/lib/validations";
 import { SERVICES } from "@/lib/content/services";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2, AlertCircle, Loader2, Send, Building2, Mail, Phone } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, Send, Building2, Mail, Phone, Home } from "lucide-react";
 
 interface ContactFormProps {
   defaultService?: string;
@@ -76,6 +76,10 @@ export default function ContactForm({
       phone: "",
       email: "",
       serviceNeeded: defaultService ? normalizeService(defaultService) : "",
+      propertyType: "",
+      bedrooms: "3 Rooms",
+      kitchens: "1 Kitchen",
+      bathrooms: "2 Washrooms",
       addressOrCity: "",
       message: "",
     },
@@ -402,6 +406,108 @@ export default function ContactForm({
             <span>{errors.serviceNeeded.message}</span>
           </p>
         )}
+      </div>
+
+      {/* Property & Room Details (Saskatoon Housing Types & Layout) */}
+      <div className="space-y-4 pt-1">
+        <div className="flex items-center gap-2 pb-1 border-b border-stone-200">
+          <Home className="w-4 h-4 text-brand-red shrink-0" />
+          <span className="text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+            Property &amp; Room Details
+          </span>
+        </div>
+
+        {/* House / Property Type */}
+        <div className="space-y-1.5 text-left">
+          <label htmlFor="propertyType" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+            House / Property Type <span className="text-brand-red">*</span>
+          </label>
+          <select
+            id="propertyType"
+            {...register("propertyType")}
+            className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink bg-white cursor-pointer ${
+              errors.propertyType
+                ? "border-brand-red focus:ring-2 focus:ring-brand-red"
+                : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+            }`}
+          >
+            <option value="">-- Select House / Property Type --</option>
+            <option value="Single-Family Detached House">Single-Family Detached House</option>
+            <option value="Bungalow / Raised Bungalow">Bungalow / Raised Bungalow</option>
+            <option value="Two-Storey House">Two-Storey House</option>
+            <option value="Split-Level / Bi-Level">Split-Level / Bi-Level</option>
+            <option value="Apartment / Condo Unit">Apartment / Condo Unit</option>
+            <option value="Townhouse / Row House">Townhouse / Row House</option>
+            <option value="Duplex / Semi-Detached">Duplex / Semi-Detached</option>
+            <option value="Basement Suite">Basement Suite</option>
+            <option value="Acreage / Rural Home">Acreage / Rural Home (Saskatoon Area)</option>
+            <option value="Commercial / Office Facility">Commercial / Office Facility</option>
+            <option value="Other Property Type">Other Property Type</option>
+          </select>
+          {errors.propertyType && (
+            <p className="text-xs font-semibold text-brand-red flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span>{errors.propertyType.message}</span>
+            </p>
+          )}
+        </div>
+
+        {/* 3-Column Grid: Bedrooms, Kitchens, Washrooms */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Rooms / Bedrooms */}
+          <div className="space-y-1.5 text-left">
+            <label htmlFor="bedrooms" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+              Bedrooms / Rooms <span className="text-brand-red">*</span>
+            </label>
+            <select
+              id="bedrooms"
+              {...register("bedrooms")}
+              className="w-full px-3 py-2.5 rounded-lg border border-stone-300 text-sm transition-colors text-ink bg-white focus:border-brand-red focus:ring-1 focus:ring-brand-red cursor-pointer"
+            >
+              <option value="1 Room">1 Room / Studio</option>
+              <option value="2 Rooms">2 Rooms</option>
+              <option value="3 Rooms">3 Rooms</option>
+              <option value="4 Rooms">4 Rooms</option>
+              <option value="5+ Rooms">5+ Rooms</option>
+            </select>
+          </div>
+
+          {/* Kitchens */}
+          <div className="space-y-1.5 text-left">
+            <label htmlFor="kitchens" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+              Kitchens <span className="text-brand-red">*</span>
+            </label>
+            <select
+              id="kitchens"
+              {...register("kitchens")}
+              className="w-full px-3 py-2.5 rounded-lg border border-stone-300 text-sm transition-colors text-ink bg-white focus:border-brand-red focus:ring-1 focus:ring-brand-red cursor-pointer"
+            >
+              <option value="1 Kitchen">1 Kitchen</option>
+              <option value="2 Kitchens">2 Kitchens (Main + Suite)</option>
+              <option value="3+ Kitchens">3+ Kitchens / Commercial</option>
+              <option value="No Kitchen">No Kitchen / Office</option>
+            </select>
+          </div>
+
+          {/* Washrooms */}
+          <div className="space-y-1.5 text-left">
+            <label htmlFor="bathrooms" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
+              Washrooms <span className="text-brand-red">*</span>
+            </label>
+            <select
+              id="bathrooms"
+              {...register("bathrooms")}
+              className="w-full px-3 py-2.5 rounded-lg border border-stone-300 text-sm transition-colors text-ink bg-white focus:border-brand-red focus:ring-1 focus:ring-brand-red cursor-pointer"
+            >
+              <option value="1 Washroom">1 Washroom</option>
+              <option value="1.5 Washrooms">1.5 Washrooms</option>
+              <option value="2 Washrooms">2 Washrooms</option>
+              <option value="2.5 Washrooms">2.5 Washrooms</option>
+              <option value="3 Washrooms">3 Washrooms</option>
+              <option value="4+ Washrooms">4+ Washrooms</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* Field 5: Address/City */}

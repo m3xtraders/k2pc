@@ -8,6 +8,26 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validated = contactFormSchema.parse(body);
 
+    const propertyDetailsLines = [
+      validated.propertyType ? `Property Type: ${validated.propertyType}` : null,
+      (validated.bedrooms || validated.kitchens || validated.bathrooms)
+        ? `Rooms / Layout: ${[
+            validated.bedrooms ? `${validated.bedrooms}` : null,
+            validated.kitchens ? `${validated.kitchens}` : null,
+            validated.bathrooms ? `${validated.bathrooms}` : null,
+          ]
+            .filter(Boolean)
+            .join(" • ")}`
+        : null,
+    ].filter(Boolean);
+
+    const formattedMessage = [
+      propertyDetailsLines.length > 0 ? `[Property Details]\n${propertyDetailsLines.join("\n")}` : null,
+      validated.message ? `[Customer Notes]\n${validated.message}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+
     const submission = await prisma.contactSubmission.create({
       data: {
         name: validated.name,
@@ -15,7 +35,7 @@ export async function POST(request: Request) {
         email: validated.email ? validated.email.trim() : null,
         service: validated.serviceNeeded,
         city: validated.addressOrCity,
-        message: validated.message || "",
+        message: formattedMessage || "No additional notes.",
         status: "NEW" as any,
       } as any,
     });
@@ -27,7 +47,7 @@ export async function POST(request: Request) {
       email: validated.email ? validated.email.trim() : null,
       service: validated.serviceNeeded,
       city: validated.addressOrCity,
-      message: validated.message,
+      message: formattedMessage || "No additional notes.",
       source: "Web Form",
     };
 
