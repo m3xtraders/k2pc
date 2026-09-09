@@ -376,16 +376,16 @@ export default function ContactForm({
             {/* Everything after that */}
             <option value="Residential Pest Control">Residential Pest Control</option>
             <option value="Commercial Pest Control & Food Safety">
-              🏢 Commercial Pest Control &amp; Food Safety
+              Commercial Pest Control &amp; Food Safety
             </option>
             <option value="Commercial Restaurant & Kitchen Defense">
-              🍽️ Restaurant &amp; Food Service Program
+              Restaurant &amp; Food Service Program
             </option>
             <option value="Commercial Warehouse & Logistics IPM">
-              🏭 Warehouse &amp; Industrial Facility
+              Warehouse &amp; Industrial Facility
             </option>
             <option value="Commercial Property Management & Multi-Unit">
-              🏬 Multi-Unit Residential &amp; Property Management
+              Multi-Unit Residential &amp; Property Management
             </option>
             <option value="Termite Inspection & Barrier Treatment">
               Termite Inspection &amp; Barrier Treatment
