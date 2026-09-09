@@ -36,10 +36,49 @@ export function DiscountInspectionModal({
     name: "",
     phone: "",
     email: "",
-    serviceNeeded: "General Pest Inspection",
+    serviceNeeded: "Bed Bug",
     addressOrCity: "Saskatoon",
     message: "",
   });
+
+  const sanitizePhone = (val: string) => {
+    let cleaned = val.replace(/[^\d+]/g, "");
+    if (cleaned.startsWith("+")) {
+      return "+" + cleaned.slice(1).replace(/\+/g, "");
+    }
+    return cleaned.replace(/\+/g, "");
+  };
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.key === "Backspace" ||
+      e.key === "Delete" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight" ||
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown" ||
+      e.key === "Tab" ||
+      e.key === "Enter" ||
+      e.key === "Home" ||
+      e.key === "End" ||
+      e.ctrlKey ||
+      e.metaKey
+    ) {
+      return;
+    }
+    if (e.key === "+") {
+      const input = e.currentTarget;
+      if (input.selectionStart === 0 && (!input.value.includes("+") || (input.selectionEnd && input.selectionEnd > 0))) {
+        return;
+      }
+      e.preventDefault();
+      return;
+    }
+    if (/^[0-9]$/.test(e.key)) {
+      return;
+    }
+    e.preventDefault();
+  };
 
   const popupEnabled = companyDetails?.popupEnabled ?? true;
   const delaySeconds = companyDetails?.popupDelaySeconds ?? 15;
@@ -285,15 +324,17 @@ export function DiscountInspectionModal({
 
                     <div>
                       <label className="block text-xs font-mono-data font-bold text-stone-700 uppercase mb-1">
-                        Phone Number <span className="text-brand-red">*</span>
+                        Phone Number <span className="text-brand-red">*</span> <span className="text-stone-400 text-[10px] font-normal normal-case">(numbers and + only)</span>
                       </label>
                       <input
                         type="tel"
+                        inputMode="tel"
                         required
-                        placeholder="(306) 555-0199"
+                        placeholder="e.g. +13064070007"
                         value={formData.phone}
+                        onKeyDown={handlePhoneKeyDown}
                         onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, phone: e.target.value }))
+                          setFormData((prev) => ({ ...prev, phone: sanitizePhone(e.target.value) }))
                         }
                         className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent text-ink placeholder-stone-400"
                       />
@@ -331,28 +372,19 @@ export function DiscountInspectionModal({
                         }
                         className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent text-ink bg-white cursor-pointer"
                       >
-                        <option value="General Pest Inspection">General Pest Inspection</option>
-                        <option value="Mice & Rodent Control">Mice &amp; Rodent Control</option>
-                        <option value="Bed Bug Treatment">Bed Bug Heat / Chemical Treatment</option>
-                        <option value="Ant Extermination">Ant Extermination</option>
-                        <option value="Cockroach Control">Cockroach Control</option>
-                        <option value="Wasp & Hornet Removal">Wasp &amp; Hornet Removal</option>
+                        <option value="Bed Bug">Bed Bug</option>
+                        <option value="Cockroach">Cockroach</option>
+                        <option value="Mosquito">Mosquito</option>
+                        <option value="Ant">Ant</option>
+                        <option value="Mice">Mice</option>
+                        <option value="Wasp">Wasp</option>
+                        <option value="Spider">Spider</option>
+                        <option value="Residential Pest Control">Residential Pest Control</option>
                         <option value="Commercial Pest Control">Commercial Pest IPM</option>
-                        {services
-                          .filter(
-                            (s) =>
-                              ![
-                                "General Pest Inspection",
-                                "Mice & Rodent Control",
-                                "Bed Bug Treatment",
-                                "Ant Extermination",
-                              ].includes(s.title)
-                          )
-                          .map((s) => (
-                            <option key={s.id} value={s.title}>
-                              {s.title}
-                            </option>
-                          ))}
+                        <option value="Termite Inspection">Termite Inspection</option>
+                        <option value="Humane Wildlife Removal">Humane Wildlife Removal</option>
+                        <option value="Seasonal Prevention Plans">Seasonal Prevention Plans</option>
+                        <option value="General Pest Inspection">General Pest Inspection</option>
                       </select>
                     </div>
                   </div>

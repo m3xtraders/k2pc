@@ -17,6 +17,40 @@ interface ContactFormProps {
   isModal?: boolean;
 }
 
+// Helper to only allow digits and optional leading '+'
+const sanitizePhoneNumber = (val: string) => {
+  if (!val) return "";
+  let cleaned = val.replace(/[^\d+]/g, "");
+  if (cleaned.startsWith("+")) {
+    cleaned = "+" + cleaned.slice(1).replace(/\+/g, "");
+  } else {
+    cleaned = cleaned.replace(/\+/g, "");
+  }
+  return cleaned;
+};
+
+// Helper to normalize pest/service names from params or defaultService
+const normalizeService = (val: string): string => {
+  if (!val) return "";
+  const lower = val.toLowerCase().trim();
+  if (lower.includes("bed bug") || lower.includes("bed-bug")) return "Bed Bug";
+  if (lower.includes("cockroach") || lower.includes("roach")) return "Cockroach";
+  if (lower.includes("mosquito")) return "Mosquito";
+  if (lower.includes("ant")) return "Ant";
+  if (lower.includes("mice") || lower.includes("mouse") || lower.includes("rodent") || lower.includes("rat")) return "Mice";
+  if (lower.includes("wasp") || lower.includes("hornet") || lower.includes("yellowjacket")) return "Wasp";
+  if (lower.includes("spider")) return "Spider";
+  if (lower.includes("residential") || lower.includes("home")) return "Residential Pest Control";
+  if (lower.includes("food safety") || lower.includes("commercial-pest-control")) return "Commercial Pest Control & Food Safety";
+  if (lower.includes("restaurant") || lower.includes("kitchen")) return "Commercial Restaurant & Kitchen Defense";
+  if (lower.includes("warehouse") || lower.includes("industrial")) return "Commercial Warehouse & Logistics IPM";
+  if (lower.includes("multi-unit") || lower.includes("property management")) return "Commercial Property Management & Multi-Unit";
+  if (lower.includes("termite")) return "Termite Inspection & Barrier Treatment";
+  if (lower.includes("wildlife") || lower.includes("raccoon") || lower.includes("squirrel")) return "Humane Wildlife Removal";
+  if (lower.includes("seasonal")) return "Seasonal Pest Prevention Plans";
+  return val;
+};
+
 export default function ContactForm({
   defaultService,
   lockService = false,
@@ -41,20 +75,76 @@ export default function ContactForm({
       name: "",
       phone: "",
       email: "",
-      serviceNeeded: defaultService || "",
+      serviceNeeded: defaultService ? normalizeService(defaultService) : "",
       addressOrCity: "",
       message: "",
     },
   });
 
+  const phoneRegister = register("phone");
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow navigation, deletion, copy/paste shortcuts
+    if (
+      e.key === "Backspace" ||
+      e.key === "Delete" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight" ||
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown" ||
+      e.key === "Tab" ||
+      e.key === "Enter" ||
+      e.key === "Home" ||
+      e.key === "End" ||
+      e.ctrlKey ||
+      e.metaKey
+    ) {
+      return;
+    }
+
+    // Allow '+' only at index 0 and if not already present
+    if (e.key === "+") {
+      const input = e.currentTarget;
+      const isAtStart = input.selectionStart === 0;
+      const hasPlus = input.value.includes("+");
+      const isReplacingPlus = hasPlus && input.selectionStart === 0 && (input.selectionEnd ?? 0) > 0;
+      if (isAtStart && (!hasPlus || isReplacingPlus)) {
+        return;
+      }
+      e.preventDefault();
+      return;
+    }
+
+    // Allow digits 0-9
+    if (/^[0-9]$/.test(e.key)) {
+      return;
+    }
+
+    // Block any other characters (letters, spaces, dashes, parentheses, symbols)
+    e.preventDefault();
+  };
+
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    const sanitized = sanitizePhoneNumber(pasted);
+    const input = e.currentTarget;
+    const start = input.selectionStart ?? 0;
+    const end = input.selectionEnd ?? 0;
+    const current = input.value;
+    const updated = sanitizePhoneNumber(current.slice(0, start) + sanitized + current.slice(end));
+    input.value = updated;
+    setValue("phone", updated, { shouldValidate: true });
+  };
+
   useEffect(() => {
     if (defaultService) {
-      setValue("serviceNeeded", defaultService);
+      setValue("serviceNeeded", normalizeService(defaultService));
     } else if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const serviceParam = params.get("service") || params.get("pest");
       if (serviceParam) {
-        setValue("serviceNeeded", serviceParam);
+        setValue("serviceNeeded", normalizeService(serviceParam));
       }
     }
   }, [defaultService, setValue]);
@@ -171,14 +261,22 @@ export default function ContactForm({
         {/* Phone */}
         <div className="space-y-1.5 text-left">
           <label htmlFor="phone" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-            Phone Number <span className="text-brand-red">*</span>
+            Phone Number <span className="text-brand-red">*</span> <span className="text-stone-400 text-[10px] font-normal normal-case">(numbers and + only)</span>
           </label>
           <div className="relative">
             <input
               id="phone"
               type="tel"
-              placeholder="e.g. (306) 407-0007"
-              {...register("phone")}
+              inputMode="tel"
+              placeholder="e.g. +13064070007 or 3064070007"
+              {...phoneRegister}
+              onKeyDown={handlePhoneKeyDown}
+              onPaste={handlePhonePaste}
+              onChange={(e) => {
+                const cleaned = sanitizePhoneNumber(e.target.value);
+                e.target.value = cleaned;
+                phoneRegister.onChange(e);
+              }}
               className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink placeholder:text-stone-400 bg-white ${
                 errors.phone
                   ? "border-brand-red focus:ring-2 focus:ring-brand-red"
@@ -259,26 +357,24 @@ export default function ContactForm({
           <select
             id="serviceNeeded"
             {...register("serviceNeeded")}
-            className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink bg-white ${
+            className={`w-full px-4 py-2.5 sm:py-3 rounded-lg border text-sm transition-colors text-ink bg-white cursor-pointer ${
               errors.serviceNeeded
                 ? "border-brand-red focus:ring-2 focus:ring-brand-red"
                 : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
             }`}
           >
             <option value="">-- Select Pest or Facility Type --</option>
-            {defaultService &&
-              !SERVICES.some((s) => s.title.toLowerCase() === defaultService.toLowerCase()) &&
-              ![
-                "Commercial Pest Control & Food Safety",
-                "Commercial Restaurant & Kitchen Defense",
-                "Commercial Warehouse & Logistics IPM",
-                "Commercial Property Management & Multi-Unit",
-                "Other / Emergency Inspection",
-              ].some((opt) => opt.toLowerCase() === defaultService.toLowerCase()) && (
-                <option value={defaultService}>
-                  🎯 {defaultService}
-                </option>
-              )}
+            {/* Top requested priority pests in exact order */}
+            <option value="Bed Bug">Bed Bug</option>
+            <option value="Cockroach">Cockroach</option>
+            <option value="Mosquito">Mosquito</option>
+            <option value="Ant">Ant</option>
+            <option value="Mice">Mice</option>
+            <option value="Wasp">Wasp</option>
+            <option value="Spider">Spider</option>
+
+            {/* Everything after that */}
+            <option value="Residential Pest Control">Residential Pest Control</option>
             <option value="Commercial Pest Control & Food Safety">
               🏢 Commercial Pest Control &amp; Food Safety
             </option>
@@ -291,11 +387,11 @@ export default function ContactForm({
             <option value="Commercial Property Management & Multi-Unit">
               🏬 Multi-Unit Residential &amp; Property Management
             </option>
-            {SERVICES.filter((s) => s.id !== "commercial-pest-control").map((s) => (
-              <option key={s.id} value={s.title}>
-                {s.title}
-              </option>
-            ))}
+            <option value="Termite Inspection & Barrier Treatment">
+              Termite Inspection &amp; Barrier Treatment
+            </option>
+            <option value="Humane Wildlife Removal">Humane Wildlife Removal</option>
+            <option value="Seasonal Pest Prevention Plans">Seasonal Pest Prevention Plans</option>
             <option value="Other / Emergency Inspection">Other / Custom Facility Inspection</option>
           </select>
         )}
@@ -362,7 +458,7 @@ export default function ContactForm({
         ) : (
           <>
             <Send className="w-5 h-5" />
-            <span>Book Site Assessment &rarr;</span>
+            <span>{isModal ? "Book Site Assessment →" : "Submit Free Quote Request →"}</span>
           </>
         )}
       </Button>
