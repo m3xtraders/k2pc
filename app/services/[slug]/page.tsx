@@ -320,7 +320,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     <CheckCircle2 className="w-5 h-5 text-action-yellow shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-bold text-sm text-white">99.9% Eradication Guarantee</h4>
-                      <p className="text-xs text-stone-400">Complete pest removal with free re-treatment warranty.</p>
+                      <p className="text-xs text-stone-400">Complete pest removal with free re-treatment guarantee.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -371,7 +371,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           }
           subtitle={
             hasCustomFaqs
-              ? `Frequently asked questions about our ${service.title.toLowerCase()} methods, safety protocols, and warranty coverage.`
+              ? `Frequently asked questions about our ${service.title.toLowerCase()} methods, safety protocols, and guarantee coverage.`
               : "Frequently asked questions about our Saskatoon pest control treatments, safety protocols, and guaranteed extermination."
           }
           items={effectiveFaqs.map((f: any, i: number) => ({

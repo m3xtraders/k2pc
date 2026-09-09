@@ -140,7 +140,7 @@ export default function Footer({ companyDetails }: FooterProps) {
               </p>
               <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold pt-1">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>6-Month Re-treatment Guarantee</span>
+                <span>3-Month Re-treatment Guarantee</span>
               </div>
             </div>
 

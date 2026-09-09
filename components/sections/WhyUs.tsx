@@ -30,9 +30,9 @@ export default function WhyUs() {
     {
       id: "04",
       icon: Award,
-      title: "99.9% Satisfaction & 6-Month Warranty",
+      title: "99.9% Satisfaction & 3-Month Guarantee",
       description:
-        "If pests return inside your warranty window, we re-treat your property free of charge until the problem is solved.",
+        "If pests return inside your guarantee window, we re-treat your property free of charge until the problem is solved.",
       badge: "Guaranteed",
     },
   ];

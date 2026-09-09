@@ -256,10 +256,10 @@ export function ServicesTabbedSection({ services }: ServicesTabbedSectionProps) 
                             ))}
                           </ul>
 
-                          {/* Warranty */}
+                          {/* Guarantee */}
                           <div className="inline-flex items-center gap-2 text-xs font-mono-data text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">
                             <ShieldCheck className="w-4 h-4 shrink-0 text-emerald-600" />
-                            <span>{service.warranty || "Service Warranty"}</span>
+                            <span>{service.warranty || "Service Guarantee"}</span>
                           </div>
                         </div>
 

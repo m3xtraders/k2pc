@@ -18,7 +18,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     date: "1 month ago",
     serviceReceived: "Carpenter Ant Control",
-    comment: "Saw carpenter ants near our patio door. The technician was knowledgeable, polite, and explained how the exterior bait system works. 6-month warranty gave us complete peace of mind. Highly recommend!",
+    comment: "Saw carpenter ants near our patio door. The technician was knowledgeable, polite, and explained how the exterior bait system works. 3-month guarantee gave us complete peace of mind. Highly recommend!",
     verified: true,
   },
   {

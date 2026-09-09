@@ -137,7 +137,7 @@ const COMMERCIAL_TEMPLATES = [
       {
         step: 3,
         title: "Trash Chute Remediation & Tenant Guarantee",
-        description: "Biological foam cleaning of garbage chutes and delivery of tenant clearance certificates with full warranty.",
+        description: "Biological foam cleaning of garbage chutes and delivery of tenant clearance certificates with full guarantee.",
       },
     ],
   },
@@ -169,7 +169,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
     displayOrder: initialData?.displayOrder || 0,
     status: initialData?.status || "DRAFT",
     pricingStartsAt: initialData?.pricingStartsAt || staticFallback?.pricingStartsAt || (isCommercialParam ? "Custom Quote" : "$189"),
-    warranty: initialData?.warranty || staticFallback?.warranty || "6-Month Warranty",
+    warranty: initialData?.warranty || staticFallback?.warranty || "3-Month Guarantee",
     pestCategory: initialData?.pestCategory || staticFallback?.pestCategory || (isCommercialParam ? "commercial" : "insects"),
     faqs: initialData?.faqs || [],
     signsOfInfestation: initialData?.signsOfInfestation || [],
@@ -920,7 +920,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
 
         {/* Right Col: Metadata, Status, Image */}
         <div className="space-y-6">
-          {/* Pricing, Category & Warranty Card */}
+          {/* Pricing, Category & Guarantee Card */}
           <div className="bg-white p-5 rounded-xl border border-stone-200 shadow-2xs space-y-4">
             <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
               <DollarSign className="w-4 h-4 text-[#BE2320]" />
@@ -943,14 +943,14 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData }) => {
             </FormField>
 
             <FormField
-              label="Warranty / Guarantee Tag"
+              label="Guarantee Tag"
               hint="Shown on public card & detail page header"
             >
               <input
                 type="text"
                 value={formData.warranty || ""}
                 onChange={(e) => setFormData((p) => ({ ...p, warranty: e.target.value }))}
-                placeholder="e.g. 6-Month Warranty"
+                placeholder="e.g. 3-Month Guarantee"
                 className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-[#BE2320]"
               />
             </FormField>

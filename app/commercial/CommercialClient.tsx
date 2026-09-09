@@ -369,7 +369,7 @@ export function CommercialClient({ companyDetails, services }: CommercialClientP
 
                 <div className="pt-4 border-t border-stone-100 space-y-3">
                   <div className="flex items-center justify-between text-xs text-stone-500 font-mono-data">
-                    <span>Warranty:</span>
+                    <span>Guarantee:</span>
                     <span className="font-bold text-ink">Written Guarantee</span>
                   </div>
 

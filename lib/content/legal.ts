@@ -33,7 +33,7 @@ export const DEFAULT_PRIVACY_POLICY: LegalPageData = {
   <li>Preparing and delivering free inspection estimates and service quotes.</li>
   <li>Scheduling and routing Saskatchewan-licensed pest control technicians to your location.</li>
   <li>Providing pre-treatment preparation checklists, post-treatment safety instructions, and re-entry guidelines.</li>
-  <li>Maintaining warranty records for our 6-month re-treatment guarantee.</li>
+  <li>Maintaining guarantee records for our 3-month re-treatment guarantee.</li>
   <li>Meeting statutory reporting and safety record-keeping mandated by the Saskatchewan Ministry of Environment.</li>
   <li>Responding to customer inquiries, complaints, or emergency dispatch requests.</li>
 </ul>
@@ -48,7 +48,7 @@ export const DEFAULT_PRIVACY_POLICY: LegalPageData = {
 
 <h2>5. Data Security &amp; Retention</h2>
 <p>We implement robust technical and organizational security measures to protect your personal data against unauthorized access, disclosure, alteration, or destruction. All web traffic is encrypted via HTTPS (SSL/TLS).</p>
-<p>We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, enforce warranty coverage, or comply with applicable legal, accounting, and Saskatchewan environmental regulations.</p>
+<p>We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, enforce guarantee coverage, or comply with applicable legal, accounting, and Saskatchewan environmental regulations.</p>
 
 <h2>6. Cookies &amp; Analytics</h2>
 <p>Our website uses standard cookies and browser storage to optimize site functionality, preserve session preferences, and gather aggregate traffic analytics. You can adjust your browser settings to decline cookies, although some website features may not operate as intended.</p>
@@ -69,10 +69,10 @@ export const DEFAULT_PRIVACY_POLICY: LegalPageData = {
 
 export const DEFAULT_TERMS_OF_SERVICE: LegalPageData = {
   slug: "terms",
-  title: "Terms of Service & Warranty Policy",
+  title: "Terms of Service & Guarantee Policy",
   subtitle: "These terms govern all pest inspection, extermination, wildlife management, and integrated pest management services provided by K2 Pest Control.",
-  metaTitle: "Terms of Service & Warranty Policy | K2 Pest Control Saskatoon",
-  metaDescription: "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 6-month warranty, customer prep requirements, and payment policies.",
+  metaTitle: "Terms of Service & Guarantee Policy | K2 Pest Control Saskatoon",
+  metaDescription: "Read the Terms of Service for K2 Pest Control. Understand our service agreements, 3-month guarantee, customer prep requirements, and payment policies.",
   lastUpdated: "February 24, 2025",
   content: `<h2>1. Acceptance of Terms</h2>
 <p>By booking an inspection, confirming a service quote, scheduling an extermination appointment, or utilizing our website, you (&ldquo;Client&rdquo;, &ldquo;Customer&rdquo;, &ldquo;you&rdquo;) agree to be legally bound by these Terms of Service. If you are entering into this agreement on behalf of a business, corporation, or property management entity, you represent that you have the authority to bind that entity.</p>
@@ -84,13 +84,13 @@ export const DEFAULT_TERMS_OF_SERVICE: LegalPageData = {
   <li><strong>Written Quotes:</strong> All final service recommendations and pricing will be provided in writing before chemical or physical treatments commence.</li>
 </ul>
 
-<h2>3. 6-Month Re-Treatment Guarantee &amp; Warranty Policy</h2>
-<p>K2 Pest Control provides a <strong>6-month warranty</strong> for qualifying residential treatments (including bed bugs, cockroaches, carpenter ants, and mice/rats), subject to the following criteria:</p>
+<h2>3. 3-Month Re-Treatment Guarantee Policy</h2>
+<p>K2 Pest Control provides a <strong>3-month guarantee</strong> for qualifying residential treatments (including bed bugs, cockroaches, carpenter ants, and mice/rats), subject to the following criteria:</p>
 <ul>
-  <li><strong>Full Scope Completion:</strong> The warranty requires completion of all recommended initial and follow-up treatment rounds as specified in your service agreement.</li>
+  <li><strong>Full Scope Completion:</strong> The guarantee requires completion of all recommended initial and follow-up treatment rounds as specified in your service agreement.</li>
   <li><strong>Preparation Adherence:</strong> The client must execute all required pre-treatment preparation checklists provided prior to technician arrival.</li>
   <li><strong>Conducive Conditions:</strong> The client must address structural and sanitation recommendations identified by the technician (e.g., sealing exterior holes, fixing plumbing leaks, storing food in airtight containers).</li>
-  <li><strong>Multi-Unit Properties:</strong> In attached townhomes or multi-unit buildings, warranty coverage is contingent upon adjoining units not harboring untreated active infestations.</li>
+  <li><strong>Multi-Unit Properties:</strong> In attached townhomes or multi-unit buildings, guarantee coverage is contingent upon adjoining units not harboring untreated active infestations.</li>
 </ul>
 
 <h2>4. Customer Responsibilities &amp; Treatment Preparation</h2>
@@ -114,6 +114,6 @@ export const DEFAULT_TERMS_OF_SERVICE: LegalPageData = {
 <p>While our technicians apply utmost professional diligence, K2 Pest Control shall not be held liable for incidental damage resulting from concealed structural defects, pre-existing insect wood rot, or tenant non-compliance with post-treatment ventilation guidelines. Total aggregate liability under any claim shall not exceed the amount paid by the customer for the specific service.</p>
 
 <h2>8. Governing Law &amp; Contact</h2>
-<p>These terms shall be governed by and construed in accordance with the laws of the Province of Saskatchewan and Canada. For questions regarding service agreements or warranties:</p>
+<p>These terms shall be governed by and construed in accordance with the laws of the Province of Saskatchewan and Canada. For questions regarding service agreements or guarantees:</p>
 <p><strong>K2 Pest Control Dispatch &amp; Support</strong><br/>Phone: (306) 880-8686<br/>Email: info@k2pc.ca<br/>Address: Saskatoon, SK, Canada</p>`,
 };

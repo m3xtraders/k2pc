@@ -94,7 +94,7 @@ export default async function PrivacyPolicyPage() {
                   Privacy Policy Overview &amp; Data Promise
                 </h2>
                 <p className="text-sm text-stone-600 leading-relaxed">
-                  We collect only the details strictly necessary to quote, dispatch, perform, and warranty pest management services. We do not sell your personal data. All information handling adheres to Canada&apos;s <em>Personal Information Protection and Electronic Documents Act</em> (PIPEDA).
+                  We collect only the details strictly necessary to quote, dispatch, perform, and guarantee pest management services. We do not sell your personal data. All information handling adheres to Canada&apos;s <em>Personal Information Protection and Electronic Documents Act</em> (PIPEDA).
                 </p>
               </div>
             </div>

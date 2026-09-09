@@ -145,7 +145,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$189",
-    warranty: "6-Month Warranty",
+    warranty: "3-Month Guarantee",
     faqs: [
       {
         question: "Are carpenter ants dangerous to my house?",
@@ -196,7 +196,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$229",
-    warranty: "1-Year Exclusion Warranty",
+    warranty: "1-Year Exclusion Guarantee",
     faqs: [
       {
         question: "How small of a hole can a mouse squeeze through?",
@@ -294,7 +294,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$349",
-    warranty: "6-Month Eradication Guarantee",
+    warranty: "3-Month Eradication Guarantee",
     faqs: [
       {
         question: "How long does a bed bug treatment take?",
@@ -501,7 +501,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$299",
-    warranty: "5-Year Structural Warranty",
+    warranty: "5-Year Structural Guarantee",
     faqs: [
       {
         question: "How do I know if I have termites or carpenter ants?",
@@ -541,7 +541,7 @@ export const SERVICES: Service[] = [
       },
     ],
     pricingStartsAt: "$279",
-    warranty: "2-Year Wildlife Exclusion Warranty",
+    warranty: "2-Year Wildlife Exclusion Guarantee",
     faqs: [
       {
         question: "Do you kill the raccoons or squirrels?",

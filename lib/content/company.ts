@@ -31,7 +31,7 @@ export const COMPANY_DETAILS = {
     googleRating: 4.9,
     reviewCount: 480,
   },
-  guarantee: "99.9% Satisfaction & 6-Month Re-treatment Guarantee",
+  guarantee: "99.9% Satisfaction & 3-Month Re-treatment Guarantee",
   serviceRadiusKm: 60,
   regionsServed: [
     "Saskatoon",

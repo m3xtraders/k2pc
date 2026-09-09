@@ -31,10 +31,10 @@ const steps = [
   {
     step: 4,
     num: "4",
-    title: "Follow-Up & Warranty",
+    title: "Follow-Up & Guarantee",
     tagline: "Satisfaction Focused",
     icon: RefreshCw,
-    description: "We check back and provide free re-treatments throughout your 6-month warranty window.",
+    description: "We check back and provide free re-treatments throughout your 3-month guarantee window.",
   },
 ];
 

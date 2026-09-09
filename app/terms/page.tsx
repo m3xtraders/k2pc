@@ -83,7 +83,7 @@ export default async function TermsOfServicePage() {
       {/* Main Content Area */}
       <div className="bg-surface-warm min-h-screen py-12 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Quick Warranty Highlights Box */}
+          {/* Quick Guarantee Highlights Box */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-stone-200 mb-8">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-action-yellow/20 flex items-center justify-center text-ink shrink-0 mt-1">
@@ -94,7 +94,7 @@ export default async function TermsOfServicePage() {
                   Our Service Commitment &amp; Guarantee
                 </h2>
                 <p className="text-sm text-stone-600 leading-relaxed">
-                  We stand firmly behind our extermination services with a Saskatchewan Ministry-licensed team, upfront written quotes, and our signature <strong>6-month re-treatment warranty</strong> on qualifying treatments.
+                  We stand firmly behind our extermination services with a Saskatchewan Ministry-licensed team, upfront written quotes, and our signature <strong>3-month re-treatment guarantee</strong> on qualifying treatments.
                 </p>
               </div>
             </div>

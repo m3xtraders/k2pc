@@ -34,7 +34,7 @@ const TRUST_ITEMS: TrustItem[] = [
   },
   {
     title: "RESULTS 100% GUARANTEED",
-    subtitle: "Backed by 6-month warranty & re-treatment promise",
+    subtitle: "Backed by 3-month guarantee & re-treatment promise",
     renderIcon: () => (
       /* Bold Scalloped Guaranteed Badge with Checkmark */
       <svg

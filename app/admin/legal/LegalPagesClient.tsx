@@ -124,7 +124,7 @@ export const LegalPagesClient: React.FC<LegalPagesClientProps> = ({
             }`}
           >
             <FileCheck2 className="w-4 h-4" />
-            <span>Terms of Service &amp; Warranty</span>
+            <span>Terms of Service &amp; Guarantee</span>
           </button>
         </div>
 
@@ -190,7 +190,7 @@ export const LegalPagesClient: React.FC<LegalPagesClientProps> = ({
                 required
                 value={currentForm.title}
                 onChange={(e) => handleFieldChange("title", e.target.value)}
-                placeholder={activeTab === "privacy" ? "Privacy Policy" : "Terms of Service & Warranty Policy"}
+                placeholder={activeTab === "privacy" ? "Privacy Policy" : "Terms of Service & Guarantee Policy"}
                 className="w-full px-4 py-2.5 bg-white border border-stone-300 rounded-xl text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#BE2320]/20 focus:border-[#BE2320]"
               />
             </FormField>
@@ -216,7 +216,7 @@ export const LegalPagesClient: React.FC<LegalPagesClientProps> = ({
               <RichTextEditor
                 value={currentForm.content}
                 onChange={(html) => handleFieldChange("content", html)}
-                placeholder="Enter detailed legal sections, warranty clauses, payment terms, or privacy disclosures..."
+                placeholder="Enter detailed legal sections, guarantee clauses, payment terms, or privacy disclosures..."
               />
             </FormField>
           </div>

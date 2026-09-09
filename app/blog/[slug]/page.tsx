@@ -246,7 +246,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     Recommended Eradication Programs
                   </h3>
                   <p className="text-xs text-neutral-text font-mono-data mt-0.5">
-                    Licensed IPM extermination with a 6-month warranty
+                    Licensed IPM extermination with a 3-month guarantee
                   </p>
                 </div>
                 <Link

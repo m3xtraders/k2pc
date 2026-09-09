@@ -110,7 +110,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    6-Month Warranty
+                    3-Month Guarantee
                   </span>
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">

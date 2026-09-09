@@ -69,9 +69,9 @@ export default async function AboutPage() {
       description: "All technicians maintain Saskatchewan Ministry of Environment pesticide applicator licenses, continuous safety training, and WCB compliance.",
     },
     {
-      title: "6-Month Warranty",
+      title: "3-Month Guarantee",
       icon: HeartHandshake,
-      description: "We stand behind our work with a 6-month warranty on all residential and commercial pest treatments.",
+      description: "We stand behind our work with a 3-month guarantee on all residential and commercial pest treatments.",
     },
   ];
 

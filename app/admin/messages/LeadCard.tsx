@@ -265,12 +265,12 @@ export const LeadCard: React.FC<LeadCardProps> = ({
         </p>
       )}
 
-      {/* Completed Job Warranty Callout */}
+      {/* Completed Job Guarantee Callout */}
       {lead.status === "CLOSED" && (
         <div className="mb-2.5 p-2 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between text-[11px] text-emerald-900">
           <span className="font-semibold flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            6-Month Warranty Active
+            3-Month Guarantee Active
           </span>
           <a
             href="/admin/warranties"

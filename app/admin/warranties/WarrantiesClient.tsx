@@ -81,17 +81,17 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
   const [emailBody, setEmailBody] = useState("");
   const [isSendingEmail, setIsSendingEmail] = useState(false);
 
-  // Calculate warranty metrics & countdowns
+  // Calculate guarantee metrics & countdowns
   const processedRecords = useMemo(() => {
     return records.map((record) => {
       const serviceDate = new Date(record.createdAt);
-      const warrantyExpiry = new Date(serviceDate.getTime() + 180 * 24 * 60 * 60 * 1000);
+      const warrantyExpiry = new Date(serviceDate.getTime() + 90 * 24 * 60 * 60 * 1000);
       const isExpired = new Date() > warrantyExpiry;
       const daysRemaining = isExpired
         ? 0
         : Math.max(0, Math.ceil((warrantyExpiry.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
 
-      const hasRetreatment = record.message?.includes("[Warranty Re-treatment]");
+      const hasRetreatment = record.message?.includes("[Guarantee Re-treatment]") || record.message?.includes("[Warranty Re-treatment]");
       const hasRefund = record.message?.includes("[100% Money-Back Refund]");
 
       return {
@@ -139,12 +139,12 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
     return { total, active, expired, retreatments, refunds };
   }, [processedRecords]);
 
-  // Handle Log Warranty Re-treatment
+  // Handle Log Guarantee Re-treatment
   const handleSaveRetreatment = async () => {
     if (!retreatmentRecord) return;
     setIsSavingRetreatment(true);
 
-    const logEntry = `\n\n[Warranty Re-treatment Logged on ${new Date().toLocaleDateString()}] Scheduled for: ${retreatmentDate}. Reason/Notes: ${retreatmentNotes.trim() || "Customer requested warranty check."}`;
+    const logEntry = `\n\n[Guarantee Re-treatment Logged on ${new Date().toLocaleDateString()}] Scheduled for: ${retreatmentDate}. Reason/Notes: ${retreatmentNotes.trim() || "Customer requested guarantee check."}`;
     const updatedMessage = (retreatmentRecord.message || "") + logEntry;
 
     try {
@@ -152,7 +152,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
       setRecords((prev) =>
         prev.map((r) => (r.id === retreatmentRecord.id ? { ...r, message: updatedMessage } : r))
       );
-      toast.success("Free Warranty Re-treatment visit logged successfully!");
+      toast.success("Free Guarantee Re-treatment visit logged successfully!");
       setRetreatmentModalOpen(false);
       setRetreatmentNotes("");
     } catch (error) {
@@ -218,13 +218,13 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-mono-data font-bold uppercase tracking-wider border border-emerald-200 mb-2">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>6-Month Guarantee Registry</span>
+            <span>3-Month Guarantee Registry</span>
           </div>
           <h2 className="text-2xl font-bold text-stone-900 tracking-tight flex items-center gap-2">
-            Warranty &amp; Completed Service Records
+            Guarantee &amp; Completed Service Records
           </h2>
           <p className="text-sm text-stone-500 mt-1">
-            Track 6-month warranty windows, free re-treatment claims, official certificates, and 100% money-back guarantee records for completed jobs.
+            Track 3-month guarantee windows, free re-treatment claims, official certificates, and 100% money-back guarantee records for completed jobs.
           </p>
         </div>
 
@@ -250,7 +250,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
 
         <div className="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200 shadow-2xs">
           <div className="flex items-center justify-between text-emerald-800 text-xs font-semibold mb-1">
-            <span>Active Warranties</span>
+            <span>Active Guarantees</span>
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
           </div>
           <p className="text-2xl font-black text-emerald-800 tracking-tight">{stats.active}</p>
@@ -258,7 +258,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
 
         <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 shadow-2xs">
           <div className="flex items-center justify-between text-stone-600 text-xs font-medium mb-1">
-            <span>Expired Warranties</span>
+            <span>Expired Guarantees</span>
             <Clock className="w-4 h-4 text-stone-400" />
           </div>
           <p className="text-2xl font-black text-stone-700 tracking-tight">{stats.expired}</p>
@@ -303,7 +303,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
                 : "bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100"
             }`}
           >
-            Active 6-Mo Warranty ({stats.active})
+            Active 3-Mo Guarantee ({stats.active})
           </button>
           <button
             onClick={() => setFilterTab("EXPIRED")}
@@ -365,10 +365,10 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
             <ShieldCheck className="w-8 h-8" />
           </div>
           <h3 className="font-heading font-bold text-lg text-stone-900">
-            No Warranty Records Found
+            No Guarantee Records Found
           </h3>
           <p className="text-xs text-stone-500 max-w-md mx-auto">
-            When bookings or quote requests in your pipeline are converted to <strong>"Closed / Won"</strong> or <strong>"Completed"</strong>, they automatically appear here with full 6-month warranty tracking and money-back guarantee records.
+            When bookings or quote requests in your pipeline are converted to <strong>"Closed / Won"</strong> or <strong>"Completed"</strong>, they automatically appear here with full 3-month guarantee tracking and money-back guarantee records.
           </p>
           <div className="pt-2">
             <Link
@@ -401,12 +401,12 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
                       {item.isExpired ? (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600 text-xs font-mono-data font-bold border border-stone-200">
                           <Clock className="w-3 h-3" />
-                          <span>Warranty Expired</span>
+                          <span>Guarantee Expired</span>
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-mono-data font-bold border border-emerald-200 shadow-2xs">
                           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span>Active Warranty ({item.daysRemaining} days left)</span>
+                          <span>Active Guarantee ({item.daysRemaining} days left)</span>
                         </span>
                       )}
 
@@ -511,10 +511,10 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
 
                 <div className="md:col-span-2 p-3 bg-stone-50 rounded-xl border border-stone-200/80 space-y-1">
                   <span className="text-[10px] font-mono-data font-bold uppercase text-stone-400 block">
-                    Service Details &amp; Warranty Log
+                    Service Details &amp; Guarantee Log
                   </span>
                   <p className="text-stone-800 leading-relaxed whitespace-pre-wrap line-clamp-3">
-                    {item.message || "Standard treatment completed. Backed by 6-month warranty."}
+                    {item.message || "Standard treatment completed. Backed by 3-month guarantee."}
                   </p>
                 </div>
               </div>
@@ -531,7 +531,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
         licenseNumber={companyDetails?.licenseNumber}
       />
 
-      {/* Claim Free Warranty Re-treatment Modal */}
+      {/* Claim Free Guarantee Re-treatment Modal */}
       {retreatmentModalOpen && retreatmentRecord && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="fixed inset-0" onClick={() => setRetreatmentModalOpen(false)} />
@@ -540,7 +540,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
               <div className="flex items-center gap-2">
                 <RotateCcw className="w-5 h-5 text-amber-600" />
                 <h3 className="font-heading font-bold text-base text-stone-900">
-                  Log Free Warranty Re-treatment
+                  Log Free Guarantee Re-treatment
                 </h3>
               </div>
               <button
@@ -685,7 +685,7 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
         isOpen={Boolean(deleteId)}
         onClose={() => setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Warranty Record"
+        title="Delete Guarantee Record"
         message="Are you sure you want to permanently delete this completed record? This cannot be undone."
         confirmLabel="Delete Record"
         isDestructive

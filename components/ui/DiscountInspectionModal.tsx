@@ -224,7 +224,7 @@ export function DiscountInspectionModal({
                 </li>
                 <li className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>100% Satisfaction &amp; 6-Month Warranty</span>
+                  <span>100% Satisfaction &amp; 3-Month Guarantee</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />

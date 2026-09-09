@@ -27,7 +27,7 @@ interface SidebarProps {
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Bookings & Quotes", href: "/admin/bookings", icon: CalendarCheck },
-  { label: "Warranty Records", href: "/admin/warranties", icon: ShieldCheck },
+  { label: "Guarantee Records", href: "/admin/warranties", icon: ShieldCheck },
   { label: "Services", href: "/admin/services", icon: Bug },
   { label: "Blog Posts", href: "/admin/blog", icon: FileText },
   { label: "FAQs", href: "/admin/faqs", icon: HelpCircle },

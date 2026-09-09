@@ -20,7 +20,7 @@ export default async function AdminLegalPage() {
             Legal &amp; Policy Pages
           </h2>
           <p className="text-sm text-stone-500 mt-1">
-            Manage and edit customer-facing Privacy Policy, Terms of Service, warranty clauses, and PIPEDA compliance text.
+            Manage and edit customer-facing Privacy Policy, Terms of Service, guarantee clauses, and PIPEDA compliance text.
           </p>
         </div>
       </div>

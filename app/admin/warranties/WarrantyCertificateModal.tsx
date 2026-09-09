@@ -34,7 +34,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
   if (!isOpen || !record) return null;
 
   const startDate = new Date(record.createdAt);
-  const expiryDate = new Date(startDate.getTime() + 180 * 24 * 60 * 60 * 1000);
+  const expiryDate = new Date(startDate.getTime() + 90 * 24 * 60 * 60 * 1000);
   const isExpired = new Date() > expiryDate;
 
   const handlePrint = () => {
@@ -51,7 +51,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-6 h-6 text-[#BE2320]" />
             <span className="font-heading font-bold text-lg text-stone-900">
-              Official Service Warranty &amp; Guarantee Certificate
+              Official Service Guarantee Certificate
             </span>
           </div>
 
@@ -128,7 +128,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
 
             <div className="bg-white/80 p-4 rounded-xl border border-stone-200 space-y-2">
               <span className="text-[11px] font-mono-data font-bold uppercase tracking-wider text-stone-500 block">
-                Warranty &amp; Service Coverage
+                Guarantee &amp; Service Coverage
               </span>
               <div className="space-y-1.5 text-stone-800">
                 <div>
@@ -141,7 +141,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
                     <span className="font-semibold text-stone-800">{startDate.toLocaleDateString()}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-stone-400 block">WARRANTY EXPIRES</span>
+                    <span className="text-[10px] text-stone-400 block">GUARANTEE EXPIRES</span>
                     <span className={`font-bold ${isExpired ? "text-stone-500" : "text-emerald-700"}`}>
                       {expiryDate.toLocaleDateString()}
                     </span>
@@ -155,12 +155,12 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
           <div className="bg-[#BE2320]/5 border border-[#BE2320]/20 rounded-xl p-5 space-y-3 relative z-10">
             <h3 className="font-heading font-bold text-sm text-[#BE2320] flex items-center gap-2">
               <ShieldCheck className="w-4 h-4" />
-              <span>Written 6-Month Re-treatment &amp; Money-Back Terms</span>
+              <span>Written 3-Month Re-treatment &amp; Money-Back Terms</span>
             </h3>
             <ul className="text-xs text-stone-700 space-y-1.5 leading-relaxed">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>Free Re-treatments:</strong> If covered pests re-appear within the 6-month period, K2 Pest Control will re-treat the treated areas at zero additional cost.</span>
+                <span><strong>Free Re-treatments:</strong> If covered pests re-appear within the 3-month period, K2 Pest Control will re-treat the treated areas at zero additional cost.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />

@@ -34,7 +34,7 @@ export default async function AdminDashboardPage() {
         <div>
           <h2 className="text-2xl font-bold text-stone-900 tracking-tight">Dashboard Overview</h2>
           <p className="text-sm text-stone-500 mt-1">
-            Welcome back! Here is a summary of your website bookings, warranties, and content.
+            Welcome back! Here is a summary of your website bookings, guarantees, and content.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -42,7 +42,7 @@ export default async function AdminDashboardPage() {
             href="/admin/warranties"
             className="px-4 py-2 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 text-emerald-900 text-sm font-semibold rounded-xl shadow-2xs transition-colors flex items-center gap-1.5"
           >
-            <ShieldCheck className="w-4 h-4 text-emerald-600" /> Warranty Records
+            <ShieldCheck className="w-4 h-4 text-emerald-600" /> Guarantee Records
           </Link>
           <Link
             href="/admin/bookings"
@@ -63,9 +63,9 @@ export default async function AdminDashboardPage() {
           trend={leadsCount > 0 ? "Action required" : "All caught up"}
         />
         <StatCard
-          title="Completed & Warranty"
+          title="Completed & Guarantee"
           value={completedCount}
-          description="6-month guarantee records"
+          description="3-month guarantee records"
           icon={ShieldCheck}
         />
         <StatCard
