@@ -92,29 +92,29 @@ export default function Header({ companyDetails, services }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs">
       {/* Top Banner - Moving Continuous Ticker */}
-      <div className="bg-ink text-white text-xs py-1.5 overflow-hidden border-b border-[#1C4E75]/60 select-none">
+      <div className="bg-ink text-white text-sm py-2 overflow-hidden border-b border-[#1C4E75]/60 select-none">
         <div className="animate-marquee items-center font-mono-data">
           {[1, 2].map((half) => (
             <div key={half} className="flex items-center gap-6 sm:gap-8 shrink-0 pr-6 sm:pr-8">
               {[1, 2].map((repeat) => (
                 <div key={repeat} className="flex items-center gap-6 sm:gap-8 shrink-0">
                   <span className="flex items-center gap-1.5 text-action-yellow font-semibold">
-                    <Shield className="w-3.5 h-3.5" />
+                    <Shield className="w-4 h-4" />
                     License No: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}
                   </span>
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">
-                    <Clock className="w-3.5 h-3.5 text-stone-400" />
+                    <Clock className="w-4 h-4 text-stone-400" />
                     Avg. Emergency Response: 2 Hours
                   </span>
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     3-Month Guarantee
                   </span>
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                    <Sparkles className="w-4 h-4 text-amber-300" />
                     {company.slogan || company.tagline || "Licensed, Guaranteed & Eco-Conscious Extermination"}
                   </span>
                   <span className="text-stone-500">•</span>
@@ -122,7 +122,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                     href={`tel:${company.phoneRaw || COMPANY_DETAILS.phoneRaw}`}
                     className="inline-flex items-center gap-1 text-action-yellow hover:text-yellow-300 font-bold hover:underline transition-colors"
                   >
-                    <Phone className="w-3.5 h-3.5" />
+                    <Phone className="w-4 h-4" />
                     Call: {company.phone || COMPANY_DETAILS.phone}
                   </a>
                   <span className="text-stone-500">•</span>
