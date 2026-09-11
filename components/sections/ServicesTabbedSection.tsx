@@ -17,6 +17,9 @@ import {
   CalendarCheck,
   CheckCircle2,
   Calendar,
+  Bird,
+  PawPrint,
+  Bug,
 } from "lucide-react";
 import { AssessmentModal } from "@/components/ui/AssessmentModal";
 
@@ -66,6 +69,12 @@ export function ServicesTabbedSection({ services }: ServicesTabbedSectionProps) 
         return <ShieldCheck className="w-5 h-5" />;
       case "calendar":
         return <Calendar className="w-5 h-5" />;
+      case "bird":
+        return <Bird className="w-5 h-5" />;
+      case "paw":
+        return <PawPrint className="w-5 h-5" />;
+      case "bug":
+        return <Bug className="w-5 h-5" />;
       default:
         return <Building2 className="w-5 h-5" />;
     }

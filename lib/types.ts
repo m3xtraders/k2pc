@@ -15,8 +15,8 @@ export interface Service {
   slug: string;
   shortDescription: string;
   fullDescription: string;
-  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider' | 'mosquito' | 'shield' | 'building' | 'home' | 'calendar' | 'bug';
-  pestCategory: 'insects' | 'rodents' | 'wildlife' | 'commercial' | 'prevention';
+  icon: 'ant' | 'rodent' | 'cockroach' | 'bed-bug' | 'wasp' | 'spider' | 'mosquito' | 'shield' | 'building' | 'home' | 'calendar' | 'bug' | 'paw' | 'bird' | string;
+  pestCategory: 'insects' | 'rodents' | 'wildlife' | 'commercial' | 'prevention' | 'birds' | string;
   targetPests: string[];
   signsOfInfestation: string[];
   treatmentProcess: {

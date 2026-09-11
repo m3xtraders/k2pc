@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Service } from "@/lib/types";
 import { PestIcon } from "@/components/ui/PestIcon";
 import { getServiceCoverImage } from "@/lib/content/services";
-import { ArrowRight, ShieldCheck, Home, Building, Calendar, Bug } from "lucide-react";
+import { ArrowRight, ShieldCheck, Home, Building, Calendar, Bug, Bird, PawPrint } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 
 interface ServiceCardProps {
@@ -27,6 +27,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         return <ShieldCheck className="w-5 h-5" />;
       case "calendar":
         return <Calendar className="w-5 h-5" />;
+      case "bird":
+        return <Bird className="w-5 h-5" />;
+      case "paw":
+        return <PawPrint className="w-5 h-5" />;
       default:
         return <Bug className="w-5 h-5" />;
     }

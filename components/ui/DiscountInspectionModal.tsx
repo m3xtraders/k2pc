@@ -30,13 +30,31 @@ export function DiscountInspectionModal({
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [modalServices, setModalServices] = useState<any[]>(
+    services && services.length > 0 ? services : []
+  );
+
+  useEffect(() => {
+    if (services && services.length > 0) {
+      setModalServices(services);
+    } else {
+      fetch("/api/services")
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setModalServices(data);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [services]);
 
   // Form State
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    serviceNeeded: "Bed Bug",
+    serviceNeeded: "Ant Extermination & Colony Removal",
     addressOrCity: "Saskatoon",
     message: "",
   });
@@ -324,7 +342,7 @@ export function DiscountInspectionModal({
 
                     <div>
                       <label className="block text-xs font-mono-data font-bold text-stone-700 uppercase mb-1">
-                        Phone Number <span className="text-brand-red">*</span> <span className="text-stone-400 text-[10px] font-normal normal-case">(numbers and + only)</span>
+                        Phone Number <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="tel"
@@ -372,19 +390,25 @@ export function DiscountInspectionModal({
                         }
                         className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent text-ink bg-white cursor-pointer"
                       >
-                        <option value="Bed Bug">Bed Bug</option>
-                        <option value="Cockroach">Cockroach</option>
-                        <option value="Mosquito">Mosquito</option>
-                        <option value="Ant">Ant</option>
-                        <option value="Mice">Mice</option>
-                        <option value="Wasp">Wasp</option>
-                        <option value="Spider">Spider</option>
-                        <option value="Residential Pest Control">Residential Pest Control</option>
-                        <option value="Commercial Pest Control">Commercial Pest IPM</option>
-                        <option value="Termite Inspection">Termite Inspection</option>
-                        <option value="Humane Wildlife Removal">Humane Wildlife Removal</option>
-                        <option value="Seasonal Prevention Plans">Seasonal Prevention Plans</option>
-                        <option value="General Pest Inspection">General Pest Inspection</option>
+                        {modalServices && modalServices.length > 0 ? (
+                          modalServices.map((srv: any) => (
+                            <option key={srv.id || srv.slug} value={srv.title}>
+                              {srv.title}
+                            </option>
+                          ))
+                        ) : (
+                          <>
+                            <option value="Ant Extermination & Colony Removal">Ant Extermination & Colony Removal</option>
+                            <option value="Bed Bug Heat & Precision Treatment">Bed Bug Heat & Precision Treatment</option>
+                            <option value="Cockroach Clean-Out & Exclusion">Cockroach Clean-Out & Exclusion</option>
+                            <option value="Mice & Rat Extermination">Mice & Rat Extermination</option>
+                            <option value="Wasp & Hornet Nest Removal">Wasp & Hornet Nest Removal</option>
+                            <option value="Spider Control & Web De-Webbing">Spider Control & Web De-Webbing</option>
+                            <option value="Residential Pest Protection Shield">Residential Pest Protection Shield</option>
+                            <option value="Commercial Pest Management & Audits">Commercial Pest Management & Audits</option>
+                          </>
+                        )}
+                        <option value="Other / Emergency Inspection">Other / Emergency Inspection</option>
                       </select>
                     </div>
                   </div>

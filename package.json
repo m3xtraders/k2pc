@@ -38,11 +38,7 @@
     "sonner": "^2.0.8",
     "zod": "^4.4.3"
   },
-  "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
-  },
   "browserslist": [
-    "Chrome >= 90",
     "Firefox >= 90",
     "Safari >= 15",
     "Edge >= 90",
@@ -64,5 +60,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

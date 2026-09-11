@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { CheckCircle2, AlertCircle, Loader2, Send, Building2, Mail, Phone, Home } from "lucide-react";
 
 interface ContactFormProps {
+  services?: any[];
   defaultService?: string;
   lockService?: boolean;
   customTitle?: string;
@@ -30,28 +31,53 @@ const sanitizePhoneNumber = (val: string) => {
 };
 
 // Helper to normalize pest/service names from params or defaultService
-const normalizeService = (val: string): string => {
+const normalizeService = (val: string, servicesList: any[] = []): string => {
   if (!val) return "";
   const lower = val.toLowerCase().trim();
-  if (lower.includes("bed bug") || lower.includes("bed-bug")) return "Bed Bug";
-  if (lower.includes("cockroach") || lower.includes("roach")) return "Cockroach";
-  if (lower.includes("mosquito")) return "Mosquito";
-  if (lower.includes("ant")) return "Ant";
-  if (lower.includes("mice") || lower.includes("mouse") || lower.includes("rodent") || lower.includes("rat")) return "Mice";
-  if (lower.includes("wasp") || lower.includes("hornet") || lower.includes("yellowjacket")) return "Wasp";
-  if (lower.includes("spider")) return "Spider";
-  if (lower.includes("residential") || lower.includes("home")) return "Residential Pest Control";
-  if (lower.includes("food safety") || lower.includes("commercial-pest-control")) return "Commercial Pest Control & Food Safety";
-  if (lower.includes("restaurant") || lower.includes("kitchen")) return "Commercial Restaurant & Kitchen Defense";
-  if (lower.includes("warehouse") || lower.includes("industrial")) return "Commercial Warehouse & Logistics IPM";
-  if (lower.includes("multi-unit") || lower.includes("property management")) return "Commercial Property Management & Multi-Unit";
-  if (lower.includes("termite")) return "Termite Inspection & Barrier Treatment";
-  if (lower.includes("wildlife") || lower.includes("raccoon") || lower.includes("squirrel")) return "Humane Wildlife Removal";
-  if (lower.includes("seasonal")) return "Seasonal Pest Prevention Plans";
+
+  if (servicesList && servicesList.length > 0) {
+    const directMatch = servicesList.find(
+      (s) => s.title?.toLowerCase() === lower || s.slug?.toLowerCase() === lower
+    );
+    if (directMatch) return directMatch.title;
+
+    const partialMatch = servicesList.find((s) => {
+      const sTitle = s.title?.toLowerCase() || "";
+      const sSlug = s.slug?.toLowerCase() || "";
+      return sTitle.includes(lower) || lower.includes(sTitle) || sSlug.includes(lower);
+    });
+    if (partialMatch) return partialMatch.title;
+  }
+
+  if (lower.includes("bed bug") || lower.includes("bed-bug")) return "Bed Bug Heat & Precision Treatment";
+  if (lower.includes("cockroach") || lower.includes("roach")) return "Cockroach Clean-Out & Exclusion";
+  if (lower.includes("mosquito")) return "Seasonal Mosquito Yard Barrier";
+  if (lower.includes("ant")) return "Ant Extermination & Colony Removal";
+  if (lower.includes("mice") || lower.includes("mouse") || lower.includes("rodent") || lower.includes("rat")) return "Mice & Rat Extermination";
+  if (lower.includes("wasp") || lower.includes("hornet") || lower.includes("yellowjacket")) return "Wasp & Hornet Nest Removal";
+  if (lower.includes("spider")) return "Spider Control & Web De-Webbing";
+  if (lower.includes("gopher")) return "Gopher & Ground Squirrel Control";
+  if (lower.includes("squirrel")) return "Humane Squirrel Removal & Attic Exclusion";
+  if (lower.includes("bat")) return "Humane Bat Removal & Attic Exclusion";
+  if (lower.includes("skunk") || lower.includes("raccoon")) return "Skunk & Raccoon Humane Eviction";
+  if (lower.includes("pigeon")) return "Pigeon Control & Roosting Deterrents";
+  if (lower.includes("bird")) return "Architectural Bird Exclusion & Netting";
+  if (lower.includes("fly")) return "Commercial & Residential Fly Management";
+  if (lower.includes("silverfish")) return "Silverfish & Firebrat Eradication";
+  if (lower.includes("flea") || lower.includes("tick")) return "Flea & Tick Residential Extermination";
+  if (lower.includes("boxelder") || lower.includes("elm seed") || lower.includes("nuisance")) return "Boxelder, Elm Seed & Nuisance Bug Control";
+  if (lower.includes("insect")) return "General Crawling & Stinging Insect Control";
+  if (lower.includes("slug") || lower.includes("snail")) return "Garden Snail & Slug Population Management";
+  if (lower.includes("pantry")) return "Pantry Pest Extermination (Moths & Beetles)";
+  if (lower.includes("residential") || lower.includes("home")) return "Residential Pest Protection Shield";
+  if (lower.includes("commercial")) return "Commercial Pest Management & Audits";
+  if (lower.includes("termite")) return "Structural Termite & Carpenter Ant Inspection";
+
   return val;
 };
 
 export default function ContactForm({
+  services,
   defaultService,
   lockService = false,
   customTitle,
@@ -59,6 +85,9 @@ export default function ContactForm({
   onSuccess,
   isModal = false,
 }: ContactFormProps) {
+  const [availableServices, setAvailableServices] = useState<any[]>(
+    services && services.length > 0 ? services : (SERVICES || [])
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -142,16 +171,31 @@ export default function ContactForm({
   };
 
   useEffect(() => {
+    if (services && services.length > 0) {
+      setAvailableServices(services);
+    } else {
+      fetch("/api/services")
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setAvailableServices(data);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [services]);
+
+  useEffect(() => {
     if (defaultService) {
-      setValue("serviceNeeded", normalizeService(defaultService));
+      setValue("serviceNeeded", normalizeService(defaultService, availableServices));
     } else if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const serviceParam = params.get("service") || params.get("pest");
       if (serviceParam) {
-        setValue("serviceNeeded", normalizeService(serviceParam));
+        setValue("serviceNeeded", normalizeService(serviceParam, availableServices));
       }
     }
-  }, [defaultService, setValue]);
+  }, [defaultService, setValue, availableServices]);
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
@@ -265,7 +309,7 @@ export default function ContactForm({
         {/* Phone */}
         <div className="space-y-1.5 text-left">
           <label htmlFor="phone" className="block text-xs font-bold text-ink uppercase tracking-wider font-mono-data">
-            Phone Number <span className="text-brand-red">*</span> <span className="text-stone-400 text-[10px] font-normal normal-case">(numbers and + only)</span>
+            Phone Number <span className="text-brand-red">*</span>
           </label>
           <div className="relative">
             <input
@@ -367,36 +411,13 @@ export default function ContactForm({
                 : "border-stone-300 focus:border-brand-red focus:ring-1 focus:ring-brand-red"
             }`}
           >
-            <option value="">-- Select Pest or Facility Type --</option>
-            {/* Top requested priority pests in exact order */}
-            <option value="Bed Bug">Bed Bug</option>
-            <option value="Cockroach">Cockroach</option>
-            <option value="Mosquito">Mosquito</option>
-            <option value="Ant">Ant</option>
-            <option value="Mice">Mice</option>
-            <option value="Wasp">Wasp</option>
-            <option value="Spider">Spider</option>
-
-            {/* Everything after that */}
-            <option value="Residential Pest Control">Residential Pest Control</option>
-            <option value="Commercial Pest Control & Food Safety">
-              Commercial Pest Control &amp; Food Safety
-            </option>
-            <option value="Commercial Restaurant & Kitchen Defense">
-              Restaurant &amp; Food Service Program
-            </option>
-            <option value="Commercial Warehouse & Logistics IPM">
-              Warehouse &amp; Industrial Facility
-            </option>
-            <option value="Commercial Property Management & Multi-Unit">
-              Multi-Unit Residential &amp; Property Management
-            </option>
-            <option value="Termite Inspection & Barrier Treatment">
-              Termite Inspection &amp; Barrier Treatment
-            </option>
-            <option value="Humane Wildlife Removal">Humane Wildlife Removal</option>
-            <option value="Seasonal Pest Prevention Plans">Seasonal Pest Prevention Plans</option>
-            <option value="Other / Emergency Inspection">Other / Custom Facility Inspection</option>
+            <option value="">-- Select Pest or Service --</option>
+            {availableServices.map((service: any) => (
+              <option key={service.id || service.slug} value={service.title}>
+                {service.title}
+              </option>
+            ))}
+            <option value="Other / Custom Inspection">Other / Custom Facility Inspection</option>
           </select>
         )}
 

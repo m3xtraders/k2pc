@@ -187,10 +187,10 @@ export default function Header({ companyDetails, services }: HeaderProps) {
 
                     {/* Services Simple Dropdown Panel */}
                     {servicesDropdownOpen && (
-                      <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="absolute top-full left-0 pt-2 w-80 z-50 animate-in fade-in zoom-in-95 duration-150">
                         <div className="bg-white rounded-xl shadow-xl border border-stone-200/90 py-2 divide-y divide-stone-100 overflow-hidden">
                           <div className="py-1">
-                            {publishedServices.map((service: any) => {
+                            {publishedServices.slice(0, 7).map((service: any) => {
                               const IconComponent = getServiceIcon(service.slug, service.icon);
                               return (
                                 <Link
@@ -210,14 +210,14 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                             })}
                           </div>
 
-                          <div className="p-2 bg-stone-50">
+                          <div className="p-2.5 bg-stone-50">
                             <Link
                               href="/services"
                               onClick={() => setServicesDropdownOpen(false)}
-                              className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-red-50 text-xs font-heading font-bold text-brand-red transition-colors"
+                              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-brand-red hover:bg-red-700 text-white text-xs font-heading font-bold transition-all shadow-xs group"
                             >
-                              <span>View All Services</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
+                              <span>Show All Services</span>
+                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                             </Link>
                           </div>
                         </div>
@@ -310,16 +310,8 @@ export default function Header({ companyDetails, services }: HeaderProps) {
               </button>
 
               {mobileServicesOpen && (
-                <div className="p-2 bg-white space-y-1 border-t border-stone-200 max-h-60 overflow-y-auto">
-                  <Link
-                    href="/services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 text-xs font-bold text-brand-red hover:bg-red-50 rounded-lg block"
-                  >
-                    View All Services Overview &rarr;
-                  </Link>
-
-                  {publishedServices.map((service: any) => {
+                <div className="p-2 bg-white space-y-1 border-t border-stone-200">
+                  {publishedServices.slice(0, 7).map((service: any) => {
                     const IconComponent = getServiceIcon(service.slug, service.icon);
                     return (
                       <Link
@@ -333,6 +325,17 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                       </Link>
                     );
                   })}
+
+                  <div className="pt-2">
+                    <Link
+                      href="/services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-brand-red hover:bg-red-700 text-white text-xs font-heading font-bold transition-colors shadow-xs"
+                    >
+                      <span>Show All Services</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>

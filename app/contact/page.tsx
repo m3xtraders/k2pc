@@ -5,7 +5,7 @@ import FAQAccordion from "@/components/sections/FAQAccordion";
 import CTABand from "@/components/sections/CTABand";
 import LocationMapWidget from "@/components/sections/LocationMapWidget";
 import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails, getPublishedFaqs } from "@/lib/content-db";
+import { getCompanyDetails, getPublishedFaqs, getPublishedServices } from "@/lib/content-db";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -26,9 +26,10 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function ContactPage() {
-  const [company, faqs] = await Promise.all([
+  const [company, faqs, services] = await Promise.all([
     getCompanyDetails(),
     getPublishedFaqs(),
+    getPublishedServices(),
   ]);
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
@@ -163,7 +164,7 @@ export default async function ContactPage() {
 
             {/* Right Contact Form Column */}
             <div className="lg:col-span-7" id="quote-form">
-              <ContactForm />
+              <ContactForm services={services} />
             </div>
           </div>
         </div>

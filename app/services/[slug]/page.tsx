@@ -52,10 +52,11 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const resolvedParams = await params;
-  const [service, company, allFaqs] = await Promise.all([
+  const [service, company, allFaqs, allServices] = await Promise.all([
     getPublishedServiceBySlug(resolvedParams.slug),
     getCompanyDetails(),
     getPublishedFaqs(),
+    getPublishedServices(),
   ]);
 
   if (!service) {
@@ -351,7 +352,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             {/* Right Sticky Form Column */}
             <div className="lg:col-span-5">
               <div className="sticky top-24">
-                <ContactForm defaultService={service.title} />
+                <ContactForm defaultService={service.title} services={allServices} />
               </div>
             </div>
           </div>
