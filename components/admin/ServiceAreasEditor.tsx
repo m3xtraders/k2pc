@@ -103,7 +103,7 @@ export const ServiceAreasEditor: React.FC<ServiceAreasEditorProps> = ({ areas, o
       <div className="space-y-2">
         {areas.length === 0 && (
           <div className="text-center py-8 text-stone-400 text-sm border-2 border-dashed border-stone-200 rounded-xl">
-            No service areas added yet. Click &quot;Load All Saskatoon Defaults&quot; or add manually.
+            No service areas added yet. Clickkkkkkkkkkk &quot;Load All Saskatoon Defaults&quot; or add manually.
           </div>
         )}
 
