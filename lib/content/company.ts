@@ -12,10 +12,10 @@ export const COMPANY_DETAILS = {
   googleMapsUrl: "https://share.google/IMFOd1tJPGI6JL4OJ",
   googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9792.44774900138!2d-106.68346491284177!3d52.15047400000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4c3c99168292ddd9%3A0xf3d49338a57961d!2sK2%20Pest%20Control%20Ltd!5e0!3m2!1sen!2sus!4v1786799545276!5m2!1sen!2sus",
   address: {
-    street: "1200 Central Ave, Suite 400",
+    street: "Heath Avenue, Near nelsonroad",
     city: "Saskatoon",
     province: "SK",
-    postalCode: "S7N 2H2",
+    postalCode: "",
     country: "Canada",
   },
   hours: [

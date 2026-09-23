@@ -190,7 +190,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
 
           {/* Footer */}
           <div className="text-center text-[10px] font-mono-data text-stone-400 pt-2">
-            K2 Pest Control Ltd &bull; 1200 Central Ave, Saskatoon, SK &bull; Phone: (306) 407-0007 &bull; www.k2pc.ca
+            K2 Pest Control Ltd &bull; Heath Avenue, Near nelsonroad, Saskatoon, SK &bull; Phone: (306) 407-0007 &bull; www.k2pc.ca
           </div>
         </div>
       </div>

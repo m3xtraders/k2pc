@@ -40,10 +40,7 @@ export default function Footer({ companyDetails }: FooterProps) {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-red shrink-0 mt-1" />
                 <span>
-                  {company.address?.street || COMPANY_DETAILS.address.street},{" "}
-                  {company.address?.city || COMPANY_DETAILS.address.city},{" "}
-                  {company.address?.province || COMPANY_DETAILS.address.province}{" "}
-                  {company.address?.postalCode || COMPANY_DETAILS.address.postalCode}
+                  Heath Avenue, Near nelsonroad, Saskatoon, SK. Canada
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
