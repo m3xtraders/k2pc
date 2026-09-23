@@ -37,7 +37,6 @@ export default async function ContactPage() {
   const name = company?.name || COMPANY_DETAILS.name;
   const address = company?.address || COMPANY_DETAILS.address;
   const hours = company?.hours || COMPANY_DETAILS.hours;
-  const licenseNumber = company?.licenseNumber || COMPANY_DETAILS.licenseNumber;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -157,7 +156,7 @@ export default async function ContactPage() {
 
                 <div className="pt-2 border-t border-stone-200 text-xs font-mono-data text-emerald-700 flex items-center gap-1.5 font-semibold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>License No: {licenseNumber}</span>
+                  <span>Licensed Applicators</span>
                 </div>
               </div>
             </div>

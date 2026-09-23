@@ -255,7 +255,7 @@ export async function sendCustomerBookingConfirmationEmail(lead: {
     name: "K2 Pest Control",
     phone: "(306) 407-0007",
     email: "info@k2pc.ca",
-    licenseNumber: "A-003789",
+    licenseNumber: "",
   }));
 
   const transporter = createTransporter(config);
@@ -332,7 +332,7 @@ export async function sendCustomerBookingConfirmationEmail(lead: {
 
       <div style="background-color: #0E2F48; padding: 18px 24px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #1e40af;">
         &copy; ${new Date().getFullYear()} ${company.name || "K2 Pest Control"} &bull; Saskatoon, Saskatchewan<br>
-        Saskatchewan Ministry of Environment Licensed (No. ${company.licenseNumber || "A-003789"}) &bull; $5M Insured
+        Saskatchewan Ministry of Environment Licensed Applicators &bull; $5M Insured
       </div>
     </div>
   `;

@@ -100,7 +100,7 @@ export default function Header({ companyDetails, services }: HeaderProps) {
                 <div key={repeat} className="flex items-center gap-6 sm:gap-8 shrink-0">
                   <span className="flex items-center gap-1.5 text-action-yellow font-semibold">
                     <Shield className="w-4 h-4" />
-                    License No: {company.licenseNumber || COMPANY_DETAILS.licenseNumber}
+                    Licensed Applicators
                   </span>
                   <span className="text-stone-500">•</span>
                   <span className="flex items-center gap-1 text-stone-300">

@@ -20,14 +20,12 @@ interface WarrantyCertificateModalProps {
   record: WarrantyRecord | null;
   isOpen: boolean;
   onClose: () => void;
-  licenseNumber?: string;
 }
 
 export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> = ({
   record,
   isOpen,
   onClose,
-  licenseNumber = "A-003789",
 }) => {
   const certificateRef = useRef<HTMLDivElement>(null);
 
@@ -94,7 +92,7 @@ export const WarrantyCertificateModal: React.FC<WarrantyCertificateModalProps> =
             </h1>
 
             <p className="text-xs font-mono-data text-stone-600">
-              Certificate ID: <strong className="text-stone-900">{record.id.slice(0, 10).toUpperCase()}</strong> &bull; License No: <strong className="text-[#BE2320]">{licenseNumber}</strong>
+              Certificate ID: <strong className="text-stone-900">{record.id.slice(0, 10).toUpperCase()}</strong> &bull; <strong className="text-[#BE2320]">Licensed Applicators</strong>
             </p>
           </div>
 

@@ -1,8 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { COMPANY_DETAILS } from "@/lib/content/company";
-import { getCompanyDetails } from "@/lib/content-db";
 import StatsCounter from "@/components/sections/StatsCounter";
 import TrustGuaranteeStrip from "@/components/sections/TrustGuaranteeStrip";
 import AboutSection from "@/components/sections/AboutSection";
@@ -30,8 +28,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const company = await getCompanyDetails();
-  const licenseNumber = company.licenseNumber || COMPANY_DETAILS.licenseNumber;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -86,7 +82,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-red text-white text-xs font-mono-data uppercase font-semibold">
             <Shield className="w-4 h-4 text-action-yellow" />
-            License No: {licenseNumber}
+            Licensed Applicators
           </div>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white tracking-tight">
             About K2 Pest Control
@@ -105,7 +101,7 @@ export default async function AboutPage() {
       <AboutSection />
 
       {/* Credentials & Discreet Service Section */}
-      <AboutCredentials licenseNumber={licenseNumber} />
+      <AboutCredentials />
 
       {/* 3-Step Process Section */}
       <AboutProcess />

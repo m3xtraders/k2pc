@@ -528,7 +528,6 @@ export const WarrantiesClient: React.FC<WarrantiesClientProps> = ({
         record={certificateRecord}
         isOpen={Boolean(certificateRecord)}
         onClose={() => setCertificateRecord(null)}
-        licenseNumber={companyDetails?.licenseNumber}
       />
 
       {/* Claim Free Guarantee Re-treatment Modal */}

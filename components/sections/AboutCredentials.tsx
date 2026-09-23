@@ -9,14 +9,9 @@ import {
   CheckCircle2,
   Lock,
 } from "lucide-react";
-import { COMPANY_DETAILS } from "@/lib/content/company";
+interface AboutCredentialsProps {}
 
-interface AboutCredentialsProps {
-  licenseNumber?: string;
-}
-
-export default function AboutCredentials({ licenseNumber }: AboutCredentialsProps) {
-  const activeLicense = licenseNumber || COMPANY_DETAILS.licenseNumber;
+export default function AboutCredentials(_props: AboutCredentialsProps = {}) {
 
   const credentialsList = [
     {
@@ -71,9 +66,9 @@ export default function AboutCredentials({ licenseNumber }: AboutCredentialsProp
           </h2>
 
           <div className="flex items-center justify-center gap-2 pt-1">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-xs font-medium text-neutral-text">
-              Provincial License:{" "}
-              <strong className="text-brand-red font-mono-data font-bold">{activeLicense}</strong>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-xs font-semibold text-brand-red">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
+              Licensed Applicators
             </span>
           </div>
 

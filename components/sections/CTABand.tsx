@@ -12,7 +12,6 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
   const company = companyDetails || (await getCompanyDetails());
   const phone = company?.phone || COMPANY_DETAILS.phone;
   const phoneRaw = company?.phoneRaw || COMPANY_DETAILS.phoneRaw;
-  const licenseNumber = company?.licenseNumber || COMPANY_DETAILS.licenseNumber;
   return (
     <section className="bg-brand-red text-white py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Subtle background graphic pattern */}
@@ -52,7 +51,7 @@ export default async function CTABand({ companyDetails }: CTABandProps = {}) {
         <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-stone-200 font-mono-data">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-action-yellow" />
-            License No: {licenseNumber}
+            Licensed Applicators
           </span>
           <span>•</span>
           <span>3-Month Guarantee</span>

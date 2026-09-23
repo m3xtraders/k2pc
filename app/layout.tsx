@@ -153,7 +153,6 @@ export default async function RootLayout({
     currenciesAccepted: "CAD",
     paymentAccepted: "Cash, Credit Card, Debit, Interac e-Transfer",
     priceRange: "$$",
-    license: companyDetails.licenseNumber || COMPANY_DETAILS.licenseNumber,
     address: {
       "@type": "PostalAddress",
       streetAddress: companyDetails.address?.street || COMPANY_DETAILS.address.street,
