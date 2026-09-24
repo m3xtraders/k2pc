@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       const result = await uploadToHostinger({
         fileName: file.name,
         buffer,
-        folder: "uploads",
+        folder: process.env.HOSTINGER_FTP_FOLDER !== undefined ? process.env.HOSTINGER_FTP_FOLDER : "uploads",
       });
 
       return NextResponse.json({

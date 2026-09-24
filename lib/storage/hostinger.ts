@@ -19,7 +19,7 @@ export interface UploadResult {
 export async function uploadToHostinger({
   fileName,
   buffer,
-  folder = "uploads",
+  folder,
 }: UploadOptions): Promise<UploadResult> {
   const host = process.env.HOSTINGER_FTP_HOST || "195.35.61.124";
   const user = process.env.HOSTINGER_FTP_USER;
@@ -28,6 +28,7 @@ export async function uploadToHostinger({
   const secure = process.env.HOSTINGER_FTP_SECURE === "true" || process.env.HOSTINGER_FTP_SECURE === "explicit";
   const rootDir = (process.env.HOSTINGER_FTP_ROOT_DIR ?? "").trim();
   const baseUrl = (process.env.NEXT_PUBLIC_STORAGE_BASE_URL || "https://www.k2pc.ca").replace(/\/$/, "");
+  const uploadFolder = folder !== undefined ? folder : (process.env.HOSTINGER_FTP_FOLDER ?? "uploads");
 
   if (!user || !password) {
     throw new Error(
@@ -45,7 +46,16 @@ export async function uploadToHostinger({
     .slice(0, 50);
 
   const uniqueFileName = `${baseName}-${Date.now()}${cleanExt}`;
-  const targetDir = [rootDir, folder].filter(Boolean).join("/");
+
+  // Build target directory path cleanly
+  const cleanRootDir = rootDir.replace(/\/+$/, "");
+  const cleanFolder = uploadFolder.replace(/^\/+|\/+$/g, "");
+  let targetDir = "";
+  if (cleanRootDir && cleanFolder) {
+    targetDir = `${cleanRootDir}/${cleanFolder}`;
+  } else {
+    targetDir = cleanRootDir || cleanFolder;
+  }
 
   const client = new ftp.Client();
   client.ftp.verbose = process.env.NODE_ENV === "development";
@@ -62,15 +72,17 @@ export async function uploadToHostinger({
       },
     });
 
-    // Ensure the remote directory exists
-    await client.ensureDir(targetDir);
+    // Ensure the remote directory exists if targetDir is non-empty
+    if (targetDir) {
+      await client.ensureDir(targetDir);
+    }
 
     // Stream buffer into remote file
     const stream = Readable.from(buffer);
     await client.uploadFrom(stream, uniqueFileName);
 
     // Compute public live URL
-    const relativePath = folder ? `${folder}/${uniqueFileName}` : uniqueFileName;
+    const relativePath = cleanFolder ? `${cleanFolder}/${uniqueFileName}` : uniqueFileName;
     const publicUrl = `${baseUrl}/${relativePath}`;
 
     return {
